@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="main-view-title">{{ mainTitleText }}</div>
+    <div class="main-view-title h4">{{ mainTitleText }}</div>
     <cv-list />
     <component :is="currentView"></component>
   </div>
@@ -46,11 +46,14 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
+@import "../assets/colors.scss";
+
+$main-view-title-left-margin-left: rem(35px);
+$main-view-title-left-margin-top: rem(35px);
 .main-view-title {
-  font-size: 35px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   width: fit-content;
-  margin-left: 35px;
-  margin-top: 35px;
+  margin-left: $main-view-title-left-margin-left;
+  margin-top: $main-view-title-left-margin-top;
+  color: $test-light;
 }
 </style>
