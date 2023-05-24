@@ -1,0 +1,1 @@
+export const CV_TITLE = "CV SARAKSTS";
