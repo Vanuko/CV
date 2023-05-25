@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-view-template">
     <div class="main-view-title h4">{{ mainTitleText }}</div>
     <cv-list />
     <component :is="currentView"></component>
@@ -37,23 +37,22 @@ export default defineComponent({
     });
     return { currentView };
   },
-  methods: {
-    switchView() {
-      console.log("clicked");
-      router.push("/inspect");
-    },
-  },
+  methods: {},
 });
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../assets/colors.scss";
 
-$main-view-title-left-margin-left: rem(35px);
-$main-view-title-left-margin-top: rem(35px);
-.main-view-title {
-  width: fit-content;
-  margin-left: $main-view-title-left-margin-left;
-  margin-top: $main-view-title-left-margin-top;
-  color: $test-light;
+.main-view-template {
+  display: flex;
+  flex-direction: column;
+
+  $main-view-title-left-margin-left: rem(35px);
+  $main-view-title-left-margin-top: rem(35px);
+  .main-view-title {
+    width: fit-content;
+    margin-left: $main-view-title-left-margin-left;
+    margin-top: $main-view-title-left-margin-top;
+  }
 }
 </style>

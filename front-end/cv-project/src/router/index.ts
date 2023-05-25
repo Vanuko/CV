@@ -6,7 +6,7 @@ import EditView from "../views/Edit.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/main",
+    path: "/",
     name: "Main",
     component: MainView,
   },

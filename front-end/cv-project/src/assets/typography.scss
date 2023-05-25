@@ -1,11 +1,10 @@
 @import "~sass-rem";
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
 
 //headline 4
 $h4-font-size: rem(35px);
 
 .h4 {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: $h4-font-size;
     font-style: normal;
     font-weight: 400;
