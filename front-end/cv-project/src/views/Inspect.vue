@@ -1,15 +1,21 @@
 <template>
   <div class="inspect-view-template">
-    <div class="displayed-cv"></div>
+    <div class="displayed-cv">{{ testing }}</div>
   </div>
 </template>
 
 <script lang="ts" >
 import { defineComponent } from "vue";
+import store from "../store/mainStore";
 
 export default defineComponent({
   name: "Inspect",
   components: {},
+  computed: {
+    testing() {
+      return store.getters.getTesting;
+    },
+  },
 });
 </script>
 <style lang="scss" scoped>

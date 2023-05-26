@@ -2,7 +2,7 @@
   <div class="base-data-component-template">
     <div>
       <form-text :titleText="name" />
-      <input-field />
+      <input-field @input="inputing()" />
     </div>
     <div>
       <form-text :titleText="surname" />
@@ -24,6 +24,7 @@ import { defineComponent } from "vue";
 import FormText from "./FormText.vue";
 import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
+import store from "../../store/mainStore";
 
 export default defineComponent({
   name: "BaseDataComponent",
@@ -41,6 +42,11 @@ export default defineComponent({
       mail: textConstants.EMAIL,
     };
   },
+  methods:{
+    inputing(){
+      store.dispatch("updateTesting", "asd");
+    }
+  }
 });
 </script>
 <style lang="scss" scoped>

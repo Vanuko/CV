@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { defineComponent, shallowRef } from "vue";
-import baseData from "../FormComponents/FormBaseData.vue";
+import baseData from "./BaseData.vue";
 import educationData from "../FormComponents/EducationData.vue";
 import workData from "../FormComponents/WorkData.vue";
 import addressData from "../FormComponents/Address.vue";
