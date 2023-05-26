@@ -1,5 +1,7 @@
 <template>
-  <div class="input-field-element">I am input field</div>
+  <div class="input-field-element">
+    <input type="text" maxlength="30" />
+  </div>
 </template>
 
 <script lang="ts">

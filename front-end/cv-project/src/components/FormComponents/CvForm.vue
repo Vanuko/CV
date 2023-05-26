@@ -33,6 +33,7 @@ export default defineComponent({
   $form-wrapper-width: rem(1200px);
   $form-wrapper-margin-top: rem(30px);
   .form-wrapper {
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-self: center;

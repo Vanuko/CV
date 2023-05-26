@@ -9,3 +9,12 @@ $h4-font-size: rem(35px);
     font-style: normal;
     font-weight: 400;
 }
+
+$default-title-text-font-size: rem(25px);
+.default-title-text{
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;;
+    font-size: $default-title-text-font-size;
+    font-style: normal;
+    font-weight: bold;
+}
+

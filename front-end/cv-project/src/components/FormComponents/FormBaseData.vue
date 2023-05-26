@@ -1,7 +1,21 @@
 <template>
   <div class="base-data-component-template">
-    <form-text />
-    <input-field />
+    <div>
+      <form-text :titleText="name" />
+      <input-field />
+    </div>
+    <div>
+      <form-text :titleText="surname" />
+      <input-field />
+    </div>
+    <div>
+      <form-text :titleText="phoneNr" />
+      <input-field />
+    </div>
+    <div>
+      <form-text :titleText="mail" />
+      <input-field />
+    </div>
   </div>
 </template>
 
@@ -9,6 +23,7 @@
 import { defineComponent } from "vue";
 import FormText from "./FormText.vue";
 import inputField from "../GenericComponents/InputField.vue";
+import * as textConstants from "../../Constants/TextConstants";
 
 export default defineComponent({
   name: "BaseDataComponent",
@@ -19,11 +34,23 @@ export default defineComponent({
     },
   },
   data() {
-    return {};
+    return {
+      name: textConstants.NAME,
+      surname: textConstants.SURNAME,
+      phoneNr: textConstants.PHONE_NUMBER,
+      mail: textConstants.EMAIL,
+    };
   },
 });
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
 $example: rem(800px);
+.base-data-component-template {
+  width: 100%;
+  div {
+    display: flex;
+    flex-direction: row;
+  }
+}
 </style>

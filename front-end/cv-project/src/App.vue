@@ -8,15 +8,13 @@
 @import "sass-rem";
 @import "../src/assets/typography.scss";
 @import "../src/assets/colors.scss";
-// .application-template{
-//   color: $mail-gray;
-// }
+
 html,
 body {
-  height: 100%; /*both html and body*/
+  height: 100%;
 }
 body {
-  margin: 0; /*reset default margin*/
+  margin: 0;
 }
 #app {
   height: 100%;
