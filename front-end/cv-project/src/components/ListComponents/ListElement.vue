@@ -1,6 +1,6 @@
 <template>
   <div class="list-element">
-    This is a element
+    This is an element
     <button-component :buttonText="editText" @click="edit()" />
     <button-component :buttonText="deleteText" />
   </div>
@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import buttonComponent from "../GenericComponents/Button.vue";
-import * as textConstants from "../../Constants/TextConstants";
+import * as textConstants from "../../constants/TextConstants";
 import router from "../../router/index";
 
 export default defineComponent({

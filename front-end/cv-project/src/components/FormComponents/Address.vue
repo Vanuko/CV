@@ -27,7 +27,7 @@
 import { defineComponent } from "vue";
 import FormText from "./FormText.vue";
 import inputField from "../GenericComponents/InputField.vue";
-import * as textConstants from "../../Constants/TextConstants";
+import * as textConstants from "../../constants/TextConstants";
 
 export default defineComponent({
   name: "AddressComponent",

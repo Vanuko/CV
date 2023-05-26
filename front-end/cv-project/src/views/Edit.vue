@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import * as textConstants from "../Constants/TextConstants";
+import * as textConstants from "../constants/TextConstants";
 import cvForm from "../components/FormComponents/CvForm.vue";
 
 export default defineComponent({

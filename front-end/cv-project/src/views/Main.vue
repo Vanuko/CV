@@ -12,7 +12,7 @@ import { useRoute } from "vue-router";
 import router from "../router/index";
 import editView from "./Edit.vue";
 import cvList from "../components/ListComponents/List.vue";
-import * as textConstants from "../Constants/TextConstants";
+import * as textConstants from "../constants/TextConstants";
 
 export default defineComponent({
   name: "MainView",
