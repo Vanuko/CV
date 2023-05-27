@@ -12,20 +12,23 @@ export interface FormModel {
   updated_at: string;
 }
 
-interface AddressInterface {
+export interface AddressInterface {
+  ID: string;
   address_country: string;
   address_index: string;
   address_city: string;
   address_street: string;
-  address_number: number;
+  address_number: number | null;
 }
-interface WorkplaceInterface {
+export interface WorkplaceInterface {
+  ID: string;
   work_place: string;
   work_position: string;
   work_load: string;
   work_experience: number;
 }
-interface EducationInterface {
+export interface EducationInterface {
+  ID: string;
   education_institution: string;
   education_faculty: string;
   education_field_of_study: string;
@@ -34,7 +37,8 @@ interface EducationInterface {
   education_time_spent: string;
 }
 
-interface CustomFields {
+export interface CustomFields {
+  ID: string;
   custom_name: string;
   custom_value: string;
 }

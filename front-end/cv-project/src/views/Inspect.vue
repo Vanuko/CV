@@ -1,6 +1,30 @@
 <template>
   <div class="inspect-view-template">
-    <div class="displayed-cv">{{ testing }}</div>
+    <div class="displayed-cv">
+      <div class="base-data-block">
+        <div>
+          {{ testing.name }}
+        </div>
+        <div>
+          {{ testing.surname }}
+        </div>
+        <div>
+          {{ testing.phone_nr }}
+        </div>
+        <div>
+          {{ testing.email }}
+        </div>
+      </div>
+      <div class="work-data-block">
+        {{ testing.work }}
+      </div>
+      <div class="education-data-block">
+        {{ testing.education }}
+      </div>
+      <div class="address-data-block">
+        {{ testing.address }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,7 +37,7 @@ export default defineComponent({
   components: {},
   computed: {
     testing() {
-      return store.getters.getTesting;
+      return store.getters.getForm;
     },
   },
 });

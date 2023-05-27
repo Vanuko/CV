@@ -2,19 +2,19 @@
   <div class="base-data-component-template">
     <div>
       <form-text :titleText="name" />
-      <input-field @input="inputing()" />
+      <input-field @input="handleInput($event, name)" />
     </div>
     <div>
       <form-text :titleText="surname" />
-      <input-field />
+      <input-field @input="handleInput($event, surname)" />
     </div>
     <div>
       <form-text :titleText="phoneNr" />
-      <input-field />
+      <input-field @input="handleInput($event, phoneNr)" />
     </div>
     <div>
       <form-text :titleText="mail" />
-      <input-field />
+      <input-field @input="handleInput($event, mail)" />
     </div>
   </div>
 </template>
@@ -24,6 +24,7 @@ import { defineComponent } from "vue";
 import FormText from "./FormText.vue";
 import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
+import * as keyNames from "../../constants/KeyNameConstants";
 import store from "../../store/mainStore";
 
 export default defineComponent({
@@ -42,11 +43,40 @@ export default defineComponent({
       mail: textConstants.EMAIL,
     };
   },
-  methods:{
-    inputing(){
-      store.dispatch("updateTesting", "asd");
-    }
-  }
+  methods: {
+    handleInput(inputData: string, data: string) {
+      switch (data) {
+        case textConstants.NAME: {
+          store.dispatch("updateFormPart", {
+            part: keyNames.NAME,
+            value: inputData,
+          });
+          break;
+        }
+        case textConstants.SURNAME: {
+          store.dispatch("updateFormPart", {
+            part: keyNames.SURNAME,
+            value: inputData,
+          });
+          break;
+        }
+        case textConstants.PHONE_NUMBER: {
+          store.dispatch("updateFormPart", {
+            part: keyNames.PHONE,
+            value: inputData,
+          });
+          break;
+        }
+        case textConstants.EMAIL: {
+          store.dispatch("updateFormPart", {
+            part: keyNames.EMAIL,
+            value: inputData,
+          });
+          break;
+        }
+      }
+    },
+  },
 });
 </script>
 <style lang="scss" scoped>

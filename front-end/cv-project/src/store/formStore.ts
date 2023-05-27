@@ -1,27 +1,93 @@
 import { Module } from "vuex";
 import { RootState } from "./mainStore";
+import { FormModel } from "@/models/form";
 
 export interface formState {
     testing: string;
+    cvObject: FormModel;
+}
+
+interface UpdateFormPartPayload {
+    part: keyof FormModel;
+    value: any; //Keeping any in this case is optimal
+    arrayKeyName: keyof FormModel;
 }
 
 export const formStore: Module<formState, RootState> = {
     state: {
         testing: "",
+        cvObject: {
+            ID: "",
+            name: "",
+            surname: "",
+            phone_nr: "",
+            email: "",
+            work: [{
+                ID: "base",
+                work_place: "",
+                work_position: "",
+                work_load: "",
+                work_experience: 0,
+            },
+            {
+                ID: "Notbase",
+                work_place: "",
+                work_position: "",
+                work_load: "",
+                work_experience: 0,
+            }],
+            education: [{
+                ID: "base",
+                education_institution: "",
+                education_faculty: "",
+                education_field_of_study: "",
+                education_level: "",
+                education_status: "",
+                education_time_spent: "",
+            }],
+            address: [{
+                ID: "base",
+                address_country: "",
+                address_index: "",
+                address_city: "",
+                address_street: "",
+                address_number: null
+            }],
+            custom: [{
+                ID: "",
+                custom_name: "",
+                custom_value: ""
+            }],
+            created_at: "",
+            updated_at: "",
+        }
     },
     mutations: {
-        setTesting(state, payload) {
-            state.testing = payload;
+        mutateFormPart(state, payload: UpdateFormPartPayload) {
+            console.log("payload: ", payload)
+            const { part, value, arrayKeyName } = payload;
+            if (arrayKeyName && state.cvObject && state.cvObject[arrayKeyName] !== null) {
+                const requiredArray = state.cvObject[arrayKeyName];
+                if (Array.isArray(requiredArray)) {
+                    const index = requiredArray.findIndex(object => object.ID === 'base');
+                    if (index !== -1) {
+                        const updatedObject = { ...requiredArray[index], [part]: value };
+                        requiredArray.splice(index, 1, updatedObject as any);
+                    }
+                }
+            } else {
+                state.cvObject[part] = value;
+            }
         },
     },
     actions: {
-        updateTesting(context, testing) {
-            context.commit("setTesting", testing);
+        updateFormPart({ commit }, payload: UpdateFormPartPayload) {
+            commit("mutateFormPart", payload);
         },
     },
     getters: {
-        getTesting(state) {
-            return state.testing;
+        getForm(state) {
+            return state.cvObject;
         },
     },
 };

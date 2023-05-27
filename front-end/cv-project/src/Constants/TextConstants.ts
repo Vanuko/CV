@@ -10,7 +10,7 @@ export const EDIT = "Rediģēt";
 //Base Data 
 export const NAME = "Vārds";
 export const SURNAME = "Uzvārds";
-export const PHONE_NUMBER = "Nummurs";
+export const PHONE_NUMBER = "Numurs";
 export const EMAIL = "E-pasts";
 //Work Data
 export const WORKPLACE = "Darba vieta";
