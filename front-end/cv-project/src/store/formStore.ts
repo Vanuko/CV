@@ -3,7 +3,6 @@ import { RootState } from "./mainStore";
 import { FormModel } from "@/models/form";
 
 export interface formState {
-    testing: string;
     cvObject: FormModel;
 }
 
@@ -15,7 +14,6 @@ interface UpdateFormPartPayload {
 
 export const formStore: Module<formState, RootState> = {
     state: {
-        testing: "",
         cvObject: {
             ID: "",
             name: "",
@@ -51,7 +49,7 @@ export const formStore: Module<formState, RootState> = {
                 address_index: "",
                 address_city: "",
                 address_street: "",
-                address_number: null
+                address_number: ""
             }],
             custom: [{
                 ID: "",

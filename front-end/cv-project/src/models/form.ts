@@ -18,7 +18,7 @@ export interface AddressInterface {
   address_index: string;
   address_city: string;
   address_street: string;
-  address_number: number | null;
+  address_number: string;
 }
 export interface WorkplaceInterface {
   ID: string;

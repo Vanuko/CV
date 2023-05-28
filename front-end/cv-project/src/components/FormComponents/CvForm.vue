@@ -15,6 +15,7 @@
           v-if="this.viewIndex != 3"
           @click="toggle(true)"
         />
+        <button-component :buttonText="saveText" @click="save()" />
       </div>
     </div>
     <div class="form-template-right-side"><inspect-view /></div>
@@ -30,6 +31,8 @@ import workData from "../FormComponents/WorkData.vue";
 import addressData from "../FormComponents/Address.vue";
 import buttonComponent from "../GenericComponents/Button.vue";
 import inspectView from "../../views/Inspect.vue";
+import axios from "axios";
+import store from "../../store/mainStore";
 import * as viewControl from "../../constants/ViewConstants";
 
 export default defineComponent({
@@ -45,16 +48,32 @@ export default defineComponent({
   data() {
     return {
       viewIndex: 0,
-      backText: "ATPAKAĻ",
+      backText: "BACK",
       buttonText: "NEXT",
+      saveText: "SAVE",
       requiredComponent: {},
       componentArray: [baseData, workData, educationData, addressData],
+      backendData: "test",
     };
   },
   methods: {
     toggle(add: boolean) {
       add ? (this.viewIndex += 1) : (this.viewIndex -= 1);
       this.requiredComponent = this.componentArray[this.viewIndex];
+    },
+    save() {
+      const requestData = {
+        functionName: "hello",
+        data: store.getters.getForm,
+      };
+      axios
+        .post("http://localhost/backend.php", requestData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
   beforeMount() {
