@@ -4,6 +4,11 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
+$data_base = mysqli_connect('localhost', 'root', '', 'cv_form');
+mysqli_set_charset($data_base,"utf8");
+
+$payload = file_get_contents('php://input');
+
 function dump($data_or_json) {
     if ( is_array($data_or_json) or is_object($data_or_json) ) {
         print json_encode($data_or_json);
@@ -12,13 +17,25 @@ function dump($data_or_json) {
     }
 }
 
+$TestData = "SELECT * FROM base_data left join address_data on base_data.ID = address_data.ID_base_data
+    left join work_data on base_data.ID = work_data.ID_base_data
+    left join education_data on base_data.ID = education_data.ID_base_data
+    left join custom_data on base_data.ID = custom_data.ID_base_data";
 
-$payload = file_get_contents('php://input');
+$result = mysqli_query($data_base, $TestData);
+// $data = mysqli_fetch_assoc($result);
+while($cv = mysqli_fetch_assoc($result)){
+    dump($cv);
+}
+// dump($data);
+exit;
+
+
 // $decodedPayload = json_decode($payload["data"])
-$decodedPayload = json_decode($payload);
+// $decodedPayload = json_decode($payload);
 // dump($decodedPayload);
-dump($decodedPayload->functionName);
-dump($decodedPayload->data->ID);
+// dump($decodedPayload->functionName);
+// dump($decodedPayload->data->ID);
 // dump($decodedPayload['data']['data']);
 
 // if (isset($decodedPayload['functionName']) && isset($decodedPayload['data'])) {
