@@ -15,7 +15,8 @@
           v-if="this.viewIndex != 3"
           @click="toggle(true)"
         />
-        <button-component :buttonText="saveText" @click="save()" />
+        <button-component :buttonText="'Update'" @click="updateCV()" />
+        <button-component :buttonText="'Delete'" @click="deleteCV()" />
       </div>
     </div>
     <div class="form-template-right-side"><inspect-view /></div>
@@ -50,7 +51,7 @@ export default defineComponent({
       viewIndex: 0,
       backText: "BACK",
       buttonText: "NEXT",
-      saveText: "SAVE",
+      saveText: "GETCV",
       requiredComponent: {},
       componentArray: [baseData, workData, educationData, addressData],
       backendData: "test",
@@ -61,13 +62,27 @@ export default defineComponent({
       add ? (this.viewIndex += 1) : (this.viewIndex -= 1);
       this.requiredComponent = this.componentArray[this.viewIndex];
     },
-    save() {
+    updateCV() {
       const requestData = {
-        functionName: "hello",
+        functionName: "updateCV",
         data: store.getters.getForm,
       };
       axios
         .post("http://localhost/backend.php", requestData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    deleteCV() {
+      const requestData = {
+        functionName: "deleteCV",
+        data: store.getters.getForm,
+      };
+      axios
+        .delete("http://localhost/backend.php", { data: requestData })
         .then((response) => {
           console.log(response);
         })

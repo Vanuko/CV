@@ -1,12 +1,13 @@
 <template>
   <div class="list-component-template">
-    <div v-for="listItem in MockData" :key="listItem">
+    <div v-for="listItem in mockData" :key="listItem">
       <list-element />
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import axios from "axios";
 import { defineComponent } from "vue";
 import listElement from "../ListComponents/ListElement.vue";
 
@@ -15,8 +16,24 @@ export default defineComponent({
   components: { listElement },
   data() {
     return {
-      MockData: [{ name: "Object one" }, { name: "Object two" }],
+      mockData: [],
     };
+  },
+  mounted() {
+    const requestData = {
+      functionName: "getCV",
+    };
+    axios
+      .get("http://localhost/backend.php", {
+        params: requestData,
+      })
+      .then((response) => {
+        console.log(response.data);
+        this.mockData = response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
 });
 </script>

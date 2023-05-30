@@ -19,6 +19,7 @@ export default defineComponent({
 @import "../../assets/colors.scss";
 $example: rem(45px);
 .button-element {
+  margin-right: 15px;
   cursor: pointer;
   color: $mail-gray-10;
 }

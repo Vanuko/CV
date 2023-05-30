@@ -1,5 +1,5 @@
 export interface FormModel {
-  ID: string;
+  ID: string | number;
   name: string;
   surname: string;
   phone_nr: string;
@@ -34,7 +34,7 @@ export interface EducationInterface {
   education_field_of_study: string;
   education_level: string;
   education_status: string;
-  education_time_spent: string;
+  education_time_spent: number;
 }
 
 export interface CustomFields {

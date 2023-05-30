@@ -15,21 +15,21 @@ interface UpdateFormPartPayload {
 export const formStore: Module<formState, RootState> = {
     state: {
         cvObject: {
-            ID: "",
-            name: "",
-            surname: "",
-            phone_nr: "",
-            email: "",
+            ID: 2,
+            name: "TestName",
+            surname: "TestName",
+            phone_nr: "TestPhone_NR",
+            email: "TestEmail",
             work: [{
                 ID: "base",
-                work_place: "",
+                work_place: "TestWorkData",
                 work_position: "",
                 work_load: "",
                 work_experience: 0,
             },
             {
                 ID: "Notbase",
-                work_place: "",
+                work_place: "TestWorkData2",
                 work_position: "",
                 work_load: "",
                 work_experience: 0,
@@ -41,7 +41,7 @@ export const formStore: Module<formState, RootState> = {
                 education_field_of_study: "",
                 education_level: "",
                 education_status: "",
-                education_time_spent: "",
+                education_time_spent: 0,
             }],
             address: [{
                 ID: "base",
@@ -51,11 +51,7 @@ export const formStore: Module<formState, RootState> = {
                 address_street: "",
                 address_number: ""
             }],
-            custom: [{
-                ID: "",
-                custom_name: "",
-                custom_value: ""
-            }],
+            custom: null,
             created_at: "",
             updated_at: "",
         }
