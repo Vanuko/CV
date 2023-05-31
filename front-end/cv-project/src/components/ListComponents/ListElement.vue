@@ -1,6 +1,7 @@
 <template>
   <div class="list-element">
-    This is an element
+    <div class="">
+    </div>
     <button-component :buttonText="editText" @click="edit()" />
     <button-component :buttonText="deleteText" />
   </div>
@@ -11,10 +12,18 @@ import { defineComponent } from "vue";
 import buttonComponent from "../GenericComponents/Button.vue";
 import * as textConstants from "../../constants/TextConstants";
 import router from "../../router/index";
+import { FormModel } from "../../models/form";
 
 export default defineComponent({
   name: "ListElementComponent",
   components: { buttonComponent },
+
+  props: {
+    FormModel: {
+      type: Object as () => FormModel,
+      // required: true,
+    },
+  },
 
   data() {
     return {

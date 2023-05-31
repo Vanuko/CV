@@ -1,6 +1,6 @@
 <template>
   <div class="base-data-component-template">
-    <div>
+    <div class="cv-base-data-name-title-block">
       <form-text :titleText="name" />
       <input-field @input="handleInput($event, name)" />
     </div>
@@ -84,6 +84,9 @@ export default defineComponent({
 $example: rem(800px);
 .base-data-component-template {
   width: 100%;
+  .cv-base-data-name-title{
+    font-size: 35px;
+  }
   div {
     display: flex;
     flex-direction: row;

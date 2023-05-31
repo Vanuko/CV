@@ -11,10 +11,62 @@ $h4-font-size: rem(35px);
 }
 
 $default-title-text-font-size: rem(25px);
-.default-title-text{
-    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;;
+
+.default-title-text {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: $default-title-text-font-size;
     font-style: normal;
     font-weight: bold;
 }
 
+$cv-title-text-font-size: rem(35px);
+
+.cv-title-text {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: $cv-title-text-font-size;
+    font-style: normal;
+    font-weight: bold;
+}
+
+$cv-section-title-text-font-size: rem(25px);
+
+.cv-section-title-text {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: $cv-section-title-text-font-size;
+    font-style: normal;
+    font-weight: bold;
+}
+
+$medium-text-bold-font-size: rem(25px);
+
+.medium-text {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: $medium-text-bold-font-size;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.medium-text-bold {
+    @extend .medium-text;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.medium-text-italic {
+    @extend .medium-text;
+    font-style: italic;
+}
+
+$small-text-font-size: rem(20px);
+
+.small-text {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: $small-text-font-size;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.small-text-italic {
+    @extend .medium-text;
+    font-style: italic;
+}
