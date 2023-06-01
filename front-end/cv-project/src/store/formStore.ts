@@ -17,39 +17,39 @@ interface UpdateFormPartPayload {
 export const formStore: Module<formState, RootState> = {
     state: {
         cvObject: {
-            ID: 2,
-            name: "MyName",
-            surname: "MySurname",
-            phone_nr: "+37129420729",
-            email: "myname.surname@inbox.lv",
+            ID: 14,
+            name: "MyName3",
+            surname: "MySurname23",
+            phone_nr: "+3712942072923",
+            email: "myname.surname@inbox.lv3",
             work: [{
                 ID: 0,
-                work_place: "Burger Place",
-                work_position: "Burger flipper",
-                work_load: "Full-time",
-                work_experience: 2,
+                work_place: "Burger Place2",
+                work_position: "Burger flipper2",
+                work_load: "Full-time2",
+                work_experience: 4,
             }],
             education: [{
                 ID: 0,
-                education_institution: "Uni-place",
-                education_faculty: "Faculty example",
-                education_field_of_study: "IT",
-                education_level: "Bachelor",
-                education_status: "Completed",
-                education_time_spent: 4,
+                education_institution: "Uni-place2",
+                education_faculty: "Faculty example2",
+                education_field_of_study: "IT2",
+                education_level: "Bachelor2",
+                education_status: "Completed2",
+                education_time_spent: 6,
             }],
             address: [{
                 ID: 0,
-                address_country: "Latvia",
-                address_index: "LV-4033",
-                address_city: "Liepāja",
-                address_street: "Street",
-                address_number: "16c"
+                address_country: "Latvia2",
+                address_index: "LV-40332",
+                address_city: "Liepāja2",
+                address_street: "Street2",
+                address_number: "16c2"
             }],
             custom: [{
                 ID: 0,
-                custom_name: "Language skills",
-                custom_value: "Latvian, čigan, ruzz"
+                custom_name: "Language skills2",
+                custom_value: "Latvian"
             }],
             created_at: "",
             updated_at: "",

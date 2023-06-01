@@ -1,6 +1,6 @@
 <template>
   <div class="input-field-element">
-    <input type="text" maxlength="30" @input="handleInput" />
+    <input type="text" :value="value" maxlength="30" @input="handleInput" />
   </div>
 </template>
 
@@ -8,18 +8,26 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "InputFieldComponent",
+  name: "InputField",
   components: {},
   emits: ["input"],
-  props: {},
+  props: {
+    value: {
+      type: String,
+    },
+  },
   methods: {
     handleInput(event: Event) {
       const el = event.target as HTMLInputElement;
       this.$emit("input", el.value);
     },
   },
+  mounted() {
+    console.log("value?", this.value);
+  },
 });
 </script>
+
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
 $example: rem(45px);

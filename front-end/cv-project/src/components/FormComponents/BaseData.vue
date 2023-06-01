@@ -2,19 +2,25 @@
   <div class="base-data-component-template">
     <div class="cv-base-data-name-title-block">
       <form-text :titleText="name" />
-      <input-field @input="handleInput($event, name)" />
+      <input-field :value="nameValue" @input="handleInput($event, name)" />
     </div>
     <div>
       <form-text :titleText="surname" />
-      <input-field @input="handleInput($event, surname)" />
+      <input-field
+        :value="surnameValue"
+        @input="handleInput($event, surname)"
+      />
     </div>
     <div>
       <form-text :titleText="phoneNr" />
-      <input-field @input="handleInput($event, phoneNr)" />
+      <input-field
+        :value="phoneNrValue"
+        @input="handleInput($event, phoneNr)"
+      />
     </div>
     <div>
       <form-text :titleText="mail" />
-      <input-field @input="handleInput($event, mail)" />
+      <input-field :value="mailValue" @input="handleInput($event, mail)" />
     </div>
   </div>
 </template>
@@ -41,6 +47,10 @@ export default defineComponent({
       surname: textConstants.SURNAME,
       phoneNr: textConstants.PHONE_NUMBER,
       mail: textConstants.EMAIL,
+      nameValue: null,
+      surnameValue: null,
+      phoneNrValue: null,
+      mailValue: null,
     };
   },
   methods: {
@@ -77,6 +87,13 @@ export default defineComponent({
       }
     },
   },
+  mounted() {
+    const formObject = store.getters.getForm;
+    this.nameValue = formObject.name;
+    this.surnameValue = formObject.surname;
+    this.phoneNrValue = formObject.phone_nr;
+    this.mailValue = formObject.email;
+  },
 });
 </script>
 <style lang="scss" scoped>
@@ -84,7 +101,7 @@ export default defineComponent({
 $example: rem(800px);
 .base-data-component-template {
   width: 100%;
-  .cv-base-data-name-title{
+  .cv-base-data-name-title {
     font-size: 35px;
   }
   div {
