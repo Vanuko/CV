@@ -24,6 +24,7 @@
       <form-text :titleText="educationTimeSpentText" />
       <input-field @input="handleInput($event, educationTimeSpentText)" />
     </div>
+    <button-component :buttonText="'Add more'" @click="addEducation()" />
   </div>
 </template>
 
@@ -34,10 +35,11 @@ import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
 import store from "../../store/mainStore";
+import buttonComponent from "../GenericComponents/Button.vue";
 
 export default defineComponent({
   name: "EducationDataComponent",
-  components: { FormText, inputField },
+  components: { FormText, inputField, buttonComponent },
   data() {
     return {
       institutionText: textConstants.INSTITUTION,
@@ -46,6 +48,7 @@ export default defineComponent({
       educationLevelText: textConstants.EDUCATION_LEVEL,
       educationStatusText: textConstants.STATUS,
       educationTimeSpentText: textConstants.TIME_SPENT,
+      uuid: 0,
     };
   },
   methods: {
@@ -111,6 +114,22 @@ export default defineComponent({
           break;
         }
       }
+    },
+    addEducation() {
+      this.uuid += 1;
+      const educationData = {
+        arrayKeyName: keyNames.EDU,
+        object: {
+          ID: this.uuid,
+          education_institution: "Other-place",
+          education_faculty: "Other Faculty",
+          education_field_of_study: "Other field",
+          education_level: "Bachelor",
+          education_status: "Completed",
+          education_time_spent: 0,
+        },
+      };
+      store.dispatch("attachObject", educationData);
     },
   },
 });

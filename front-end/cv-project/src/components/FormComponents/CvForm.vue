@@ -12,7 +12,7 @@
         />
         <button-component
           :buttonText="buttonText"
-          v-if="this.viewIndex != 3"
+          v-if="this.viewIndex != 4"
           @click="toggle(true)"
         />
         <button-component :buttonText="'Update'" @click="updateCV()" />
@@ -30,6 +30,7 @@ import baseData from "./BaseData.vue";
 import educationData from "../FormComponents/EducationData.vue";
 import workData from "../FormComponents/WorkData.vue";
 import addressData from "../FormComponents/Address.vue";
+import customData from "../FormComponents/customData.vue";
 import buttonComponent from "../GenericComponents/Button.vue";
 import inspectView from "../../views/Inspect.vue";
 import axios from "axios";
@@ -45,6 +46,7 @@ export default defineComponent({
     addressData,
     buttonComponent,
     inspectView,
+    customData
   },
   data() {
     return {
@@ -53,7 +55,7 @@ export default defineComponent({
       buttonText: "NEXT",
       saveText: "GETCV",
       requiredComponent: {},
-      componentArray: [baseData, workData, educationData, addressData],
+      componentArray: [baseData, workData, educationData, addressData, customData],
       backendData: "test",
     };
   },

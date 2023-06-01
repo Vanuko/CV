@@ -20,6 +20,7 @@
       <form-text :titleText="streetNumbetText" />
       <input-field @input="handleInput($event, streetNumbetText)" />
     </div>
+    <button-component :buttonText="'Add more'" @click="addAddress()" />
   </div>
 </template>
 
@@ -30,10 +31,11 @@ import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
 import store from "../../store/mainStore";
+import buttonComponent from "../GenericComponents/Button.vue";
 
 export default defineComponent({
   name: "AddressComponent",
-  components: { FormText, inputField },
+  components: { FormText, inputField, buttonComponent },
   data() {
     return {
       countryText: textConstants.COUNTRY,
@@ -41,6 +43,7 @@ export default defineComponent({
       cityText: textConstants.CITY,
       streetText: textConstants.STREET,
       streetNumbetText: textConstants.STREET_NUMBER,
+      uuid: 0,
     };
   },
   methods: {
@@ -96,6 +99,21 @@ export default defineComponent({
           break;
         }
       }
+    },
+    addAddress() {
+      this.uuid += this.uuid;
+      const addressData = {
+        arrayKeyName: keyNames.ADDRESS,
+        object: {
+          ID: 0,
+          address_country: "OTCountry",
+          address_index: "index",
+          address_city: "OTcity",
+          address_street: "Otstreet",
+          address_number: "OtherNumber",
+        },
+      };
+      store.dispatch("attachObject", addressData);
     },
   },
 });

@@ -16,6 +16,7 @@
       <form-text :titleText="workExperienceText" />
       <input-field @input="handleInput($event, workExperienceText)" />
     </div>
+    <button-component :buttonText="'Add more'" @click="addWork()" />
   </div>
 </template>
 
@@ -26,27 +27,30 @@ import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
 import store from "../../store/mainStore";
+import buttonComponent from "../GenericComponents/Button.vue";
 
 export default defineComponent({
   name: "WorkDataComponent",
-  components: { FormText, inputField },
+  components: { FormText, inputField, buttonComponent },
   data() {
     return {
       workPlaceText: textConstants.WORKPLACE,
       workPositionText: textConstants.POSITION,
       workLoadText: textConstants.WORK_LOAD,
       workExperienceText: textConstants.WORK_EXPERIENCE,
+      buttonText: "Add more",
+      uuid: 0,
     };
   },
   methods: {
     handleInput(inputData: string, data: string) {
-      console.log(inputData, data);
       switch (data) {
         case textConstants.WORKPLACE: {
           store.dispatch("updateFormPart", {
             part: keyNames.W_PLACE,
             value: inputData,
             arrayKeyName: keyNames.WORK,
+            uuid: this.uuid,
           });
           break;
         }
@@ -57,6 +61,7 @@ export default defineComponent({
             part: keyNames.W_POS,
             value: inputData,
             arrayKeyName: keyNames.WORK,
+            uuid: this.uuid,
           });
           break;
         }
@@ -67,6 +72,7 @@ export default defineComponent({
             part: keyNames.W_LOAD,
             value: inputData,
             arrayKeyName: keyNames.WORK,
+            uuid: this.uuid,
           });
           break;
         }
@@ -77,10 +83,25 @@ export default defineComponent({
             part: keyNames.W_EXP,
             value: inputData,
             arrayKeyName: keyNames.WORK,
+            uuid: this.uuid,
           });
           break;
         }
       }
+    },
+    addWork() {
+      this.uuid += this.uuid;
+      const workData = {
+        arrayKeyName: keyNames.WORK,
+        object: {
+          ID: this.uuid,
+          work_place: "Other Place",
+          work_position: "Other Position",
+          work_load: "Full-time",
+          work_experience: 0,
+        },
+      };
+      store.dispatch("attachObject", workData);
     },
   },
 });

@@ -30,3 +30,7 @@ export const INDEX = "Indekss";
 export const CITY = "Pilsēta";
 export const STREET = "Iela";
 export const STREET_NUMBER = "Ielas numurs";
+//Custom Data
+export const SUB_TITLE = "Virsraksts";
+export const INFORMATION = "Informācija";
+

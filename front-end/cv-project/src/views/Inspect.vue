@@ -23,6 +23,11 @@
           v-for="workElement in formData.work"
           :key="workElement"
         >
+          <config-hover
+            class="hoverDisplay"
+            @deleteEmit="deleteObject(workElement.ID, workKey)"
+            @editEmit="editObjective(workElement.ID)"
+          />
           <div class="date-field">
             {{ workElement.work_experience }}
           </div>
@@ -50,6 +55,11 @@
           v-for="educationElement in formData.education"
           :key="educationElement"
         >
+          <config-hover
+            class="hoverDisplay"
+            @deleteEmit="deleteObject(educationElement.ID, eduKey)"
+            @editEmit="editObjective(educationElement.ID)"
+          />
           <div class="date-field">
             <div>
               {{ educationElement.education_time_spent }}
@@ -85,6 +95,11 @@
           v-for="addressElement in formData.address"
           :key="addressElement"
         >
+          <config-hover
+            class="hoverDisplay"
+            @deleteEmit="deleteObject(addressElement.ID, addressKey)"
+            @editEmit="editObjective(addressElement.ID)"
+          />
           <div class="first-location-data-block medium-text-bold">
             <div>{{ addressElement.address_country }}</div>
             <div>, {{ addressElement.address_city }}</div>
@@ -101,6 +116,11 @@
         v-for="customElement in formData.custom"
         :key="customElement"
       >
+        <config-hover
+          class="hoverDisplay"
+          @deleteEmit="deleteObject(customElement.ID, customKey)"
+          @editEmit="editObjective(customElement.ID)"
+        />
         <div class="cv-section-title-text">
           {{ customElement.custom_name }}
         </div>
@@ -115,20 +135,34 @@
 <script lang="ts" >
 import { defineComponent } from "vue";
 import store from "../store/mainStore";
+import configHover from "../components/FormComponents/FormHoverConfig.vue";
+import * as keyNames from "../constants/KeyNameConstants";
 
 export default defineComponent({
   name: "Inspect",
-  components: {},
+  components: { configHover },
   data() {
     return {
       workExperienceText: "Darba pieredze", //const
       educationExperienceText: "Izglītība", //const
       addressText: "Adrese", //const
+      workKey: keyNames.WORK,
+      eduKey: keyNames.EDU,
+      addressKey: keyNames.ADDRESS,
+      customKey: keyNames.CUS,
     };
   },
   computed: {
     formData() {
       return store.getters.getForm;
+    },
+  },
+  methods: {
+    deleteObject(id: number, keyName: string) {
+      store.dispatch("removeObject", { arrayKeyName: keyName, uuid: id });
+    },
+    editObjective(id: number) {
+      console.log("Edit", id);
     },
   },
 });
@@ -137,6 +171,9 @@ export default defineComponent({
 @import "../assets/colors.scss";
 
 .inspect-view-template {
+  .hoverDisplay {
+    display: none;
+  }
   display: flex;
   justify-content: center;
 
@@ -184,10 +221,10 @@ export default defineComponent({
       flex-direction: column;
       .work-data-element {
         display: flex;
+        position: relative;
         div:nth-child(2) {
           display: flex;
           flex-direction: column;
-          width: 100%;
           .work-position-element {
             width: fit-content;
             margin-bottom: 5px; //SCSS
@@ -204,10 +241,16 @@ export default defineComponent({
           }
         }
       }
+      .work-data-element:hover {
+        .hoverDisplay {
+          display: flex;
+        }
+      }
     }
     .education-data-block {
       .education-data-element {
         display: flex;
+        position: relative;
         > .education-information-data {
           display: flex;
           flex-direction: column;
@@ -223,11 +266,17 @@ export default defineComponent({
           }
         }
       }
+      .education-data-element:hover {
+        .hoverDisplay {
+          display: flex;
+        }
+      }
     }
     .address-data-block {
       .address-data-element {
         display: flex;
         flex-direction: column;
+        position: relative;
         .first-location-data-block {
           display: flex;
         }
@@ -235,9 +284,20 @@ export default defineComponent({
           display: flex;
         }
       }
+      .address-data-element:hover {
+        .hoverDisplay {
+          display: flex;
+        }
+      }
     }
     .custom-data-block {
+      position: relative;
       .custom-data-element {
+      }
+    }
+    .custom-data-block:hover {
+      .hoverDisplay {
+        display: flex;
       }
     }
     .date-field {

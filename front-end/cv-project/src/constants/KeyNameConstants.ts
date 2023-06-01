@@ -30,5 +30,6 @@ export const AD_CITY = "address_city";
 export const AD_STREET = "address_street";
 export const AD_NR = "address_number";
 //Custom Form Key Names
+export const CUS = "custom";
 export const CUS_NAME = "custom_name";
 export const CUS_VALUE = "custom_value";

@@ -13,7 +13,7 @@ export interface FormModel {
 }
 
 export interface AddressInterface {
-  ID: string;
+  ID: string | number;
   address_country: string;
   address_index: string;
   address_city: string;
@@ -21,14 +21,14 @@ export interface AddressInterface {
   address_number: string;
 }
 export interface WorkplaceInterface {
-  ID: string;
+  ID: string | number;
   work_place: string;
   work_position: string;
   work_load: string;
   work_experience: number;
 }
 export interface EducationInterface {
-  ID: string;
+  ID: string | number;
   education_institution: string;
   education_faculty: string;
   education_field_of_study: string;
@@ -38,7 +38,7 @@ export interface EducationInterface {
 }
 
 export interface CustomFields {
-  ID: string;
+  ID: string | number;
   custom_name: string;
   custom_value: string;
 }
