@@ -18,9 +18,16 @@
           v-if="this.viewIndex != 4"
           @click="toggle(true)"
         />
-        <button-component :buttonText="'SAVE'" @click="saveCV()" />
-        <button-component :buttonText="'UPDATE'" @click="updateCV()" />
-        <button-component :buttonText="'Delete'" @click="deleteCV()" />
+        <button-component
+          v-if="!inpectMode"
+          :buttonText="'SAVE'"
+          @click="saveCV()"
+        />
+        <button-component
+          v-if="inpectMode"
+          :buttonText="'UPDATE'"
+          @click="updateCV()"
+        />
       </div>
     </div>
     <div class="form-template-right-side"><inspect-view /></div>
@@ -107,20 +114,6 @@ export default defineComponent({
           console.error(error);
         });
     },
-    deleteCV() {
-      const requestData = {
-        functionName: "deleteCV",
-        data: store.getters.getForm,
-      };
-      axios
-        .delete("http://localhost/backend.php", { data: requestData })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
   },
   computed: {
     updateView() {
@@ -135,10 +128,12 @@ export default defineComponent({
       ];
       return viewTitleArray[viewSwtichValue];
     },
+    inpectMode() {
+      return store.getters.getInspectMode;
+    },
   },
   beforeMount() {
     this.requiredComponent = shallowRef(baseData);
-    console.log(store.getters.getViewSwitchValue);
   },
 });
 </script>

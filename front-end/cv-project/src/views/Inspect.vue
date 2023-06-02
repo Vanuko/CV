@@ -149,6 +149,10 @@
         </div>
       </div>
     </div>
+    <div class="cv-inspect-button-block">
+      <button-component :buttonText="backText" @click="back()" />
+      <button-component :buttonText="editText" @click="edit()" />
+    </div>
   </div>
 </template>
 
@@ -158,10 +162,12 @@ import store from "../store/mainStore";
 import configHover from "../components/FormComponents/FormHoverConfig.vue";
 import * as keyNames from "../constants/KeyNameConstants";
 import * as viewNumbers from "../constants/ViewConstants";
+import buttonComponent from "../components/GenericComponents/Button.vue";
+import router from "../router/index";
 
 export default defineComponent({
   name: "Inspect",
-  components: { configHover },
+  components: { configHover, buttonComponent },
   data() {
     return {
       workExperienceText: "Darba pieredze", //const
@@ -179,6 +185,8 @@ export default defineComponent({
       educationView: viewNumbers.EDUCATION,
       addressView: viewNumbers.ADDRESS,
       customView: viewNumbers.CUSTOM,
+      editText: "Rediģēt", //const,
+      backText: "Atpakaļ", //const
     };
   },
   computed: {
@@ -187,6 +195,13 @@ export default defineComponent({
     },
   },
   methods: {
+    back() {
+      router.push("/");
+    },
+    edit() {
+      store.dispatch("updateInspectMode", true);
+      router.push("/edit");
+    },
     deleteObject(uid: number, keyName: string) {
       store.dispatch("removeObject", { arrayKeyName: keyName, uuid: uid });
     },

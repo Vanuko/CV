@@ -7,6 +7,7 @@ export interface formState {
     cvObject: FormModel;
     lastUid: UidModel;
     viewSwitchValue: number;
+    inspectMode: boolean;
 }
 
 interface UpdateFormPartPayload {
@@ -20,39 +21,39 @@ interface UpdateFormPartPayload {
 export const formStore: Module<formState, RootState> = {
     state: {
         cvObject: {
-            ID: 14,
-            name: "MyName3",
-            surname: "MySurname23",
-            phone_nr: "+3712942072923",
-            email: "myname.surname@inbox.lv3",
+            ID: 0,
+            name: "",
+            surname: "",
+            phone_nr: "",
+            email: "",
             work: [{
                 ID: 0,
-                work_place: "Burger Place2",
-                work_position: "Burger flipper2",
-                work_load: "Full-time2",
-                work_experience: 4,
+                work_place: "",
+                work_position: "",
+                work_load: "",
+                work_experience: 0,
             }],
             education: [{
                 ID: 0,
-                education_institution: "Uni-place2",
-                education_faculty: "Faculty example2",
-                education_field_of_study: "IT2",
-                education_level: "Bachelor2",
-                education_status: "Completed2",
-                education_time_spent: 6,
+                education_institution: "",
+                education_faculty: "",
+                education_field_of_study: "",
+                education_level: "",
+                education_status: "",
+                education_time_spent: 0,
             }],
             address: [{
                 ID: 0,
-                address_country: "Latvia2",
-                address_index: "LV-40332",
-                address_city: "Liepāja2",
-                address_street: "Street2",
-                address_number: "16c2"
+                address_country: "",
+                address_index: "",
+                address_city: "",
+                address_street: "",
+                address_number: ""
             }],
             custom: [{
                 ID: 0,
-                custom_name: "Language skills2",
-                custom_value: "Latvian"
+                custom_name: "",
+                custom_value: ""
             }],
             created_at: "",
             updated_at: "",
@@ -63,9 +64,56 @@ export const formStore: Module<formState, RootState> = {
             last_address_ID: 0,
             last_custom_ID: 0
         },
-        viewSwitchValue: 0
+        viewSwitchValue: 0,
+        inspectMode: false
     },
     mutations: {
+        resetCvObject(state) {
+            state.cvObject = {
+                ID: 0,
+                name: "",
+                surname: "",
+                phone_nr: "",
+                email: "",
+                work: [{
+                    ID: 0,
+                    work_place: "",
+                    work_position: "",
+                    work_load: "",
+                    work_experience: 0,
+                }],
+                education: [{
+                    ID: 0,
+                    education_institution: "",
+                    education_faculty: "",
+                    education_field_of_study: "",
+                    education_level: "",
+                    education_status: "",
+                    education_time_spent: 0,
+                }],
+                address: [{
+                    ID: 0,
+                    address_country: "",
+                    address_index: "",
+                    address_city: "",
+                    address_street: "",
+                    address_number: ""
+                }],
+                custom: [{
+                    ID: 0,
+                    custom_name: "",
+                    custom_value: ""
+                }],
+                created_at: "",
+                updated_at: "",
+            };
+        },
+        updateCvObject(state, newCvObject: FormModel) {
+            state.cvObject = newCvObject;
+        },
+        updateInspectMode(state, payload) {
+            state.inspectMode = payload;
+        },
         mutateFormPart(state, payload: UpdateFormPartPayload) {
             const { part, value, arrayKeyName, uuid } = payload;
             if (arrayKeyName && state.cvObject && state.cvObject[arrayKeyName] !== null) {
@@ -112,6 +160,15 @@ export const formStore: Module<formState, RootState> = {
         },
     },
     actions: {
+        resetCvObjectAction({ commit }) {
+            commit("resetCvObject");
+        },
+        updateCvObjectAction({ commit }, newCvObject: FormModel) {
+            commit("updateCvObject", newCvObject);
+        },
+        updateInspectMode({ commit }, project) {
+            commit("updateInspectMode", project);
+        },
         updateFormPart({ commit }, payload: UpdateFormPartPayload) {
             commit("mutateFormPart", payload);
         },
@@ -143,6 +200,9 @@ export const formStore: Module<formState, RootState> = {
         },
         getViewSwitchValue(state) {
             return state.viewSwitchValue
+        },
+        getInspectMode(state) {
+            return state.inspectMode
         }
     },
 };

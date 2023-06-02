@@ -27,7 +27,7 @@ if ($method === 'POST' && isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
 if ($method === "GET") {
     $functionName = $_GET['functionName'];
     if ($functionName === "getCV") {
-        $baseData = "SELECT * FROM base_data";            
+        $baseData = "SELECT * FROM base_data";
         $result = mysqli_query($data_base, $baseData);
         $data = array();
         $keyNameArray = [];
@@ -35,16 +35,16 @@ if ($method === "GET") {
         $keyNameArray['work'] = "SELECT * FROM work_data WHERE work_data.ID_base_data = ?";
         $keyNameArray['education'] = "SELECT * FROM education_data WHERE education_data.ID_base_data = ?";
         $keyNameArray['custom'] = "SELECT * FROM custom_data WHERE custom_data.ID_base_data = ?";
-
+        
         while ($row = mysqli_fetch_assoc($result)) {
             foreach ($keyNameArray as $index => $keyName) {
                 $stmt = mysqli_prepare($data_base, $keyName);
                 mysqli_stmt_bind_param($stmt, 'i', $row['ID']);
                 mysqli_stmt_execute($stmt);
-                $result = mysqli_stmt_get_result($stmt);
-                $row[$index] = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                $innerResult = mysqli_stmt_get_result($stmt);
+                $row[$index] = mysqli_fetch_all($innerResult, MYSQLI_ASSOC);
             }
-            $data[] = $row;  
+            $data[] = $row;
         }
         header('Content-Type: application/json');
         echo json_encode($data);
@@ -114,7 +114,7 @@ if ($method === "GET") {
                 foreach($requestData->work as $work){
                     $workData = "INSERT INTO work_data (ID_base_data, work_place, work_position, work_load, work_experience) VALUES (?, ?, ?, ?, ?)";
                     $stmt = mysqli_prepare($data_base, $workData);
-                    mysqli_stmt_bind_param($stmt, 'isssd', $id_base_data, $work->work_place, $work->work_position, $work->work_load, $work->work_experience);
+                    mysqli_stmt_bind_param($stmt, 'isssd', $requestData->ID, $work->work_place, $work->work_position, $work->work_load, $work->work_experience);
                     mysqli_stmt_execute($stmt);
                 }}
                 if(isset($requestData->education)){
@@ -122,7 +122,7 @@ if ($method === "GET") {
                     $educationData = "INSERT INTO education_data (ID_base_data, education_institution, education_faculty, education_field_of_study, education_level,
                     education_status, education_time_spent) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     $stmt = mysqli_prepare($data_base, $educationData);
-                    mysqli_stmt_bind_param($stmt, 'isssssd', $id_base_data, $education->education_institution, $education->education_faculty, $education->education_field_of_study,
+                    mysqli_stmt_bind_param($stmt, 'isssssd', $requestData->ID, $education->education_institution, $education->education_faculty, $education->education_field_of_study,
                     $education->education_level, $education->education_status, $education->education_time_spent);
                     mysqli_stmt_execute($stmt);
                 }}
@@ -131,7 +131,7 @@ if ($method === "GET") {
                     $addressData = "INSERT INTO address_data (ID_base_data, address_country, address_index, address_city, address_street,
                     address_number) VALUES (?, ?, ?, ?, ?, ?)";
                     $stmt = mysqli_prepare($data_base, $addressData);
-                    mysqli_stmt_bind_param($stmt, 'isssss', $id_base_data, $address->address_country, $address->address_index, $address->address_city,
+                    mysqli_stmt_bind_param($stmt, 'isssss', $requestData->ID, $address->address_country, $address->address_index, $address->address_city,
                     $address->address_street, $address->address_number);
                     mysqli_stmt_execute($stmt);
                 }}
@@ -139,7 +139,7 @@ if ($method === "GET") {
                 foreach($requestData->custom as $custom){
                     $customData = "INSERT INTO custom_data (ID_base_data, custom_name, custom_value) VALUES (?, ?, ?)";
                     $stmt = mysqli_prepare($data_base, $customData);
-                    mysqli_stmt_bind_param($stmt, 'iss', $id_base_data, $custom->custom_name, $custom->custom_value);
+                    mysqli_stmt_bind_param($stmt, 'iss', $requestData->ID, $custom->custom_name, $custom->custom_value);
                     mysqli_stmt_execute($stmt);
                 }}
         }

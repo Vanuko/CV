@@ -1,8 +1,9 @@
 <template>
   <div class="list-component-template">
-    <div v-for="listItem in mockData" :key="listItem">
-      <list-element />
+    <div v-for="listItem in listData" :key="listItem">
+      <list-element :listItem="listItem" @reloadData="getData()" />
     </div>
+    <button-component :buttonText="newCvText" @click="newCV()" />
   </div>
 </template>
 
@@ -10,30 +11,43 @@
 import axios from "axios";
 import { defineComponent } from "vue";
 import listElement from "../ListComponents/ListElement.vue";
+import buttonComponent from "../GenericComponents/Button.vue";
+import store from "../../store/mainStore";
+import router from "../../router/index";
 
 export default defineComponent({
   name: "ListComponent",
-  components: { listElement },
+  components: { listElement, buttonComponent },
   data() {
     return {
-      mockData: [],
+      listData: [],
+      newCvText: "Izveidot CV", //const,
     };
   },
+  methods: {
+    newCV() {
+      router.push("/edit");
+    },
+    getData() {
+      const requestData = {
+        functionName: "getCV",
+      };
+      axios
+        .get("http://localhost/backend.php", {
+          params: requestData,
+        })
+        .then((response) => {
+          this.listData = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
   mounted() {
-    const requestData = {
-      functionName: "getCV",
-    };
-    axios
-      .get("http://localhost/backend.php", {
-        params: requestData,
-      })
-      .then((response) => {
-        console.log(response.data);
-        this.mockData = response.data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    store.dispatch("updateInspectMode", false);
+    store.dispatch("resetCvObjectAction");
+    this.getData();
   },
 });
 </script>
