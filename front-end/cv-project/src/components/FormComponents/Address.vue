@@ -154,7 +154,6 @@ export default defineComponent({
           (address: AddressInterface) =>
             address.ID === latstUidObject.last_address_ID
         );
-        console.log("formObject: ", formObject.address);
         return addressObject;
       },
     }),

@@ -6,6 +6,7 @@ import { UidModel } from "@/models/uid";
 export interface formState {
     cvObject: FormModel;
     lastUid: UidModel;
+    viewSwitchValue: number;
 }
 
 interface UpdateFormPartPayload {
@@ -61,7 +62,8 @@ export const formStore: Module<formState, RootState> = {
             last_education_ID: 0,
             last_address_ID: 0,
             last_custom_ID: 0
-        }
+        },
+        viewSwitchValue: 0
     },
     mutations: {
         mutateFormPart(state, payload: UpdateFormPartPayload) {
@@ -100,9 +102,13 @@ export const formStore: Module<formState, RootState> = {
                 }
             }
         },
-        updateLastUidPart(state, payload: { part: keyof UidModel; uuid: number }) {
-            const { part, uuid } = payload;
+        updateLastUidPart(state, payload: { part: keyof UidModel; uuid: number, viewUpdate: number }) {
+            const { part, uuid, viewUpdate } = payload;
             state.lastUid[part] = uuid;
+            state.viewSwitchValue = viewUpdate;
+        },
+        changeViewSwitchValue(state, value) {
+            state.viewSwitchValue = value;
         },
     },
     actions: {
@@ -121,8 +127,11 @@ export const formStore: Module<formState, RootState> = {
         removeObject({ commit }, payload) {
             commit('deleteObject', payload);
         },
-        changeLastUid({ commit }, payload: { part: keyof UidModel; uuid: number }) {
+        changeLastUid({ commit }, payload: { part: keyof UidModel; uuid: number, viewUpdate: number }) {
             commit("updateLastUidPart", payload);
+        },
+        updateViewSwitchValue({ commit }, value) {
+            commit("changeViewSwitchValue", value);
         },
     },
     getters: {
@@ -131,6 +140,9 @@ export const formStore: Module<formState, RootState> = {
         },
         getLastUid(state) {
             return state.lastUid
+        },
+        getViewSwitchValue(state) {
+            return state.viewSwitchValue
         }
     },
 };

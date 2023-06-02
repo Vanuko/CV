@@ -26,7 +26,9 @@
           <config-hover
             class="hoverDisplay"
             @deleteEmit="deleteObject(workElement.ID, workKey)"
-            @editEmit="editObjective(workElement.ID, lastWorkUidKeyName)"
+            @editEmit="
+              editObjective(workElement.ID, lastWorkUidKeyName, workView)
+            "
           />
           <div class="date-field">
             {{ workElement.work_experience }}
@@ -58,7 +60,13 @@
           <config-hover
             class="hoverDisplay"
             @deleteEmit="deleteObject(educationElement.ID, eduKey)"
-            @editEmit="editObjective(educationElement.ID, lasteducationUidKeyName)"
+            @editEmit="
+              editObjective(
+                educationElement.ID,
+                lasteducationUidKeyName,
+                educationView
+              )
+            "
           />
           <div class="date-field">
             <div>
@@ -98,12 +106,22 @@
           <config-hover
             class="hoverDisplay"
             @deleteEmit="deleteObject(addressElement.ID, addressKey)"
-            @editEmit="editObjective(addressElement.ID, lastAddressUidKeyName)"
+            @editEmit="
+              editObjective(
+                addressElement.ID,
+                lastAddressUidKeyName,
+                addressView
+              )
+            "
           />
           <div class="first-location-data-block medium-text-bold">
             <div>{{ addressElement.address_country }}</div>
-            <div>, {{ addressElement.address_city }}</div>
-            <div>, {{ addressElement.address_index }}</div>
+            <div v-if="addressElement.address_city">
+              , {{ addressElement.address_city }}
+            </div>
+            <div v-if="addressElement.address_index">
+              , {{ addressElement.address_index }}
+            </div>
           </div>
           <div class="second-location-data-block medium-text-bold">
             <div>{{ addressElement.address_street }}</div>
@@ -119,7 +137,9 @@
         <config-hover
           class="hoverDisplay"
           @deleteEmit="deleteObject(customElement.ID, customKey)"
-          @editEmit="editObjective(customElement.ID, lastCustomUidKeyName)"
+          @editEmit="
+            editObjective(customElement.ID, lastCustomUidKeyName, customView)
+          "
         />
         <div class="cv-section-title-text">
           {{ customElement.custom_name }}
@@ -137,6 +157,7 @@ import { defineComponent } from "vue";
 import store from "../store/mainStore";
 import configHover from "../components/FormComponents/FormHoverConfig.vue";
 import * as keyNames from "../constants/KeyNameConstants";
+import * as viewNumbers from "../constants/ViewConstants";
 
 export default defineComponent({
   name: "Inspect",
@@ -154,6 +175,10 @@ export default defineComponent({
       lasteducationUidKeyName: keyNames.LAST_EDU,
       lastAddressUidKeyName: keyNames.LAST_ADDRESS,
       lastCustomUidKeyName: keyNames.LAST_CUS,
+      workView: viewNumbers.WORK,
+      educationView: viewNumbers.EDUCATION,
+      addressView: viewNumbers.ADDRESS,
+      customView: viewNumbers.CUSTOM,
     };
   },
   computed: {
@@ -165,8 +190,12 @@ export default defineComponent({
     deleteObject(uid: number, keyName: string) {
       store.dispatch("removeObject", { arrayKeyName: keyName, uuid: uid });
     },
-    editObjective(uid: number, keyName: string) {
-      store.dispatch("changeLastUid", { part: keyName, uuid: uid });
+    editObjective(uid: number, keyName: string, viewSwitch: number) {
+      store.dispatch("changeLastUid", {
+        part: keyName,
+        uuid: uid,
+        viewUpdate: viewSwitch,
+      });
     },
   },
 });

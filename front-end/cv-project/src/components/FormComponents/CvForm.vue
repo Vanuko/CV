@@ -1,6 +1,9 @@
 <template>
   <div class="form-component-template">
     <div class="form-template-left-side">
+      <div>
+        {{ updateView }}
+      </div>
       <div class="form-wrapper">
         <component :is="requiredComponent"> </component>
       </div>
@@ -21,7 +24,6 @@
       </div>
     </div>
     <div class="form-template-right-side"><inspect-view /></div>
-    <div></div>
   </div>
 </template>
 
@@ -36,7 +38,7 @@ import buttonComponent from "../GenericComponents/Button.vue";
 import inspectView from "../../views/Inspect.vue";
 import axios from "axios";
 import store from "../../store/mainStore";
-import * as viewControl from "../../constants/ViewConstants";
+import * as textConstants from "../../constants/TextConstants";
 
 export default defineComponent({
   name: "FormComponent",
@@ -63,13 +65,19 @@ export default defineComponent({
         addressData,
         customData,
       ],
-      backendData: "test",
     };
   },
   methods: {
     toggle(add: boolean) {
       add ? (this.viewIndex += 1) : (this.viewIndex -= 1);
-      this.requiredComponent = this.componentArray[this.viewIndex];
+      store.dispatch("updateViewSwitchValue", this.viewIndex);
+      this.toggleView(this.viewIndex);
+    },
+    toggleView(index: number) {
+      if (index >= 0 && index < this.componentArray.length) {
+        this.requiredComponent = this.componentArray[index];
+        this.viewIndex = index;
+      }
     },
     saveCV() {
       const requestData = {
@@ -114,8 +122,23 @@ export default defineComponent({
         });
     },
   },
+  computed: {
+    updateView() {
+      const viewSwtichValue = store.getters.getViewSwitchValue;
+      this.toggleView(viewSwtichValue);
+      const viewTitleArray = [
+        textConstants.BASE_DATA_TEXT,
+        textConstants.WORK_DATA_TEXT,
+        textConstants.EDU_DATA_TEXT,
+        textConstants.ADDRESS_DATA_TEXT,
+        textConstants.CUSTOM_DATA_TEXT,
+      ];
+      return viewTitleArray[viewSwtichValue];
+    },
+  },
   beforeMount() {
     this.requiredComponent = shallowRef(baseData);
+    console.log(store.getters.getViewSwitchValue);
   },
 });
 </script>

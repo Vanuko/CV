@@ -34,3 +34,9 @@ export const STREET_NUMBER = "Ielas numurs";
 export const SUB_TITLE = "Virsraksts";
 export const INFORMATION = "Informācija";
 
+//View Name Constants
+export const BASE_DATA_TEXT = "Pamat informācija";
+export const WORK_DATA_TEXT = "Iepriekšējā darba pieredze";
+export const EDU_DATA_TEXT = "Iegūtā izglītība";
+export const ADDRESS_DATA_TEXT = "Apsaimniekotās adreses";
+export const CUSTOM_DATA_TEXT = "Ekstra informācija";
