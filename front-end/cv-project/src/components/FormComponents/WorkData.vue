@@ -1,20 +1,35 @@
 <template>
   <div class="work-data-component-template">
-    <div>
-      <form-text :titleText="workPlaceText" />
-      <input-field @input="handleInput($event, workPlaceText)" />
-    </div>
-    <div>
-      <form-text :titleText="workPositionText" />
-      <input-field @input="handleInput($event, workPositionText)" />
-    </div>
-    <div>
-      <form-text :titleText="workLoadText" />
-      <input-field @input="handleInput($event, workLoadText)" />
-    </div>
-    <div>
-      <form-text :titleText="workExperienceText" />
-      <input-field @input="handleInput($event, workExperienceText)" />
+    <div v-if="workValues">
+      <div>
+        <form-text :titleText="workPlaceText" />
+        <input-field
+          :value="workValues.work_place"
+          @input="handleInput($event, workPlaceText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="workPositionText" />
+        <input-field
+          :value="workValues.work_position"
+          @input="handleInput($event, workPositionText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="workLoadText" />
+        <input-field
+          :value="workValues.work_load"
+          @input="handleInput($event, workLoadText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="workExperienceText" />
+        <input-field
+          :type="typeNumber"
+          :value="workValues.work_experience"
+          @input="handleInput($event, workExperienceText)"
+        />
+      </div>
     </div>
     <button-component :buttonText="'Add more'" @click="addWork()" />
   </div>
@@ -28,6 +43,8 @@ import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
 import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
+import { WorkplaceInterface } from "../../models/form";
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "WorkDataComponent",
@@ -40,17 +57,19 @@ export default defineComponent({
       workExperienceText: textConstants.WORK_EXPERIENCE,
       buttonText: "Add more",
       uuid: 0,
+      typeNumber: "number",
     };
   },
   methods: {
     handleInput(inputData: string, data: string) {
+      const lastUid = store.getters.getLastUid;
       switch (data) {
         case textConstants.WORKPLACE: {
           store.dispatch("updateFormPart", {
             part: keyNames.W_PLACE,
             value: inputData,
             arrayKeyName: keyNames.WORK,
-            uuid: this.uuid,
+            uuid: lastUid.last_work_ID,
           });
           break;
         }
@@ -61,7 +80,7 @@ export default defineComponent({
             part: keyNames.W_POS,
             value: inputData,
             arrayKeyName: keyNames.WORK,
-            uuid: this.uuid,
+            uuid: lastUid.last_work_ID,
           });
           break;
         }
@@ -72,7 +91,7 @@ export default defineComponent({
             part: keyNames.W_LOAD,
             value: inputData,
             arrayKeyName: keyNames.WORK,
-            uuid: this.uuid,
+            uuid: lastUid.last_work_ID,
           });
           break;
         }
@@ -83,26 +102,43 @@ export default defineComponent({
             part: keyNames.W_EXP,
             value: inputData,
             arrayKeyName: keyNames.WORK,
-            uuid: this.uuid,
+            uuid: lastUid.last_work_ID,
           });
           break;
         }
       }
     },
     addWork() {
-      this.uuid += this.uuid;
+      const latstUidObject = store.state.formStore.lastUid;
+      this.uuid = latstUidObject.last_work_ID + 1;
       const workData = {
         arrayKeyName: keyNames.WORK,
         object: {
           ID: this.uuid,
-          work_place: "Other Place",
-          work_position: "Other Position",
-          work_load: "Full-time",
+          work_place: null,
+          work_position: null,
+          work_load: null,
           work_experience: 0,
         },
       };
       store.dispatch("attachObject", workData);
+      store.dispatch("changeLastUid", {
+        part: keyNames.LAST_WORK,
+        uuid: this.uuid,
+      });
     },
+  },
+  computed: {
+    ...mapState({
+      workValues: (state: any) => {
+        const formObject = state.formStore.cvObject;
+        const latstUidObject = state.formStore.lastUid;
+        const workObject = formObject.work.find(
+          (work: WorkplaceInterface) => work.ID === latstUidObject.last_work_ID
+        );
+        return workObject;
+      },
+    }),
   },
 });
 </script>
@@ -111,9 +147,11 @@ export default defineComponent({
 $example: rem(800px);
 .work-data-component-template {
   width: 100%;
-  div {
-    display: flex;
-    flex-direction: row;
+  > div:nth-child(1) {
+    div {
+      display: flex;
+      flex-direction: row;
+    }
   }
 }
 </style>

@@ -1,9 +1,11 @@
 import { Module } from "vuex";
 import { RootState } from "./mainStore";
 import { FormModel } from "@/models/form";
+import { UidModel } from "@/models/uid";
 
 export interface formState {
     cvObject: FormModel;
+    lastUid: UidModel;
 }
 
 interface UpdateFormPartPayload {
@@ -53,11 +55,16 @@ export const formStore: Module<formState, RootState> = {
             }],
             created_at: "",
             updated_at: "",
+        },
+        lastUid: {
+            last_work_ID: 0,
+            last_education_ID: 0,
+            last_address_ID: 0,
+            last_custom_ID: 0
         }
     },
     mutations: {
         mutateFormPart(state, payload: UpdateFormPartPayload) {
-            console.log("payload: ", payload)
             const { part, value, arrayKeyName, uuid } = payload;
             if (arrayKeyName && state.cvObject && state.cvObject[arrayKeyName] !== null) {
                 const requiredArray = state.cvObject[arrayKeyName];
@@ -93,6 +100,10 @@ export const formStore: Module<formState, RootState> = {
                 }
             }
         },
+        updateLastUidPart(state, payload: { part: keyof UidModel; uuid: number }) {
+            const { part, uuid } = payload;
+            state.lastUid[part] = uuid;
+        },
     },
     actions: {
         updateFormPart({ commit }, payload: UpdateFormPartPayload) {
@@ -110,10 +121,16 @@ export const formStore: Module<formState, RootState> = {
         removeObject({ commit }, payload) {
             commit('deleteObject', payload);
         },
+        changeLastUid({ commit }, payload: { part: keyof UidModel; uuid: number }) {
+            commit("updateLastUidPart", payload);
+        },
     },
     getters: {
         getForm(state) {
             return state.cvObject;
         },
+        getLastUid(state) {
+            return state.lastUid
+        }
     },
 };

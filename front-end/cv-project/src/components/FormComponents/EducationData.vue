@@ -1,28 +1,48 @@
 <template>
   <div class="education-data-component-template">
-    <div>
-      <form-text :titleText="institutionText" />
-      <input-field @input="handleInput($event, institutionText)" />
-    </div>
-    <div>
-      <form-text :titleText="facultyText" />
-      <input-field @input="handleInput($event, facultyText)" />
-    </div>
-    <div>
-      <form-text :titleText="fieldOfStudyText" />
-      <input-field @input="handleInput($event, fieldOfStudyText)" />
-    </div>
-    <div>
-      <form-text :titleText="educationLevelText" />
-      <input-field @input="handleInput($event, educationLevelText)" />
-    </div>
-    <div>
-      <form-text :titleText="educationStatusText" />
-      <input-field @input="handleInput($event, educationStatusText)" />
-    </div>
-    <div>
-      <form-text :titleText="educationTimeSpentText" />
-      <input-field @input="handleInput($event, educationTimeSpentText)" />
+    <div v-if="educationValues">
+      <div>
+        <form-text :titleText="institutionText" />
+        <input-field
+          :value="educationValues.education_institution"
+          @input="handleInput($event, institutionText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="facultyText" />
+        <input-field
+          :value="educationValues.education_faculty"
+          @input="handleInput($event, facultyText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="fieldOfStudyText" />
+        <input-field
+          :value="educationValues.education_field_of_study"
+          @input="handleInput($event, fieldOfStudyText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="educationLevelText" />
+        <input-field
+          :value="educationValues.education_level"
+          @input="handleInput($event, educationLevelText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="educationStatusText" />
+        <input-field
+          :value="educationValues.education_status"
+          @input="handleInput($event, educationStatusText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="educationTimeSpentText" />
+        <input-field
+          :value="educationValues.education_time_spent"
+          @input="handleInput($event, educationTimeSpentText)"
+        />
+      </div>
     </div>
     <button-component :buttonText="'Add more'" @click="addEducation()" />
   </div>
@@ -36,6 +56,8 @@ import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
 import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
+import { mapState } from "vuex";
+import { EducationInterface } from "../../models/form";
 
 export default defineComponent({
   name: "EducationDataComponent",
@@ -53,13 +75,14 @@ export default defineComponent({
   },
   methods: {
     handleInput(inputData: string, data: string) {
-      console.log(inputData, data);
+      const lastUid = store.getters.getLastUid;
       switch (data) {
         case textConstants.INSTITUTION: {
           store.dispatch("updateFormPart", {
             part: keyNames.EDU_INST,
             value: inputData,
             arrayKeyName: keyNames.EDU,
+            uuid: lastUid.last_education_ID,
           });
           break;
         }
@@ -70,6 +93,7 @@ export default defineComponent({
             part: keyNames.EDU_FAC,
             value: inputData,
             arrayKeyName: keyNames.EDU,
+            uuid: lastUid.last_education_ID,
           });
           break;
         }
@@ -80,6 +104,7 @@ export default defineComponent({
             part: keyNames.EDU_STUDY,
             value: inputData,
             arrayKeyName: keyNames.EDU,
+            uuid: lastUid.last_education_ID,
           });
           break;
         }
@@ -90,6 +115,7 @@ export default defineComponent({
             part: keyNames.EDU_LVL,
             value: inputData,
             arrayKeyName: keyNames.EDU,
+            uuid: lastUid.last_education_ID,
           });
           break;
         }
@@ -100,6 +126,7 @@ export default defineComponent({
             part: keyNames.EDU_STAT,
             value: inputData,
             arrayKeyName: keyNames.EDU,
+            uuid: lastUid.last_education_ID,
           });
           break;
         }
@@ -110,27 +137,46 @@ export default defineComponent({
             part: keyNames.EDU_TIME,
             value: inputData,
             arrayKeyName: keyNames.EDU,
+            uuid: lastUid.last_education_ID,
           });
           break;
         }
       }
     },
     addEducation() {
-      this.uuid += 1;
+      const latstUidObject = store.state.formStore.lastUid;
+      this.uuid = latstUidObject.last_education_ID + 1;
       const educationData = {
         arrayKeyName: keyNames.EDU,
         object: {
           ID: this.uuid,
-          education_institution: "Other-place",
-          education_faculty: "Other Faculty",
-          education_field_of_study: "Other field",
-          education_level: "Bachelor",
-          education_status: "Completed",
+          education_institution: null,
+          education_faculty: null,
+          education_field_of_study: null,
+          education_level: null,
+          education_status: null,
           education_time_spent: 0,
         },
       };
       store.dispatch("attachObject", educationData);
+      store.dispatch("changeLastUid", {
+        part: keyNames.LAST_EDU,
+        uuid: this.uuid,
+      });
     },
+  },
+  computed: {
+    ...mapState({
+      educationValues: (state: any) => {
+        const formObject = state.formStore.cvObject;
+        const latstUidObject = state.formStore.lastUid;
+        const educationObject = formObject.education.find(
+          (education: EducationInterface) =>
+            education.ID === latstUidObject.last_education_ID
+        );
+        return educationObject;
+      },
+    }),
   },
 });
 </script>
@@ -139,9 +185,11 @@ export default defineComponent({
 $example: rem(800px);
 .education-data-component-template {
   width: 100%;
-  div {
-    display: flex;
-    flex-direction: row;
+  > div:nth-child(1) {
+    div {
+      display: flex;
+      flex-direction: row;
+    }
   }
 }
 </style>

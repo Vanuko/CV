@@ -26,7 +26,7 @@
           <config-hover
             class="hoverDisplay"
             @deleteEmit="deleteObject(workElement.ID, workKey)"
-            @editEmit="editObjective(workElement.ID)"
+            @editEmit="editObjective(workElement.ID, lastWorkUidKeyName)"
           />
           <div class="date-field">
             {{ workElement.work_experience }}
@@ -58,7 +58,7 @@
           <config-hover
             class="hoverDisplay"
             @deleteEmit="deleteObject(educationElement.ID, eduKey)"
-            @editEmit="editObjective(educationElement.ID)"
+            @editEmit="editObjective(educationElement.ID, lasteducationUidKeyName)"
           />
           <div class="date-field">
             <div>
@@ -98,7 +98,7 @@
           <config-hover
             class="hoverDisplay"
             @deleteEmit="deleteObject(addressElement.ID, addressKey)"
-            @editEmit="editObjective(addressElement.ID)"
+            @editEmit="editObjective(addressElement.ID, lastAddressUidKeyName)"
           />
           <div class="first-location-data-block medium-text-bold">
             <div>{{ addressElement.address_country }}</div>
@@ -119,7 +119,7 @@
         <config-hover
           class="hoverDisplay"
           @deleteEmit="deleteObject(customElement.ID, customKey)"
-          @editEmit="editObjective(customElement.ID)"
+          @editEmit="editObjective(customElement.ID, lastCustomUidKeyName)"
         />
         <div class="cv-section-title-text">
           {{ customElement.custom_name }}
@@ -150,6 +150,10 @@ export default defineComponent({
       eduKey: keyNames.EDU,
       addressKey: keyNames.ADDRESS,
       customKey: keyNames.CUS,
+      lastWorkUidKeyName: keyNames.LAST_WORK,
+      lasteducationUidKeyName: keyNames.LAST_EDU,
+      lastAddressUidKeyName: keyNames.LAST_ADDRESS,
+      lastCustomUidKeyName: keyNames.LAST_CUS,
     };
   },
   computed: {
@@ -158,11 +162,11 @@ export default defineComponent({
     },
   },
   methods: {
-    deleteObject(id: number, keyName: string) {
-      store.dispatch("removeObject", { arrayKeyName: keyName, uuid: id });
+    deleteObject(uid: number, keyName: string) {
+      store.dispatch("removeObject", { arrayKeyName: keyName, uuid: uid });
     },
-    editObjective(id: number) {
-      console.log("Edit", id);
+    editObjective(uid: number, keyName: string) {
+      store.dispatch("changeLastUid", { part: keyName, uuid: uid });
     },
   },
 });

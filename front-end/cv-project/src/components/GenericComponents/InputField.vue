@@ -1,6 +1,6 @@
 <template>
   <div class="input-field-element">
-    <input type="text" :value="value" maxlength="30" @input="handleInput" />
+    <input :type="type" :value="value" maxlength="30" @input="handleInput" />
   </div>
 </template>
 
@@ -15,6 +15,10 @@ export default defineComponent({
     value: {
       type: String,
     },
+    type: {
+      type: String, 
+      default: "text"
+    },
   },
   methods: {
     handleInput(event: Event) {
@@ -23,7 +27,7 @@ export default defineComponent({
     },
   },
   mounted() {
-    console.log("value?", this.value);
+    //
   },
 });
 </script>

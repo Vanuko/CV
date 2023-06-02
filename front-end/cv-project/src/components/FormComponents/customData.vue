@@ -1,12 +1,20 @@
 <template>
-  <div class="education-data-component-template">
-    <div>
-      <form-text :titleText="subTitleText" />
-      <input-field @input="handleInput($event, subTitleText)" />
-    </div>
-    <div>
-      <form-text :titleText="informationText" />
-      <input-field @input="handleInput($event, informationText)" />
+  <div class="custom-data-component-template">
+    <div v-if="customFieldValues">
+      <div>
+        <form-text :titleText="subTitleText" />
+        <input-field
+          :value="customFieldValues.custom_name"
+          @input="handleInput($event, subTitleText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="informationText" />
+        <input-field
+          :value="customFieldValues.custom_value"
+          @input="handleInput($event, informationText)"
+        />
+      </div>
     </div>
     <button-component :buttonText="'Add more'" @click="addCustom()" />
   </div>
@@ -20,6 +28,8 @@ import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
 import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
+import { mapState } from "vuex";
+import { CustomFields } from "../../models/form";
 
 export default defineComponent({
   name: "EducationDataComponent",
@@ -33,52 +43,72 @@ export default defineComponent({
   },
   methods: {
     handleInput(inputData: string, data: string) {
-      console.log(inputData, data);
+      const lastUid = store.getters.getLastUid;
       switch (data) {
-        case textConstants.INSTITUTION: {
+        case textConstants.SUB_TITLE: {
           store.dispatch("updateFormPart", {
-            part: keyNames.EDU_INST,
+            part: keyNames.CUS_NAME,
             value: inputData,
-            arrayKeyName: keyNames.EDU,
+            arrayKeyName: keyNames.CUS,
+            uuid: lastUid.last_custom_ID,
           });
           break;
         }
       }
       switch (data) {
-        case textConstants.FACULITY: {
+        case textConstants.INFORMATION: {
           store.dispatch("updateFormPart", {
-            part: keyNames.EDU_FAC,
+            part: keyNames.CUS_VALUE,
             value: inputData,
-            arrayKeyName: keyNames.EDU,
+            arrayKeyName: keyNames.CUS,
+            uuid: lastUid.last_custom_ID,
           });
           break;
         }
       }
     },
     addCustom() {
-      this.uuid += 1;
+      const latstUidObject = store.state.formStore.lastUid;
+      this.uuid = latstUidObject.last_custom_ID + 1;
       const customData = {
         arrayKeyName: keyNames.CUS,
         object: {
           ID: this.uuid,
-          custom_name: "Custom Title",
-          custom_value:
-            "Custom Data Custom Data Custom Data Custom Data Custom Data",
+          custom_name: null,
+          custom_value: null,
         },
       };
       store.dispatch("attachObject", customData);
+      store.dispatch("changeLastUid", {
+        part: keyNames.LAST_CUS,
+        uuid: this.uuid,
+      });
     },
+  },
+  computed: {
+    ...mapState({
+      customFieldValues: (state: any) => {
+        const formObject = state.formStore.cvObject;
+        const latstUidObject = state.formStore.lastUid;
+        const customObject = formObject.custom.find(
+          (custom: CustomFields) => custom.ID === latstUidObject.last_custom_ID
+        );
+        return customObject;
+      },
+    }),
   },
 });
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
 $example: rem(800px);
-.education-data-component-template {
+.custom-data-component-template {
   width: 100%;
-  div {
-    display: flex;
-    flex-direction: row;
+  > div:nth-child(1) {
+    div {
+      display: flex;
+      flex-direction: row;
+    }
   }
 }
 </style>

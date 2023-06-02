@@ -1,24 +1,41 @@
 <template>
   <div class="address-component-template">
-    <div>
-      <form-text :titleText="countryText" />
-      <input-field @input="handleInput($event, countryText)" />
-    </div>
-    <div>
-      <form-text :titleText="indexText" />
-      <input-field @input="handleInput($event, indexText)" />
-    </div>
-    <div>
-      <form-text :titleText="cityText" />
-      <input-field @input="handleInput($event, cityText)" />
-    </div>
-    <div>
-      <form-text :titleText="streetText" />
-      <input-field @input="handleInput($event, streetText)" />
-    </div>
-    <div>
-      <form-text :titleText="streetNumbetText" />
-      <input-field @input="handleInput($event, streetNumbetText)" />
+    <div v-if="addressValues">
+      <div>
+        <form-text :titleText="countryText" />
+        <input-field
+          :value="addressValues.address_country"
+          @input="handleInput($event, countryText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="indexText" />
+        <input-field
+          :value="addressValues.address_index"
+          @input="handleInput($event, indexText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="cityText" />
+        <input-field
+          :value="addressValues.address_city"
+          @input="handleInput($event, cityText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="streetText" />
+        <input-field
+          :value="addressValues.address_street"
+          @input="handleInput($event, streetText)"
+        />
+      </div>
+      <div>
+        <form-text :titleText="streetNumbetText" />
+        <input-field
+          :value="addressValues.address_number"
+          @input="handleInput($event, streetNumbetText)"
+        />
+      </div>
     </div>
     <button-component :buttonText="'Add more'" @click="addAddress()" />
   </div>
@@ -32,6 +49,8 @@ import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
 import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
+import { mapState } from "vuex";
+import { AddressInterface } from "../../models/form";
 
 export default defineComponent({
   name: "AddressComponent",
@@ -48,13 +67,14 @@ export default defineComponent({
   },
   methods: {
     handleInput(inputData: string, data: string) {
-      console.log(inputData, data);
+      const lastUid = store.getters.getLastUid;
       switch (data) {
         case textConstants.COUNTRY: {
           store.dispatch("updateFormPart", {
             part: keyNames.AD_COUNTRY,
             value: inputData,
             arrayKeyName: keyNames.ADDRESS,
+            uuid: lastUid.last_address_ID,
           });
           break;
         }
@@ -65,6 +85,7 @@ export default defineComponent({
             part: keyNames.AD_INDEX,
             value: inputData,
             arrayKeyName: keyNames.ADDRESS,
+            uuid: lastUid.last_address_ID,
           });
           break;
         }
@@ -75,6 +96,7 @@ export default defineComponent({
             part: keyNames.AD_CITY,
             value: inputData,
             arrayKeyName: keyNames.ADDRESS,
+            uuid: lastUid.last_address_ID,
           });
           break;
         }
@@ -85,6 +107,7 @@ export default defineComponent({
             part: keyNames.AD_STREET,
             value: inputData,
             arrayKeyName: keyNames.ADDRESS,
+            uuid: lastUid.last_address_ID,
           });
           break;
         }
@@ -95,26 +118,46 @@ export default defineComponent({
             part: keyNames.AD_NR,
             value: inputData,
             arrayKeyName: keyNames.ADDRESS,
+            uuid: lastUid.last_address_ID,
           });
           break;
         }
       }
     },
     addAddress() {
-      this.uuid += this.uuid;
+      const latstUidObject = store.state.formStore.lastUid;
+      this.uuid = latstUidObject.last_address_ID + 1;
       const addressData = {
         arrayKeyName: keyNames.ADDRESS,
         object: {
-          ID: 0,
-          address_country: "OTCountry",
-          address_index: "index",
-          address_city: "OTcity",
-          address_street: "Otstreet",
-          address_number: "OtherNumber",
+          ID: this.uuid,
+          address_country: null,
+          address_index: null,
+          address_city: null,
+          address_street: null,
+          address_number: null,
         },
       };
       store.dispatch("attachObject", addressData);
+      store.dispatch("changeLastUid", {
+        part: keyNames.LAST_ADDRESS,
+        uuid: this.uuid,
+      });
     },
+  },
+  computed: {
+    ...mapState({
+      addressValues: (state: any) => {
+        const formObject = state.formStore.cvObject;
+        const latstUidObject = state.formStore.lastUid;
+        const addressObject = formObject.address.find(
+          (address: AddressInterface) =>
+            address.ID === latstUidObject.last_address_ID
+        );
+        console.log("formObject: ", formObject.address);
+        return addressObject;
+      },
+    }),
   },
 });
 </script>
@@ -123,9 +166,11 @@ export default defineComponent({
 $example: rem(800px);
 .address-component-template {
   width: 100%;
-  div {
-    display: flex;
-    flex-direction: row;
+  > div:nth-child(1) {
+    div {
+      display: flex;
+      flex-direction: row;
+    }
   }
 }
 </style>
