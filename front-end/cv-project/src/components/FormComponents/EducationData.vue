@@ -31,11 +31,9 @@
       </div>
       <div>
         <form-text :titleText="educationStatusText" />
-        <input-field
-          :value="educationValues.education_status"
-          @input="handleInput($event, educationStatusText)"
-        />
+        <generic-dropdown :passedItems="educationSelection" @itemSelected="handleStatus" />
       </div>
+
       <div>
         <form-text :titleText="educationTimeSpentText" />
         <input-field
@@ -46,7 +44,7 @@
     </div>
     <button-component
       :buttonStyle="createStyleText"
-      :buttonText="'Add more'"
+      :buttonText="addMoreText"
       @click="addEducation()"
     />
   </div>
@@ -58,14 +56,16 @@ import FormText from "./FormText.vue";
 import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
+import * as formObjects from "../../constants/FormPartConstants";
 import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
 import { mapState } from "vuex";
 import { EducationInterface } from "../../models/form";
+import genericDropdown from "../GenericComponents/Dropodown.vue";
 
 export default defineComponent({
   name: "EducationDataComponent",
-  components: { FormText, inputField, buttonComponent },
+  components: { FormText, inputField, buttonComponent, genericDropdown },
   data() {
     return {
       institutionText: textConstants.INSTITUTION,
@@ -76,6 +76,8 @@ export default defineComponent({
       educationTimeSpentText: textConstants.TIME_SPENT,
       uuid: 0,
       createStyleText: "createStyle", //CONST
+      addMoreText: "PIEVIENOT",
+      educationSelection: formObjects.EDUCATION_DROPDOWN
     };
   },
   methods: {
@@ -147,6 +149,15 @@ export default defineComponent({
           break;
         }
       }
+    },
+    handleStatus(data: string) {
+      const lastUid = store.getters.getLastUid;
+      store.dispatch("updateFormPart", {
+        part: keyNames.EDU_STAT,
+        value: data,
+        arrayKeyName: keyNames.EDU,
+        uuid: lastUid.last_education_ID,
+      });
     },
     addEducation() {
       const latstUidObject = store.state.formStore.lastUid;

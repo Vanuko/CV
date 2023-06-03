@@ -37,7 +37,11 @@
         />
       </div>
     </div>
-    <button-component :buttonStyle="createStyleText" :buttonText="'Add more'" @click="addAddress()" />
+    <button-component
+      :buttonStyle="createStyleText"
+      :buttonText="addMoreText"
+      @click="addAddress()"
+    />
   </div>
 </template>
 
@@ -64,6 +68,7 @@ export default defineComponent({
       streetNumbetText: textConstants.STREET_NUMBER,
       uuid: 0,
       createStyleText: "createStyle", //CONST
+      addMoreText: "PIEVIENOT",
     };
   },
   methods: {

@@ -261,15 +261,12 @@ export default defineComponent({
     background: $white;
 
     $form-block-margin-top: rem(20px);
-    $form-block-border-width: rem(0px 0px 1px 0px);
     > div:not(:first-child) {
       width: 100%;
       margin-top: $form-block-margin-top;
-      border-width: $form-block-border-width;
-      border-color: black; //colors.scss
-      border-style: solid; //colors.scss
       padding-bottom: 8px; //SCSS
     }
+
     .base-data-block {
       width: 100%;
       display: flex;
@@ -290,6 +287,7 @@ export default defineComponent({
       .work-data-element {
         display: flex;
         position: relative;
+        min-height: 40px; //SCSS
         div:nth-child(2) {
           display: flex;
           flex-direction: column;
@@ -319,6 +317,7 @@ export default defineComponent({
       .education-data-element {
         display: flex;
         position: relative;
+        min-height: 40px; //SCSS
         > .education-information-data {
           display: flex;
           flex-direction: column;
@@ -345,6 +344,7 @@ export default defineComponent({
         display: flex;
         flex-direction: column;
         position: relative;
+        min-height: 40px; //SCSS
         .first-location-data-block {
           display: flex;
         }
@@ -363,6 +363,8 @@ export default defineComponent({
     }
     .custom-data-block {
       position: relative;
+      min-height: 40px; //SCSS
+      margin-bottom: 15px;
       .custom-data-element {
       }
     }

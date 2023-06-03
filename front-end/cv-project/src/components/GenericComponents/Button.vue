@@ -26,6 +26,7 @@ export default defineComponent({
         "create-button": this.buttonStyle === "createStyle",
         "save-button": this.buttonStyle === "saveStyle",
         "update-button": this.buttonStyle === "updateStyle",
+        "return-button": this.buttonStyle === "returnStyle",
       };
     },
   },
@@ -57,11 +58,11 @@ $example: rem(45px);
   opacity: 0.6;
 }
 .delete-button {
-  color: $text-grey;
+  color: $white;
   background-color: $red;
 }
 .delete-button:hover {
-  color: $text-grey;
+  color: $white;
   background-color: $red;
   opacity: 0.6;
 }
@@ -96,5 +97,16 @@ $example: rem(45px);
   color: $white;
   background-color: $mail-yellow;
   opacity: 0.6;
+}
+.return-button {
+  color: $mail-gray-10;
+  background-color: $white;
+  width: fit-content;
+  padding-left: 10px;
+  padding-right: 10px; //SCSS
+}
+.return-button:hover {
+  color: $mail-gray-10;
+  background-color: $default-grey-hover;
 }
 </style>

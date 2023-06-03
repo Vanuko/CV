@@ -10,15 +10,15 @@
       </div>
       <div>
         <form-text :titleText="informationText" />
-        <input-field
+        <generic-text-area
           :value="customFieldValues.custom_value"
-          @input="handleInput($event, informationText)"
+          @textInput="handleTextInput($event, informationText)"
         />
       </div>
     </div>
     <button-component
       :buttonStyle="createStyleText"
-      :buttonText="'Add more'"
+      :buttonText="addMoreText"
       @click="addCustom()"
     />
   </div>
@@ -28,6 +28,7 @@
 import { defineComponent } from "vue";
 import FormText from "./FormText.vue";
 import inputField from "../GenericComponents/InputField.vue";
+import genericTextArea from "../GenericComponents/TextArea.vue";
 import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
 import store from "../../store/mainStore";
@@ -37,33 +38,32 @@ import { CustomFields } from "../../models/form";
 
 export default defineComponent({
   name: "EducationDataComponent",
-  components: { FormText, inputField, buttonComponent },
+  components: { FormText, inputField, buttonComponent, genericTextArea },
   data() {
     return {
       subTitleText: textConstants.SUB_TITLE, //Const
       informationText: textConstants.INFORMATION, //Const
       uuid: 0,
       createStyleText: "createStyle", //CONST
+      addMoreText: "PIEVIENOT",
     };
   },
   methods: {
+    handleTextInput(textData: string) {
+      const lastUid = store.getters.getLastUid;
+      store.dispatch("updateFormPart", {
+        part: keyNames.CUS_VALUE,
+        value: textData,
+        arrayKeyName: keyNames.CUS,
+        uuid: lastUid.last_custom_ID,
+      });
+    },
     handleInput(inputData: string, data: string) {
       const lastUid = store.getters.getLastUid;
       switch (data) {
         case textConstants.SUB_TITLE: {
           store.dispatch("updateFormPart", {
             part: keyNames.CUS_NAME,
-            value: inputData,
-            arrayKeyName: keyNames.CUS,
-            uuid: lastUid.last_custom_ID,
-          });
-          break;
-        }
-      }
-      switch (data) {
-        case textConstants.INFORMATION: {
-          store.dispatch("updateFormPart", {
-            part: keyNames.CUS_VALUE,
             value: inputData,
             arrayKeyName: keyNames.CUS,
             uuid: lastUid.last_custom_ID,

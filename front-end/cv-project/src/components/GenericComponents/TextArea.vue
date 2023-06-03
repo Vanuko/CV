@@ -1,12 +1,11 @@
 <template>
-  <div class="input-field-element">
-    <input
-      class="tiny-text-bold"
-      :type="type"
+  <div class="text-box-element">
+    <textarea
+      class="text-box tiny-text-bold"
       :value="value"
       :maxlength="maxInputLength"
       @input="handleInput"
-    />
+    ></textarea>
   </div>
 </template>
 
@@ -14,26 +13,22 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "InputField",
-  components: {},
-  emits: ["input"],
+  name: "TextBox",
+ emits: ["textInput"],
   props: {
     value: {
       type: String,
     },
-    type: {
-      type: String,
-      default: "text"
-    },
     maxInputLength: {
       type: Number,
-      default: 30
+      default: 500,
     },
   },
   methods: {
     handleInput(event: Event) {
       const el = event.target as HTMLInputElement;
-      this.$emit("input", el.value);
+      console.log("value?", el.value)
+      this.$emit("textInput", el.value);
     },
   },
 });
@@ -41,13 +36,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
-$example: rem(45px);
-.input-field-element {
+.text-box-element {
   width: 100%;
-  height: 35px; //SCSS
-  input {
-    height: 100%;
+  textarea.text-box {
     width: 100%;
+    height: 600px; //SCSS
+    resize: vertical;
     border-color: $border-grey;
   }
 }

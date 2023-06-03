@@ -1,14 +1,14 @@
 <template>
   <div class="list-element" @click="viewCV()">
     <div class="list-info-block">
-      <div class="small-text list-info-block-element">
+      <div class="tiny-text-bold list-info-block-element">
         {{ listItem.name }} {{ listItem.surname }}
       </div>
 
-      <div class="small-text list-info-block-element">
+      <div class="tiny-text-bold list-info-block-element">
         {{ phoneNrText }} : {{ listItem.phone_nr }}
       </div>
-      <div class="small-text list-info-block-element">
+      <div class="tiny-text-bold list-info-block-element">
         {{ emailText }} : {{ listItem.email }}
       </div>
     </div>
@@ -81,9 +81,6 @@ export default defineComponent({
       store.dispatch("updateInspectMode", true);
       router.push("/edit");
     },
-  },
-  mounted() {
-    console.log(this.listItem);
   },
 });
 </script>

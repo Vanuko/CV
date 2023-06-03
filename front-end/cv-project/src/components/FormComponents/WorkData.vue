@@ -33,7 +33,7 @@
     </div>
     <button-component
       :buttonStyle="createStyleText"
-      :buttonText="'Add more'"
+      :buttonText="addMoreText"
       @click="addWork()"
     />
   </div>
@@ -59,10 +59,11 @@ export default defineComponent({
       workPositionText: textConstants.POSITION,
       workLoadText: textConstants.WORK_LOAD,
       workExperienceText: textConstants.WORK_EXPERIENCE,
-      buttonText: "Add more", //CONST
+      buttonText: "PIEVIENOT", //CONST
       uuid: 0,
       typeNumber: "number", //REMOVE?
       createStyleText: "createStyle", //CONST
+      addMoreText: "PIEVIENOT"
     };
   },
   methods: {
@@ -139,7 +140,6 @@ export default defineComponent({
         const formObject = state.formStore.cvObject;
         const latstUidObject = state.formStore.lastUid;
         if (formObject.work) {
-          console.log(formObject.work);
           const workObject = formObject.work.find(
             (work: WorkplaceInterface) =>
               work.ID === latstUidObject.last_work_ID

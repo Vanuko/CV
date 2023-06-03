@@ -1,8 +1,15 @@
 <template>
   <div class="form-component-template">
     <div class="form-template-left-side">
-      <div class="medium-text-bold">
-        {{ updateView }}
+      <div class="form-template-view-name-block">
+        <button-component
+          :buttonStyle="returnStyle"
+          :buttonText="returnText"
+          @click="back()"
+        />
+        <div class="medium-text-bold">
+          {{ updateView }}
+        </div>
       </div>
       <div class="form-wrapper">
         <component :is="requiredComponent"> </component>
@@ -53,6 +60,7 @@ import inspectView from "../../views/Inspect.vue";
 import axios from "axios";
 import store from "../../store/mainStore";
 import * as textConstants from "../../constants/TextConstants";
+import router from "../../router/index";
 
 export default defineComponent({
   name: "FormComponent",
@@ -68,6 +76,7 @@ export default defineComponent({
   data() {
     return {
       viewIndex: 0,
+      returnText: "UZ SARAKSTU",
       backText: "ATPAKAĻ",
       nextButtonText: "TĀLĀK",
       saveText: "SAGLABĀT",
@@ -81,10 +90,14 @@ export default defineComponent({
         customData,
       ],
       saveStyle: "saveStyle", //CONST
-      updateStyle: "updateStyle" //CONST
+      updateStyle: "updateStyle", //CONST
+      returnStyle: "returnStyle", //CONST
     };
   },
   methods: {
+    back() {
+      router.push("/");
+    },
     toggle(add: boolean) {
       add ? (this.viewIndex += 1) : (this.viewIndex -= 1);
       store.dispatch("updateViewSwitchValue", this.viewIndex);
@@ -155,8 +168,14 @@ export default defineComponent({
   margin-top: 50px;
   .form-template-left-side {
     margin-right: 25px;
+    margin-top: -12px;
     $form-wrapper-height: rem(800px);
     $form-wrapper-width: rem(600px);
+    .form-template-view-name-block {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px; //SCSS
+    }
     .form-wrapper {
       overflow-y: auto;
       display: flex;

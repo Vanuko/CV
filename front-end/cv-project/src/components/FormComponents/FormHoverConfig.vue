@@ -1,5 +1,5 @@
 <template>
-  <div class="form-hover-config-template">
+  <div v-if="hideInspectButtons" class="form-hover-config-template">
     <div class="config-button-block">
       <button-component :buttonText="editText" @click="emitEdit" />
       <button-component :buttonText="deleteText" @click="emitDelete" />
@@ -10,6 +10,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import buttonComponent from "../GenericComponents/Button.vue";
+import store from "../../store/mainStore";
 
 export default defineComponent({
   name: "FormHoverConfig",
@@ -33,6 +34,11 @@ export default defineComponent({
     },
     emitEdit() {
       this.$emit("editEmit");
+    },
+  },
+  computed: {
+    hideInspectButtons() {
+      return store.getters.getHideInspectButtons;
     },
   },
 });
