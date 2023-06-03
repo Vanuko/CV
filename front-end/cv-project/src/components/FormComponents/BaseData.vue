@@ -104,7 +104,6 @@ $example: rem(800px);
   div {
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
     div {
       margin-bottom: 1px; //SCSS
     }

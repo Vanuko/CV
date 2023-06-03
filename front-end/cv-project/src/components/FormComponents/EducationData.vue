@@ -44,7 +44,11 @@
         />
       </div>
     </div>
-    <button-component :buttonStyle="createStyleText" :buttonText="'Add more'" @click="addEducation()" />
+    <button-component
+      :buttonStyle="createStyleText"
+      :buttonText="'Add more'"
+      @click="addEducation()"
+    />
   </div>
 </template>
 
@@ -193,6 +197,9 @@ $example: rem(800px);
     div {
       display: flex;
       flex-direction: column;
+      div {
+        margin-bottom: 1px; //SCSS
+      }
     }
   }
   > div:nth-child(2) {

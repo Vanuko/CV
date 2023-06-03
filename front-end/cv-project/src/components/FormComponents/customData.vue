@@ -16,7 +16,11 @@
         />
       </div>
     </div>
-    <button-component :buttonText="'Add more'" @click="addCustom()" />
+    <button-component
+      :buttonStyle="createStyleText"
+      :buttonText="'Add more'"
+      @click="addCustom()"
+    />
   </div>
 </template>
 
@@ -39,6 +43,7 @@ export default defineComponent({
       subTitleText: textConstants.SUB_TITLE, //Const
       informationText: textConstants.INFORMATION, //Const
       uuid: 0,
+      createStyleText: "createStyle", //CONST
     };
   },
   methods: {
@@ -103,12 +108,21 @@ export default defineComponent({
 @import "../../assets/colors.scss";
 $example: rem(800px);
 .custom-data-component-template {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   > div:nth-child(1) {
     div {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      div {
+        margin-bottom: 1px; //SCSS
+      }
     }
+  }
+  > div:nth-child(2) {
+    margin-top: 5px;
   }
 }
 </style>

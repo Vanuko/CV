@@ -6,15 +6,15 @@
           {{ formData.name }} {{ formData.surname }}
         </div>
         <div class="cv-contact-info-block">
-          <div>
+          <div class="tiny-text-bold">
             {{ formData.phone_nr }}
           </div>
-          <div>
+          <div class="tiny-text-bold">
             {{ formData.email }}
           </div>
         </div>
       </div>
-      <div class="work-data-block">
+      <div class="work-data-block" v-if="!formData.work.length <= 0">
         <div class="cv-section-title-text">
           {{ workExperienceText }}
         </div>
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="education-data-block">
+      <div class="education-data-block" v-if="!formData.education.length <= 0">
         <div class="cv-section-title-text">
           {{ educationExperienceText }}
         </div>
@@ -94,7 +94,7 @@
           </div>
         </div>
       </div>
-      <div class="address-data-block">
+      <div class="address-data-block" v-if="!formData.address.length <= 0">
         <div class="cv-section-title-text">
           {{ addressText }}
         </div>
@@ -124,34 +124,42 @@
             </div>
           </div>
           <div class="second-location-data-block medium-text-bold">
-            <div>{{ addressElement.address_street }}</div>
+            <div class="street-name" v-if="addressElement.address_street">
+              {{ addressElement.address_street }}
+            </div>
             <div>{{ addressElement.address_number }}</div>
           </div>
         </div>
       </div>
-      <div
-        class="custom-data-block"
-        v-for="customElement in formData.custom"
-        :key="customElement"
-      >
-        <config-hover
-          class="hoverDisplay"
-          @deleteEmit="deleteObject(customElement.ID, customKey)"
-          @editEmit="
-            editObjective(customElement.ID, lastCustomUidKeyName, customView)
-          "
-        />
-        <div class="cv-section-title-text">
-          {{ customElement.custom_name }}
-        </div>
-        <div class="small-text">
-          {{ customElement.custom_value }}
+      <div v-if="!formData.custom.length <= 0">
+        <div
+          class="custom-data-block"
+          v-for="customElement in formData.custom"
+          :key="customElement"
+        >
+          <config-hover
+            class="hoverDisplay"
+            @deleteEmit="deleteObject(customElement.ID, customKey)"
+            @editEmit="
+              editObjective(customElement.ID, lastCustomUidKeyName, customView)
+            "
+          />
+          <div class="cv-section-title-text">
+            {{ customElement.custom_name }}
+          </div>
+          <div class="tiny-text-bold">
+            {{ customElement.custom_value }}
+          </div>
         </div>
       </div>
     </div>
-    <div class="cv-inspect-button-block">
+    <div v-if="!hideInspectButtons" class="cv-inspect-button-block">
       <button-component :buttonText="backText" @click="back()" />
-      <button-component :buttonText="editText" @click="edit()" />
+      <button-component
+        :buttonStyle="editStyleText"
+        :buttonText="editText"
+        @click="edit()"
+      />
     </div>
   </div>
 </template>
@@ -185,14 +193,10 @@ export default defineComponent({
       educationView: viewNumbers.EDUCATION,
       addressView: viewNumbers.ADDRESS,
       customView: viewNumbers.CUSTOM,
-      editText: "Rediģēt", //const,
-      backText: "Atpakaļ", //const
+      editText: "REDIĢĒT", //const,
+      backText: "ATPAKAĻ", //const
+      editStyleText: "editStyle", //const
     };
-  },
-  computed: {
-    formData() {
-      return store.getters.getForm;
-    },
   },
   methods: {
     back() {
@@ -213,12 +217,26 @@ export default defineComponent({
       });
     },
   },
+  computed: {
+    formData() {
+      return store.getters.getForm;
+    },
+    hideInspectButtons() {
+      return store.getters.getHideInspectButtons;
+    },
+  },
+  mounted() {
+    store.dispatch("updateHideInspectButtons", false);
+  },
 });
 </script>
 <style lang="scss" scoped>
 @import "../assets/colors.scss";
 
 .inspect-view-template {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .hoverDisplay {
     display: none;
   }
@@ -255,12 +273,14 @@ export default defineComponent({
     .base-data-block {
       width: 100%;
       display: flex;
+      flex-wrap: wrap;
       .cv-name-block {
       }
       .cv-contact-info-block {
         display: flex;
         flex-direction: column;
         margin-left: auto;
+        align-items: flex-end;
       }
     }
 
@@ -330,6 +350,9 @@ export default defineComponent({
         }
         .second-location-data-block {
           display: flex;
+          .street-name {
+            margin-right: 10px; //SCSS
+          }
         }
       }
       .address-data-element:hover {
@@ -356,6 +379,12 @@ export default defineComponent({
       border-width: 0px 0px 1px 0px;
       margin-bottom: 15px;
     }
+  }
+  .cv-inspect-button-block {
+    display: flex;
+    justify-content: space-between;
+    width: 210mm; //SCSS
+    margin-top: 10px; //SCSS
   }
 }
 </style>

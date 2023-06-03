@@ -8,6 +8,7 @@ export interface formState {
     lastUid: UidModel;
     viewSwitchValue: number;
     inspectMode: boolean;
+    hideInspectButtons: boolean;
 }
 
 interface UpdateFormPartPayload {
@@ -26,35 +27,10 @@ export const formStore: Module<formState, RootState> = {
             surname: "",
             phone_nr: "",
             email: "",
-            work: [{
-                ID: 0,
-                work_place: "",
-                work_position: "",
-                work_load: "",
-                work_experience: 0,
-            }],
-            education: [{
-                ID: 0,
-                education_institution: "",
-                education_faculty: "",
-                education_field_of_study: "",
-                education_level: "",
-                education_status: "",
-                education_time_spent: 0,
-            }],
-            address: [{
-                ID: 0,
-                address_country: "",
-                address_index: "",
-                address_city: "",
-                address_street: "",
-                address_number: ""
-            }],
-            custom: [{
-                ID: 0,
-                custom_name: "",
-                custom_value: ""
-            }],
+            work: [],
+            education: [],
+            address: [],
+            custom: [],
             created_at: "",
             updated_at: "",
         },
@@ -65,7 +41,8 @@ export const formStore: Module<formState, RootState> = {
             last_custom_ID: 0
         },
         viewSwitchValue: 0,
-        inspectMode: false
+        inspectMode: false,
+        hideInspectButtons: false
     },
     mutations: {
         resetCvObject(state) {
@@ -75,35 +52,10 @@ export const formStore: Module<formState, RootState> = {
                 surname: "",
                 phone_nr: "",
                 email: "",
-                work: [{
-                    ID: 0,
-                    work_place: "",
-                    work_position: "",
-                    work_load: "",
-                    work_experience: 0,
-                }],
-                education: [{
-                    ID: 0,
-                    education_institution: "",
-                    education_faculty: "",
-                    education_field_of_study: "",
-                    education_level: "",
-                    education_status: "",
-                    education_time_spent: 0,
-                }],
-                address: [{
-                    ID: 0,
-                    address_country: "",
-                    address_index: "",
-                    address_city: "",
-                    address_street: "",
-                    address_number: ""
-                }],
-                custom: [{
-                    ID: 0,
-                    custom_name: "",
-                    custom_value: ""
-                }],
+                work: [],
+                education: [],
+                address: [],
+                custom: [],
                 created_at: "",
                 updated_at: "",
             };
@@ -113,6 +65,9 @@ export const formStore: Module<formState, RootState> = {
         },
         updateInspectMode(state, payload) {
             state.inspectMode = payload;
+        },
+        updateHideInspectButtons(state, payload) {
+            state.hideInspectButtons = payload;
         },
         mutateFormPart(state, payload: UpdateFormPartPayload) {
             const { part, value, arrayKeyName, uuid } = payload;
@@ -169,6 +124,9 @@ export const formStore: Module<formState, RootState> = {
         updateInspectMode({ commit }, project) {
             commit("updateInspectMode", project);
         },
+        updateHideInspectButtons({ commit }, project) {
+            commit("updateHideInspectButtons", project);
+        },
         updateFormPart({ commit }, payload: UpdateFormPartPayload) {
             commit("mutateFormPart", payload);
         },
@@ -203,6 +161,9 @@ export const formStore: Module<formState, RootState> = {
         },
         getInspectMode(state) {
             return state.inspectMode
+        },
+        getHideInspectButtons(state) {
+            return state.hideInspectButtons
         }
     },
 };

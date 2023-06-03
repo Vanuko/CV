@@ -8,26 +8,33 @@
         <component :is="requiredComponent"> </component>
       </div>
       <div class="form-buttons">
-        <button-component
-          :buttonText="backText"
-          v-if="this.viewIndex != 0"
-          @click="toggle(false)"
-        />
-        <button-component
-          :buttonText="buttonText"
-          v-if="this.viewIndex != 4"
-          @click="toggle(true)"
-        />
-        <button-component
-          v-if="!inpectMode"
-          :buttonText="'SAVE'"
-          @click="saveCV()"
-        />
-        <button-component
-          v-if="inpectMode"
-          :buttonText="'UPDATE'"
-          @click="updateCV()"
-        />
+        <div class="information-update-button-block">
+          <button-component
+            v-if="!inpectMode"
+            :buttonStyle="saveStyle"
+            :buttonText="saveText"
+            @click="saveCV()"
+          />
+          <button-component
+            v-if="inpectMode"
+            :buttonStyle="updateStyle"
+            :buttonText="updateText"
+            @click="updateCV()"
+          />
+        </div>
+        <div class="navigation-button-block">
+          <button-component
+            :buttonText="backText"
+            v-if="this.viewIndex != 0"
+            @click="toggle(false)"
+          />
+          <button-component
+            class="navigation-next-button"
+            :buttonText="nextButtonText"
+            v-if="this.viewIndex != 4"
+            @click="toggle(true)"
+          />
+        </div>
       </div>
     </div>
     <div class="form-template-right-side"><inspect-view /></div>
@@ -61,9 +68,10 @@ export default defineComponent({
   data() {
     return {
       viewIndex: 0,
-      backText: "BACK",
-      buttonText: "NEXT",
-      saveText: "GETCV",
+      backText: "ATPAKAĻ",
+      nextButtonText: "TĀLĀK",
+      saveText: "SAGLABĀT",
+      updateText: "SAGLABĀT IZMAIŅAS",
       requiredComponent: {},
       componentArray: [
         baseData,
@@ -72,6 +80,8 @@ export default defineComponent({
         addressData,
         customData,
       ],
+      saveStyle: "saveStyle", //CONST
+      updateStyle: "updateStyle" //CONST
     };
   },
   methods: {
@@ -142,11 +152,11 @@ export default defineComponent({
 .form-component-template {
   display: flex;
   justify-content: center;
+  margin-top: 50px;
   .form-template-left-side {
     margin-right: 25px;
     $form-wrapper-height: rem(800px);
     $form-wrapper-width: rem(600px);
-    $form-wrapper-margin-top: rem(30px);
     .form-wrapper {
       overflow-y: auto;
       display: flex;
@@ -155,13 +165,23 @@ export default defineComponent({
       align-items: center;
       width: $form-wrapper-width;
       height: $form-wrapper-height;
-      margin-top: $form-wrapper-margin-top;
       background: $white;
       box-sizing: border-box;
       padding: 25px; //SCSS
     }
     .form-buttons {
+      margin-top: 25px; //SCSS
       display: flex;
+      .information-update-button-block {
+        display: flex;
+      }
+      .navigation-button-block {
+        display: flex;
+        margin-left: auto;
+        .navigation-next-button {
+          margin-left: 15px; //SCSS
+        }
+      }
     }
   }
 }

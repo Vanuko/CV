@@ -31,7 +31,11 @@
         />
       </div>
     </div>
-    <button-component :buttonStyle="createStyleText" :buttonText="'Add more'" @click="addWork()" />
+    <button-component
+      :buttonStyle="createStyleText"
+      :buttonText="'Add more'"
+      @click="addWork()"
+    />
   </div>
 </template>
 
@@ -134,10 +138,16 @@ export default defineComponent({
       workValues: (state: any) => {
         const formObject = state.formStore.cvObject;
         const latstUidObject = state.formStore.lastUid;
-        const workObject = formObject.work.find(
-          (work: WorkplaceInterface) => work.ID === latstUidObject.last_work_ID
-        );
-        return workObject;
+        if (formObject.work) {
+          console.log(formObject.work);
+          const workObject = formObject.work.find(
+            (work: WorkplaceInterface) =>
+              work.ID === latstUidObject.last_work_ID
+          );
+          return workObject;
+        } else {
+          return null;
+        }
       },
     }),
   },
@@ -149,16 +159,19 @@ $example: rem(800px);
 .work-data-component-template {
   display: flex;
   flex-direction: column;
-  width: 100%;
   justify-content: center;
+  width: 100%;
   > div:nth-child(1) {
     div {
       display: flex;
       flex-direction: column;
+      div {
+        margin-bottom: 1px; //SCSS
+      }
     }
   }
-    > div:nth-child(2) {
-      margin-top: 5px;
-    }
+  > div:nth-child(2) {
+    margin-top: 5px;
+  }
 }
 </style>

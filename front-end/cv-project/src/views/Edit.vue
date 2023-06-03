@@ -9,6 +9,7 @@
 import { defineComponent } from "vue";
 import * as textConstants from "../constants/TextConstants";
 import cvForm from "../components/FormComponents/CvForm.vue";
+import store from "../store/mainStore";
 
 export default defineComponent({
   name: "Edit",
@@ -17,6 +18,9 @@ export default defineComponent({
     return {
       editTitleText: textConstants.EDIT_VIEW,
     };
+  },
+  mounted() {
+    store.dispatch("updateHideInspectButtons", true);
   },
 });
 </script>
