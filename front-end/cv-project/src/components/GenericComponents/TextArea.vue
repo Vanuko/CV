@@ -39,7 +39,7 @@ export default defineComponent({
   width: 100%;
   textarea.text-box {
     width: 100%;
-    height: 600px; //SCSS
+    height: 400px; //SCSS
     resize: none;
     border-color: $border-grey;
   }

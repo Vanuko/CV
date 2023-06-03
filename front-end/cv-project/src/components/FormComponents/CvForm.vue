@@ -169,7 +169,7 @@ export default defineComponent({
   .form-template-left-side {
     margin-right: 25px;
     margin-top: -12px;
-    $form-wrapper-height: rem(800px);
+    $form-wrapper-height: rem(590px);
     $form-wrapper-width: rem(600px);
     .form-template-view-name-block {
       display: flex;

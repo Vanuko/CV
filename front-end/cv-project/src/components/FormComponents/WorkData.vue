@@ -17,9 +17,9 @@
       </div>
       <div>
         <form-text :titleText="workLoadText" />
-        <input-field
-          :value="workValues.work_load"
-          @input="handleInput($event, workLoadText)"
+        <generic-dropdown
+          :passedItems="workLoadSelection"
+          @itemSelected="handleLoad"
         />
       </div>
       <div>
@@ -49,10 +49,12 @@ import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
 import { WorkplaceInterface } from "../../models/form";
 import { mapState } from "vuex";
+import genericDropdown from "../GenericComponents/Dropodown.vue";
+import * as formObjects from "../../constants/FormPartConstants";
 
 export default defineComponent({
   name: "WorkDataComponent",
-  components: { FormText, inputField, buttonComponent },
+  components: { FormText, inputField, buttonComponent, genericDropdown },
   data() {
     return {
       workPlaceText: textConstants.WORKPLACE,
@@ -63,10 +65,20 @@ export default defineComponent({
       uuid: 0,
       typeNumber: "number", //REMOVE?
       createStyleText: "createStyle", //CONST
-      addMoreText: "PIEVIENOT"
+      addMoreText: "PIEVIENOT",
+      workLoadSelection: formObjects.WORK_LOAD,
     };
   },
   methods: {
+    handleLoad(data: string) {
+      const lastUid = store.getters.getLastUid;
+      store.dispatch("updateFormPart", {
+        part: keyNames.W_LOAD,
+        value: data,
+        arrayKeyName: keyNames.WORK,
+        uuid: lastUid.last_work_ID,
+      });
+    },
     handleInput(inputData: string, data: string) {
       const lastUid = store.getters.getLastUid;
       switch (data) {
@@ -91,17 +103,7 @@ export default defineComponent({
           break;
         }
       }
-      switch (data) {
-        case textConstants.WORK_LOAD: {
-          store.dispatch("updateFormPart", {
-            part: keyNames.W_LOAD,
-            value: inputData,
-            arrayKeyName: keyNames.WORK,
-            uuid: lastUid.last_work_ID,
-          });
-          break;
-        }
-      }
+
       switch (data) {
         case textConstants.WORK_EXPERIENCE: {
           store.dispatch("updateFormPart", {

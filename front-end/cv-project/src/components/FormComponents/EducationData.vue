@@ -24,16 +24,18 @@
       </div>
       <div>
         <form-text :titleText="educationLevelText" />
-        <input-field
-          :value="educationValues.education_level"
-          @input="handleInput($event, educationLevelText)"
+        <generic-dropdown
+          :passedItems="educationLevelSelection"
+          @itemSelected="handleLevel"
         />
       </div>
       <div>
         <form-text :titleText="educationStatusText" />
-        <generic-dropdown :passedItems="educationSelection" @itemSelected="handleStatus" />
+        <generic-dropdown
+          :passedItems="educationStatusSelection"
+          @itemSelected="handleStatus"
+        />
       </div>
-
       <div>
         <form-text :titleText="educationTimeSpentText" />
         <input-field
@@ -77,7 +79,8 @@ export default defineComponent({
       uuid: 0,
       createStyleText: "createStyle", //CONST
       addMoreText: "PIEVIENOT",
-      educationSelection: formObjects.EDUCATION_DROPDOWN
+      educationStatusSelection: formObjects.EDUCATION_STATUS,
+      educationLevelSelection: formObjects.EDUCATION_LEVEL,
     };
   },
   methods: {
@@ -117,17 +120,6 @@ export default defineComponent({
         }
       }
       switch (data) {
-        case textConstants.EDUCATION_LEVEL: {
-          store.dispatch("updateFormPart", {
-            part: keyNames.EDU_LVL,
-            value: inputData,
-            arrayKeyName: keyNames.EDU,
-            uuid: lastUid.last_education_ID,
-          });
-          break;
-        }
-      }
-      switch (data) {
         case textConstants.STATUS: {
           store.dispatch("updateFormPart", {
             part: keyNames.EDU_STAT,
@@ -151,6 +143,15 @@ export default defineComponent({
       }
     },
     handleStatus(data: string) {
+      const lastUid = store.getters.getLastUid;
+      store.dispatch("updateFormPart", {
+        part: keyNames.EDU_LVL,
+        value: data,
+        arrayKeyName: keyNames.EDU,
+        uuid: lastUid.last_education_ID,
+      });
+    },
+    handleLevel(data: string) {
       const lastUid = store.getters.getLastUid;
       store.dispatch("updateFormPart", {
         part: keyNames.EDU_STAT,
