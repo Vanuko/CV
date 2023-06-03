@@ -27,7 +27,6 @@ export default defineComponent({
   methods: {
     handleInput(event: Event) {
       const el = event.target as HTMLInputElement;
-      console.log("value?", el.value)
       this.$emit("textInput", el.value);
     },
   },
@@ -41,7 +40,7 @@ export default defineComponent({
   textarea.text-box {
     width: 100%;
     height: 600px; //SCSS
-    resize: vertical;
+    resize: none;
     border-color: $border-grey;
   }
 }

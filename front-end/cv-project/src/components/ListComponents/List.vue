@@ -80,7 +80,8 @@ $list-component-template-padding-top: rem(45px);
   $list-component-width: rem(1400px);
   .list-component {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     height: $list-component-height;
     width: $list-component-width;
     > div {

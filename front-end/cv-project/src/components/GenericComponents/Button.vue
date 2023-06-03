@@ -27,6 +27,7 @@ export default defineComponent({
         "save-button": this.buttonStyle === "saveStyle",
         "update-button": this.buttonStyle === "updateStyle",
         "return-button": this.buttonStyle === "returnStyle",
+        "positive-button": this.buttonStyle === "positiveStyle",
       };
     },
   },
@@ -108,5 +109,13 @@ $example: rem(45px);
 .return-button:hover {
   color: $mail-gray-10;
   background-color: $default-grey-hover;
+}
+.positive-button {
+  color: $white;
+  background-color: $green;
+}
+.positive-button:hover {
+  color: $white;
+  background-color: $hover-green;
 }
 </style>

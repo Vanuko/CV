@@ -6,19 +6,21 @@
       </div>
 
       <div class="tiny-text-bold list-info-block-element">
-        {{ phoneNrText }} : {{ listItem.phone_nr }}
+        {{ phoneNrText }}: {{ listItem.phone_nr }}
       </div>
       <div class="tiny-text-bold list-info-block-element">
-        {{ emailText }} : {{ listItem.email }}
+        {{ emailText }}: {{ listItem.email }}
       </div>
     </div>
     <div class="list-element-button-block">
       <button-component
+        v-if="!showConfirmation"
         :buttonStyle="editStyleText"
         :buttonText="editText"
         @click.stop="edit()"
       />
       <button-component
+        @mouseleave="resetCheck"
         :buttonStyle="deleteStyleText"
         :buttonText="deleteText"
         @click.stop="deleteCV()"
@@ -55,26 +57,37 @@ export default defineComponent({
       emailText: "Epasts", //CONST
       editStyleText: "editStyle", //CONST
       deleteStyleText: "deleteStyle", //CONST
+      deleteConfirmText: "DZĒST?",
+      showConfirmation: false,
     };
   },
   methods: {
+    resetCheck() {
+      this.showConfirmation = false;
+      this.deleteText = textConstants.DELETE;
+    },
     viewCV() {
       store.dispatch("updateCvObjectAction", this.listItem);
       router.push("/inspect");
     },
     deleteCV() {
-      const requestData = {
-        functionName: "deleteCV",
-        data: this.listItem,
-      };
-      axios
-        .delete("http://localhost/backend.php", { data: requestData })
-        .then(() => {
-          this.$emit("reloadData");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      if (this.showConfirmation) {
+        const requestData = {
+          functionName: "deleteCV",
+          data: this.listItem,
+        };
+        axios
+          .delete("http://localhost/backend.php", { data: requestData })
+          .then(() => {
+            this.$emit("reloadData");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } else {
+        this.deleteText = this.deleteConfirmText;
+        this.showConfirmation = true;
+      }
     },
     edit() {
       store.dispatch("updateCvObjectAction", this.listItem);
@@ -119,8 +132,8 @@ $list-element-border-radius: rem(3px);
     margin-left: auto;
     display: flex;
 
-    > div:nth-child(1) {
-      margin-right: 15px; //SCSS
+    > div:last-child {
+      margin-left: 15px; //SCSS
     }
   }
 }

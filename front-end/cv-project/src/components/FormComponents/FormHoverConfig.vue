@@ -1,8 +1,31 @@
 <template>
   <div v-if="hideInspectButtons" class="form-hover-config-template">
     <div class="config-button-block">
-      <button-component :buttonText="editText" @click="emitEdit" />
-      <button-component :buttonText="deleteText" @click="emitDelete" />
+      <button-component
+        v-if="!showConfirmation"
+        :buttonStyle="editStyle"
+        :buttonText="editText"
+        @click="emitEdit"
+      />
+      <button-component
+        v-if="!showConfirmation"
+        :buttonStyle="deleteStyle"
+        :buttonText="deleteText"
+        @click="emitDelete"
+      />
+      <div v-if="showConfirmation" class="confirmation-dialog">
+        <div class="tiny-text-bold">{{ dzēstTexts }}</div>
+        <button-component
+          :buttonStyle="deleteStyle"
+          :buttonText="confirmText"
+          @click="confirmDelete"
+        />
+        <button-component
+          :buttonStyle="positiveStyle"
+          :buttonText="cancelText"
+          @click="cancelDelete"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -23,17 +46,30 @@ export default defineComponent({
   },
   data() {
     return {
-      editText: "Rediģēt", //Const
-      deleteText: "Dzēst", //Const
+      editText: "REDIĢĒT", //Const
+      deleteText: "DZĒST", //Const
+      confirmText: "JĀ", // Const
+      cancelText: "NĒ", // Const
       showConfig: false,
+      showConfirmation: false,
+      dzēstTexts: "Izdzēst ierakstu?",
+      deleteStyle: "deleteStyle",
+      positiveStyle: "positiveStyle",
+      editStyle: "editStyle",
     };
   },
   methods: {
     emitDelete() {
-      this.$emit("deleteEmit");
+      this.showConfirmation = true;
     },
     emitEdit() {
       this.$emit("editEmit");
+    },
+    confirmDelete() {
+      this.$emit("deleteEmit");
+    },
+    cancelDelete() {
+      this.showConfirmation = false;
     },
   },
   computed: {
@@ -59,6 +95,22 @@ $example: rem(800px);
     display: flex;
     > div:nth-child(1) {
       margin-right: 40px;
+    }
+    .confirmation-dialog {
+      display: flex;
+      width: fit-content;
+
+      div:nth-child(1) {
+        display: flex;
+        align-items: center;
+        background: $white;
+        box-sizing: border-box;
+        padding: 0px 10px 0px 10px;
+        border-radius: 5px;
+      }
+      div:not(:last-child) {
+        margin-right: 25px;
+      }
     }
   }
 }
