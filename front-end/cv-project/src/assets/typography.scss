@@ -1,4 +1,5 @@
 @import "~sass-rem";
+@import "./colors.scss";
 
 //headline 4
 $h4-font-size: rem(35px);
@@ -17,6 +18,14 @@ $default-title-text-font-size: rem(25px);
     font-size: $default-title-text-font-size;
     font-style: normal;
     font-weight: bold;
+}
+
+$default-title-text-font-size: rem(20px);
+
+.default-title-text-light {
+    @extend .default-title-text;
+    font-size: $default-title-text-font-size;
+    color: $mail-gray-10;
 }
 
 $cv-title-text-font-size: rem(35px);
@@ -43,7 +52,6 @@ $medium-text-bold-font-size: rem(25px);
     font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: $medium-text-bold-font-size;
     font-style: normal;
-    font-weight: bold;
 }
 
 .medium-text-bold {
@@ -63,10 +71,28 @@ $small-text-font-size: rem(20px);
     font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: $small-text-font-size;
     font-style: normal;
+}
+
+.small-text-bold {
+    @extend .medium-text;
     font-weight: bold;
 }
 
 .small-text-italic {
     @extend .medium-text;
     font-style: italic;
+}
+
+
+$tiny-text-font-size: rem(15px);
+
+.tiny-text {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: $small-text-font-size;
+    font-style: normal;
+}
+
+.tiny-text-bold {
+    @extend .tiny-text;
+    font-weight: bold;
 }

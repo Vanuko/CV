@@ -31,7 +31,7 @@
         />
       </div>
     </div>
-    <button-component :buttonText="'Add more'" @click="addWork()" />
+    <button-component :buttonStyle="createStyleText" :buttonText="'Add more'" @click="addWork()" />
   </div>
 </template>
 
@@ -55,9 +55,10 @@ export default defineComponent({
       workPositionText: textConstants.POSITION,
       workLoadText: textConstants.WORK_LOAD,
       workExperienceText: textConstants.WORK_EXPERIENCE,
-      buttonText: "Add more",
+      buttonText: "Add more", //CONST
       uuid: 0,
-      typeNumber: "number",
+      typeNumber: "number", //REMOVE?
+      createStyleText: "createStyle", //CONST
     };
   },
   methods: {
@@ -146,12 +147,18 @@ export default defineComponent({
 @import "../../assets/colors.scss";
 $example: rem(800px);
 .work-data-component-template {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  justify-content: center;
   > div:nth-child(1) {
     div {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
     }
   }
+    > div:nth-child(2) {
+      margin-top: 5px;
+    }
 }
 </style>

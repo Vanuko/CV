@@ -44,7 +44,7 @@
         />
       </div>
     </div>
-    <button-component :buttonText="'Add more'" @click="addEducation()" />
+    <button-component :buttonStyle="createStyleText" :buttonText="'Add more'" @click="addEducation()" />
   </div>
 </template>
 
@@ -71,6 +71,7 @@ export default defineComponent({
       educationStatusText: textConstants.STATUS,
       educationTimeSpentText: textConstants.TIME_SPENT,
       uuid: 0,
+      createStyleText: "createStyle", //CONST
     };
   },
   methods: {
@@ -184,12 +185,18 @@ export default defineComponent({
 @import "../../assets/colors.scss";
 $example: rem(800px);
 .education-data-component-template {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   > div:nth-child(1) {
     div {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
     }
+  }
+  > div:nth-child(2) {
+    margin-top: 5px;
   }
 }
 </style>

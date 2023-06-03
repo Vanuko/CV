@@ -1,7 +1,7 @@
 <template>
   <div class="form-component-template">
     <div class="form-template-left-side">
-      <div>
+      <div class="medium-text-bold">
         {{ updateView }}
       </div>
       <div class="form-wrapper">
@@ -157,6 +157,8 @@ export default defineComponent({
       height: $form-wrapper-height;
       margin-top: $form-wrapper-margin-top;
       background: $white;
+      box-sizing: border-box;
+      padding: 25px; //SCSS
     }
     .form-buttons {
       display: flex;

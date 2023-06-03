@@ -3,8 +3,8 @@ export const EDIT_VIEW = "Rediģēt CV";
 
 
 //Generic Words
-export const DELETE = "Dzēst";
-export const EDIT = "Rediģēt";
+export const DELETE = "DZĒST";
+export const EDIT = "REDIĢĒT";
 
 //Form generic words
 //Base Data 

@@ -1,5 +1,5 @@
 <template>
-  <div class="form-text-component-template default-title-text">
+  <div class="form-text-component-template default-title-text-light">
     {{ titleText }}
   </div>
 </template>

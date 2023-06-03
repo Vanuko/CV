@@ -1,18 +1,29 @@
 <template>
   <div class="list-element" @click="viewCV()">
     <div class="list-info-block">
-      <div>
-        {{ listItem.name }}
+      <div class="small-text list-info-block-element">
+        {{ listItem.name }} {{ listItem.surname }}
       </div>
-      <div>
-        {{ listItem.surname }}
+
+      <div class="small-text list-info-block-element">
+        {{ phoneNrText }} : {{ listItem.phone_nr }}
       </div>
-      <div>
-        {{ listItem.phone_nr }}
+      <div class="small-text list-info-block-element">
+        {{ emailText }} : {{ listItem.email }}
       </div>
     </div>
-    <button-component :buttonText="editText" @click.stop="edit()" />
-    <button-component :buttonText="deleteText" @click.stop="deleteCV()" />
+    <div class="list-element-button-block">
+      <button-component
+        :buttonStyle="editStyleText"
+        :buttonText="editText"
+        @click.stop="edit()"
+      />
+      <button-component
+        :buttonStyle="deleteStyleText"
+        :buttonText="deleteText"
+        @click.stop="deleteCV()"
+      />
+    </div>
   </div>
 </template>
 
@@ -40,6 +51,10 @@ export default defineComponent({
     return {
       deleteText: textConstants.DELETE,
       editText: textConstants.EDIT,
+      phoneNrText: "Telefona nr", //CONST
+      emailText: "Epasts", //CONST
+      editStyleText: "editStyle", //CONST
+      deleteStyleText: "deleteStyle", //CONST
     };
   },
   methods: {
@@ -67,12 +82,15 @@ export default defineComponent({
       router.push("/edit");
     },
   },
+  mounted() {
+    console.log(this.listItem);
+  },
 });
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
 $list-element-height: rem(45px);
-$list-element-width: rem(1000px);
+$list-element-width: rem(1200px);
 $list-element-margin-top: rem(15px);
 $list-element-border-radius: rem(3px);
 .list-element {
@@ -81,10 +99,36 @@ $list-element-border-radius: rem(3px);
   height: $list-element-height;
   width: $list-element-width;
   margin-top: $list-element-margin-top;
+  padding: 0px 15px 0px 15px; //SCSS
+  box-sizing: border-box;
   background-color: $mail-white;
   border-radius: $list-element-border-radius;
   .list-info-block {
     display: flex;
+
+    .list-info-block-element {
+      display: flex;
+      max-width: calc(40%);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; //Return to this ellipsis!
+    }
+
+    .list-info-block-element:not(:last-child) {
+      margin-right: 10px;
+    }
   }
+  .list-element-button-block {
+    margin-left: auto;
+    display: flex;
+
+    > div:nth-child(1) {
+      margin-right: 15px; //SCSS
+    }
+  }
+}
+.list-element:hover {
+  cursor: pointer;
+  background-color: $default-grey-hover;
 }
 </style>

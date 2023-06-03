@@ -1,5 +1,5 @@
 <template>
-  <div :class="['button-element small-text']">
+  <div :class="['button-element small-text', buttonStyleClass]">
     {{ buttonText }}
   </div>
 </template>
@@ -13,6 +13,18 @@ export default defineComponent({
   props: {
     buttonText: {
       type: String,
+    },
+    buttonStyle: {
+      type: String,
+    },
+  },
+  computed: {
+    buttonStyleClass() {
+      return {
+        "edit-button": this.buttonStyle === "editStyle",
+        "delete-button": this.buttonStyle === "deleteStyle",
+        "create-button": this.buttonStyle === "createStyle",
+      };
     },
   },
 });
@@ -31,6 +43,34 @@ $example: rem(45px);
   justify-content: center;
 }
 .button-element:hover {
-  background: #d3d3d3;
+  background: $default-grey;
+}
+.edit-button {
+  color: $white;
+  background-color: $mail-yellow;
+}
+.edit-button:hover {
+  color: $white;
+  background-color: $mail-yellow;
+  opacity: 0.6;
+}
+.delete-button {
+  color: $text-grey;
+  background-color: $red;
+}
+.delete-button:hover {
+  color: $text-grey;
+  background-color: $red;
+  opacity: 0.6;
+}
+.create-button {
+  color: $white;
+  background-color: $mail-blue;
+  width: 125px;
+}
+.create-button:hover {
+  color: $white;
+  background-color: $mail-blue;
+  opacity: 0.6;
 }
 </style>

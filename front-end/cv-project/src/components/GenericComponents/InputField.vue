@@ -1,6 +1,12 @@
 <template>
   <div class="input-field-element">
-    <input :type="type" :value="value" maxlength="30" @input="handleInput" />
+    <input
+      class="tiny-text-bold"
+      :type="type"
+      :value="value"
+      :maxlength="maxInputLength"
+      @input="handleInput"
+    />
   </div>
 </template>
 
@@ -16,8 +22,12 @@ export default defineComponent({
       type: String,
     },
     type: {
-      type: String, 
+      type: String,
       default: "text"
+    },
+    maxInputLength: {
+      type: Number,
+      default: 30
     },
   },
   methods: {
@@ -35,4 +45,12 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
 $example: rem(45px);
+.input-field-element {
+  width: 100%;
+  height: 35px; //SCSS
+  input {
+    height: 100%;
+    width: 100%;
+  }
+}
 </style>
