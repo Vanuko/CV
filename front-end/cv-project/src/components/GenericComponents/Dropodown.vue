@@ -30,11 +30,15 @@ export default defineComponent({
       type: Array as () => Array<string>,
       required: true,
     },
+    value: {
+      type: String,
+      default: ""
+    }
   },
   data() {
     return {
       isOpen: false,
-      selectedItem: "",
+      selectedItem: this.value,
       items: [] as string[],
     };
   },

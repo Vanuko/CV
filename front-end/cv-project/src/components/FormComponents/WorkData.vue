@@ -18,6 +18,7 @@
       <div>
         <form-text :titleText="workLoadText" />
         <generic-dropdown
+          :value="workValues.work_load"
           :passedItems="workLoadSelection"
           @itemSelected="handleLoad"
         />
@@ -29,6 +30,7 @@
             v-model="date"
             autoApply
             range
+            :placeholder="workValues.work_experience"
             :maxDate="new Date()"
             :enable-time-picker="false"
             :hide-navigation="['time', 'minutes', 'hours', 'seconds']"

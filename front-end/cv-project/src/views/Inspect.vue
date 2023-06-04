@@ -6,11 +6,11 @@
           {{ formData.name }} {{ formData.surname }}
         </div>
         <div class="cv-contact-info-block">
-          <div class="tiny-text-bold">
-            {{ formData.phone_nr }}
+          <div v-if="formData.phone_nr.length > 0" class="tiny-text-bold">
+            {{ nrText }}{{ formData.phone_nr }}
           </div>
-          <div class="tiny-text-bold">
-            {{ formData.email }}
+          <div v-if="formData.email.length > 0" class="tiny-text-bold">
+            {{ emailText }}{{ formData.email }}
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
               editObjective(workElement.ID, lastWorkUidKeyName, workView)
             "
           />
-          <div class="date-field">
+          <div class="date-field tiniest-text-bold">
             {{ workElement.work_experience }}
           </div>
           <div>
@@ -196,6 +196,8 @@ export default defineComponent({
       editText: "REDIĢĒT", //const,
       backText: "ATPAKAĻ", //const
       editStyleText: "editStyle", //const
+      nrText: "Telefona nr: ",
+      emailText: "E-pasts: ",
     };
   },
   methods: {

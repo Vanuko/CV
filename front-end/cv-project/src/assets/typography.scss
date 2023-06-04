@@ -96,3 +96,16 @@ $tiny-text-font-size: rem(15px);
     @extend .tiny-text;
     font-weight: bold;
 }
+
+$tiniest-text-font-size: rem(15px);
+
+.tiniest-text {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: $tiniest-text-font-size;
+    font-style: normal;
+}
+
+.tiniest-text-bold {
+    @extend .tiniest-text;
+    font-weight: bold;
+}

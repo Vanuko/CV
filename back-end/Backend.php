@@ -65,7 +65,7 @@ if ($method === "GET") {
             foreach($requestData->work as $work){
                 $workData = "INSERT INTO work_data (ID_base_data, work_place, work_position, work_load, work_experience) VALUES (?, ?, ?, ?, ?)";
                 $stmt = mysqli_prepare($data_base, $workData);
-                mysqli_stmt_bind_param($stmt, 'isssd', $id_base_data, $work->work_place, $work->work_position, $work->work_load, $work->work_experience);
+                mysqli_stmt_bind_param($stmt, 'issss', $id_base_data, $work->work_place, $work->work_position, $work->work_load, $work->work_experience);
                 mysqli_stmt_execute($stmt);
             }}
             if(isset($requestData->education)){
@@ -73,7 +73,7 @@ if ($method === "GET") {
                 $educationData = "INSERT INTO education_data (ID_base_data, education_institution, education_faculty, education_field_of_study, education_level,
                 education_status, education_time_spent) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 $stmt = mysqli_prepare($data_base, $educationData);
-                mysqli_stmt_bind_param($stmt, 'isssssd', $id_base_data, $education->education_institution, $education->education_faculty, $education->education_field_of_study,
+                mysqli_stmt_bind_param($stmt, 'issssss', $id_base_data, $education->education_institution, $education->education_faculty, $education->education_field_of_study,
                 $education->education_level, $education->education_status, $education->education_time_spent);
                 mysqli_stmt_execute($stmt);
             }}
@@ -114,7 +114,7 @@ if ($method === "GET") {
                 foreach($requestData->work as $work){
                     $workData = "INSERT INTO work_data (ID_base_data, work_place, work_position, work_load, work_experience) VALUES (?, ?, ?, ?, ?)";
                     $stmt = mysqli_prepare($data_base, $workData);
-                    mysqli_stmt_bind_param($stmt, 'isssd', $requestData->ID, $work->work_place, $work->work_position, $work->work_load, $work->work_experience);
+                    mysqli_stmt_bind_param($stmt, 'issss', $requestData->ID, $work->work_place, $work->work_position, $work->work_load, $work->work_experience);
                     mysqli_stmt_execute($stmt);
                 }}
                 if(isset($requestData->education)){
@@ -122,7 +122,7 @@ if ($method === "GET") {
                     $educationData = "INSERT INTO education_data (ID_base_data, education_institution, education_faculty, education_field_of_study, education_level,
                     education_status, education_time_spent) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     $stmt = mysqli_prepare($data_base, $educationData);
-                    mysqli_stmt_bind_param($stmt, 'isssssd', $requestData->ID, $education->education_institution, $education->education_faculty, $education->education_field_of_study,
+                    mysqli_stmt_bind_param($stmt, 'issssss', $requestData->ID, $education->education_institution, $education->education_faculty, $education->education_field_of_study,
                     $education->education_level, $education->education_status, $education->education_time_spent);
                     mysqli_stmt_execute($stmt);
                 }}

@@ -116,8 +116,8 @@ export default defineComponent({
       };
       axios
         .post("http://localhost/backend.php", requestData)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+          router.push("/");
         })
         .catch((error) => {
           console.error(error);
@@ -130,8 +130,8 @@ export default defineComponent({
       };
       axios
         .post("http://localhost/backend.php", requestData)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+          router.push("/");
         })
         .catch((error) => {
           console.error(error);
