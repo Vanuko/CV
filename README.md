@@ -1,38 +1,35 @@
 # CV
 Projekta uzstādīšana:
-Šis projekts ir veidots Uz Vue 3 Framework, izmantojot XAMPP UN PHP KODU.
-Koda izveide tika veikta izmantojot Visual Studio Code.
+Šis projekts ir izveidots, izmantojot Vue 3 framework, XAMPP un PHP kodu. 
+Koda izveide tika veikta, izmantojot Visual Studio Code.
 
-Soļi kas jāveic lai uzstādītu projektu:
-1)Uzstādīt Node.js
-Šī projeckta ietvaros tika izmantota Node.js v16.15.1 versija.
+Uzstādīšanas norādes
+Lai uzstādītu šo projektu, sekojiet zemāk norādītajiem soļiem:
 
-2)Folderī uzstādīt vue cli pakotni, ja nepieciešams.
-Dodoties iekšā projektā front-end/cv-project un palaist komandu no termināla:
-npm install @vue/cli
+1)Uzstādīt Node.js. Šis projekts ir izstrādāts, izmantojot Node.js v16.15.1 versiju. Lai to lejupielādētu, apmeklējiet oficiālo Node.js mājaslapu un veiciet instalāciju.
 
-4) Iekšā /cv-project palaist komandu: npm i
-Lai uzstādītu nepieciešamās pakotnes
+2)Dodieties uz projekta front-end/cv-project mapi un terminālā izpildiet šo komandu, lai uzstādītu Vue CLI pakotni, ja tā vēl nav uzstādīta: npm install @vue/cli
 
-5)Lejupielāde XAMPP kontrol paneli versiju: 7.4.30
-Xampp folderi ekstraktot (C:)diskā
+4)Iekš front-end/cv-project mapes izpildiet komandu npm install, lai uzstādītu nepieciešamās pakotnes projektam.
+
+5)Lejupielādējiet XAMPP kontrolpaneli versiju: 7.4.30
+Ekstraktējiet XAMPP failus un novietojiet tos C diska saknes mapē (C:/).
 https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/7.4.30/
 
-6)Pēc Lejupielādes sekot norādītajam path: C:\xampp\htdocs
-Šeit tiks ievietots backend.php fails.
-Šo failu var atrasts back-end folderī.
-backend.php failu nokopēt un kopiju ievietot htdocs folderī
+6)Pārliecinieties, ka XAMPP mape atrodas šeit: C:\xampp\htdocs. Ievietojiet back-end mape esošo backend.php failu šajā htdocs mapē.
 
-7)Doties uz xampp folderi un palaist xampp-control.exe
+7)Palaidiet XAMPP kontrolpaneli, atverot xampp-control.exe failu, kas atrodas XAMPP mapē.
 
-8)Pēc XAMPP CONTROL PANEL atvēršanas jāpalaiž "Apache" un "MySql" servisi
+8)XAMPP kontrolpanelī palaidiet "Apache" un "MySQL" servisus.
 
-9)Doties pārlūkprogramma un atvērt linku http://127.0.0.1/phpmyadmin/index.php
+9)Atveriet jebkuru pārlūkprogrammu un ievadiet šo adresi:
+http://127.0.0.1/phpmyadmin/index.php.
 
-10)Izveidot jaunu datubāzi ar nosaukumu "cv_form" un "utf8_latvian_ci"
+10)Izveidojiet jaunu datubāzi ar nosaukumu "cv_form" un "utf8_latvian_ci" uzstādijumu.
 
-11)Pēc datubāzes izveides importēt failu "cv_form.sql" no /back-end folderi ar pogu import un atstāt default uzstādijumus
+11)Pēc datubāzes izveidošanas importējiet "cv_form.sql" failu no back-end mapes, izmantojot phpMyAdmin "Import" pogu. Atstājiet noklusējuma iestatījumus.
 
-12)Tad doties atpakaļ uz front-end/cv-project folder un no turienes palaist komandu: npm run serve
+12)Atgriezieties pie "front-end/cv-project" mapes un izpildiet šo komandu terminālī: npm run serve
 
-Tad projectam vajadzētu būt skatāmam http://localhost:8080/, ja port uzstādijumi nav mainīti
+Pēc šo norāžu ievērošanas projekts būs gatavs, un jūs varat apskatīt to vietni: http://localhost:8080/
+
