@@ -403,6 +403,7 @@ export default defineComponent({
       position: relative;
       min-height: $custom-data-block-min-height;
       margin-bottom: $custom-data-block-margin-bottom;
+      overflow-wrap: break-word;
     }
     .custom-data-block:hover {
       .hoverDisplay {

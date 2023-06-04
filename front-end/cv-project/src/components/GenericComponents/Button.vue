@@ -80,7 +80,7 @@ $create-button-width: rem(150px);
   background-color: $mail-blue;
   opacity: 0.6;
 }
-$save-button-width: rem(1250px);
+$save-button-width: rem(125px);
 .save-button {
   color: $white;
   background-color: $mail-yellow;
