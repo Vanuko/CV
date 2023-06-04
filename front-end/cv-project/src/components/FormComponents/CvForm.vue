@@ -14,6 +14,9 @@
       <div class="form-wrapper">
         <component :is="requiredComponent"> </component>
       </div>
+      <div class="warning-message tiniest-text-red" v-if="showWarning">
+        {{ warningText }}
+      </div>
       <div class="form-buttons">
         <div class="information-update-button-block">
           <button-component
@@ -92,6 +95,8 @@ export default defineComponent({
       saveStyle: "saveStyle", //CONST
       updateStyle: "updateStyle", //CONST
       returnStyle: "returnStyle", //CONST
+      warningText: "Vārda un Uzvārda laukumiem ir jābūt aizpildītiem",
+      showWarning: false,
     };
   },
   methods: {
@@ -110,32 +115,40 @@ export default defineComponent({
       }
     },
     saveCV() {
-      const requestData = {
-        functionName: "saveCV",
-        data: store.getters.getForm,
-      };
-      axios
-        .post("http://localhost/backend.php", requestData)
-        .then(() => {
-          router.push("/");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      if (this.formData.name.length > 0 && this.formData.surname.length > 0) {
+        const requestData = {
+          functionName: "saveCV",
+          data: store.getters.getForm,
+        };
+        axios
+          .post("http://localhost/backend.php", requestData)
+          .then(() => {
+            router.push("/");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } else {
+        this.showWarning = true;
+      }
     },
     updateCV() {
-      const requestData = {
-        functionName: "updateCV",
-        data: store.getters.getForm,
-      };
-      axios
-        .post("http://localhost/backend.php", requestData)
-        .then(() => {
-          router.push("/");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      if (this.formData.name.length > 0 && this.formData.surname.length > 0) {
+        const requestData = {
+          functionName: "updateCV",
+          data: store.getters.getForm,
+        };
+        axios
+          .post("http://localhost/backend.php", requestData)
+          .then(() => {
+            router.push("/");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } else {
+        this.showWarning = true;
+      }
     },
   },
   computed: {
@@ -153,6 +166,9 @@ export default defineComponent({
     },
     inpectMode() {
       return store.getters.getInspectMode;
+    },
+    formData() {
+      return store.getters.getForm;
     },
   },
   beforeMount() {
@@ -187,6 +203,9 @@ export default defineComponent({
       background: $white;
       box-sizing: border-box;
       padding: 25px; //SCSS
+    }
+    .warning-message {
+      position: absolute;
     }
     .form-buttons {
       margin-top: 25px; //SCSS

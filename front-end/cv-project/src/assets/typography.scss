@@ -109,3 +109,8 @@ $tiniest-text-font-size: rem(15px);
     @extend .tiniest-text;
     font-weight: bold;
 }
+.tiniest-text-red {
+    @extend .tiniest-text;
+    font-weight: bold;
+    color: red;
+}
