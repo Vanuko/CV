@@ -57,6 +57,7 @@ export default defineComponent({
   mounted() {
     store.dispatch("updateInspectMode", false);
     store.dispatch("resetCvObjectAction");
+    store.dispatch("updateNeedRefresh", false);
     this.getData();
   },
 });

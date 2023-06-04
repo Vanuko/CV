@@ -9,6 +9,7 @@ export interface formState {
     viewSwitchValue: number;
     inspectMode: boolean;
     hideInspectButtons: boolean;
+    needRefresh: boolean;
 }
 
 interface UpdateFormPartPayload {
@@ -42,7 +43,8 @@ export const formStore: Module<formState, RootState> = {
         },
         viewSwitchValue: 0,
         inspectMode: false,
-        hideInspectButtons: false
+        hideInspectButtons: false,
+        needRefresh: true
     },
     mutations: {
         resetCvObject(state) {
@@ -68,6 +70,9 @@ export const formStore: Module<formState, RootState> = {
         },
         updateHideInspectButtons(state, payload) {
             state.hideInspectButtons = payload;
+        },
+        updateNeedRefresh(state, payload) {
+            state.needRefresh = payload;
         },
         mutateFormPart(state, payload: UpdateFormPartPayload) {
             const { part, value, arrayKeyName, uuid } = payload;
@@ -127,6 +132,9 @@ export const formStore: Module<formState, RootState> = {
         updateHideInspectButtons({ commit }, project) {
             commit("updateHideInspectButtons", project);
         },
+        updateNeedRefresh({ commit }, project) {
+            commit("updateNeedRefresh", project);
+        },
         updateFormPart({ commit }, payload: UpdateFormPartPayload) {
             commit("mutateFormPart", payload);
         },
@@ -164,6 +172,9 @@ export const formStore: Module<formState, RootState> = {
         },
         getHideInspectButtons(state) {
             return state.hideInspectButtons
+        },
+        getNeedRefresh(state) {
+            return state.needRefresh
         }
     },
 };

@@ -158,7 +158,7 @@
         class="page-break tiniest-text-bold"
         :style="{ marginTop: `${maxOffsetHeight * pagination}px` }"
       >
-      {{endOfPageText}}
+        {{ endOfPageText }}
       </div>
     </div>
 
@@ -257,6 +257,9 @@ export default defineComponent({
     },
   },
   mounted() {
+    if (store.getters.getNeedRefresh) {
+      router.push("/");
+    }
     this.calculateMaxOffsetHeight();
     store.dispatch("updateHideInspectButtons", false);
   },

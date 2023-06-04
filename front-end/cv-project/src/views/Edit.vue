@@ -10,6 +10,7 @@ import { defineComponent } from "vue";
 import * as textConstants from "../constants/TextConstants";
 import cvForm from "../components/FormComponents/CvForm.vue";
 import store from "../store/mainStore";
+import router from "../router/index";
 
 export default defineComponent({
   name: "Edit",
@@ -20,6 +21,9 @@ export default defineComponent({
     };
   },
   mounted() {
+    if (store.getters.getNeedRefresh) {
+      router.push("/");
+    }
     store.dispatch("updateHideInspectButtons", true);
   },
 });
