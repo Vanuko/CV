@@ -23,14 +23,15 @@ export default defineComponent({
   emits: ["itemSelected"],
   props: {
     passedItems: {
-      type: Array,
+      type: Array as () => Array<string>,
+      required: true,
     },
   },
   data() {
     return {
       isOpen: false,
-      selectedItem: null,
-      items: [],
+      selectedItem: "",
+      items: [] as string[],
     };
   },
   methods: {
