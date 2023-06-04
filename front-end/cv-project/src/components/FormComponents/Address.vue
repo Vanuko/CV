@@ -133,7 +133,7 @@ export default defineComponent({
     },
     addAddress() {
       const latstUidObject = store.state.formStore.lastUid;
-      this.uuid = latstUidObject.last_address_ID + 1;
+      this.uuid = latstUidObject.last_address_ID + Math.floor(Math.random() * (9999 - 99 + 1)) + 99;
       const addressData = {
         arrayKeyName: keyNames.ADDRESS,
         object: {

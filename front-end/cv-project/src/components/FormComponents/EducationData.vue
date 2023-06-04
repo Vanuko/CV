@@ -199,7 +199,7 @@ export default defineComponent({
     },
     addEducation() {
       const latstUidObject = store.state.formStore.lastUid;
-      this.uuid = latstUidObject.last_education_ID + 1;
+      this.uuid = latstUidObject.last_education_ID + Math.floor(Math.random() * (9999 - 99 + 1)) + 99;
       const educationData = {
         arrayKeyName: keyNames.EDU,
         object: {

@@ -152,7 +152,7 @@ export default defineComponent({
     },
     addWork() {
       const latstUidObject = store.state.formStore.lastUid;
-      this.uuid = latstUidObject.last_work_ID + 1;
+      this.uuid = latstUidObject.last_work_ID + Math.floor(Math.random() * (9999 - 99 + 1)) + 99;
       const workData = {
         arrayKeyName: keyNames.WORK,
         object: {

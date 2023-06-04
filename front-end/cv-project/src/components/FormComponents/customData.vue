@@ -75,7 +75,7 @@ export default defineComponent({
     },
     addCustom() {
       const latstUidObject = store.state.formStore.lastUid;
-      this.uuid = latstUidObject.last_custom_ID + 1;
+      this.uuid = latstUidObject.last_custom_ID + Math.floor(Math.random() * (9999 - 99 + 1)) + 99;
       const customData = {
         arrayKeyName: keyNames.CUS,
         object: {
