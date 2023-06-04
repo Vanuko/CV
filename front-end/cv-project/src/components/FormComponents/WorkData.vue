@@ -22,13 +22,20 @@
           @itemSelected="handleLoad"
         />
       </div>
-      <div>
+      <div class="work-date-picker">
         <form-text :titleText="workExperienceText" />
-        <input-field
-          :type="typeNumber"
-          :value="workValues.work_experience"
-          @input="handleInput($event, workExperienceText)"
-        />
+        <div>
+          <Datepicker
+            v-model="date"
+            autoApply
+            range
+            :maxDate="new Date()"
+            :enable-time-picker="false"
+            :hide-navigation="['time', 'minutes', 'hours', 'seconds']"
+            :clearable="false"
+            @closed="updateDateValue(date)"
+          />
+        </div>
       </div>
     </div>
     <button-component
@@ -40,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import FormText from "./FormText.vue";
 import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
@@ -51,12 +58,22 @@ import { WorkplaceInterface } from "../../models/form";
 import { mapState } from "vuex";
 import genericDropdown from "../GenericComponents/Dropodown.vue";
 import * as formObjects from "../../constants/FormPartConstants";
+import Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default defineComponent({
   name: "WorkDataComponent",
-  components: { FormText, inputField, buttonComponent, genericDropdown },
+  components: {
+    FormText,
+    inputField,
+    buttonComponent,
+    genericDropdown,
+    Datepicker,
+  },
   data() {
     return {
+      currentYear: new Date().getFullYear(),
+      minYear: new Date().getFullYear() - 100,
       workPlaceText: textConstants.WORKPLACE,
       workPositionText: textConstants.POSITION,
       workLoadText: textConstants.WORK_LOAD,
@@ -69,7 +86,35 @@ export default defineComponent({
       workLoadSelection: formObjects.WORK_LOAD,
     };
   },
+  setup() {
+    const date = ref();
+    return {
+      date,
+    };
+  },
   methods: {
+    updateDateValue(data: any) {
+      const lastUid = store.getters.getLastUid;
+      let dateString = "";
+      if (data) {
+        const datesArray = [new Date(data[0]), new Date(data[1])];
+        const formatDate = (date: Date) => {
+          const day = String(date.getDate()).padStart(2, "0");
+          const month = String(date.getMonth() + 1).padStart(2, "0");
+          const year = String(date.getFullYear());
+          return `${day}/${month}/${year}`;
+        };
+
+        const formattedDates = datesArray.map(formatDate);
+        dateString = formattedDates.join(" - ");
+      }
+      store.dispatch("updateFormPart", {
+        part: keyNames.W_EXP,
+        value: dateString,
+        arrayKeyName: keyNames.WORK,
+        uuid: lastUid.last_work_ID,
+      });
+    },
     handleLoad(data: string) {
       const lastUid = store.getters.getLastUid;
       store.dispatch("updateFormPart", {
@@ -96,18 +141,6 @@ export default defineComponent({
         case textConstants.POSITION: {
           store.dispatch("updateFormPart", {
             part: keyNames.W_POS,
-            value: inputData,
-            arrayKeyName: keyNames.WORK,
-            uuid: lastUid.last_work_ID,
-          });
-          break;
-        }
-      }
-
-      switch (data) {
-        case textConstants.WORK_EXPERIENCE: {
-          store.dispatch("updateFormPart", {
-            part: keyNames.W_EXP,
             value: inputData,
             arrayKeyName: keyNames.WORK,
             uuid: lastUid.last_work_ID,
@@ -174,6 +207,12 @@ $example: rem(800px);
   }
   > div:nth-child(2) {
     margin-top: 5px;
+  }
+  .work-date-picker {
+    height: 62px;
+    > div:nth-child(2) {
+      width: 250px;
+    }
   }
 }
 </style>

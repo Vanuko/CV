@@ -72,9 +72,6 @@
             <div>
               {{ educationElement.education_time_spent }}
             </div>
-            <div>
-              {{ educationElement.education_status }}
-            </div>
           </div>
           <div class="education-information-data">
             <div class="education-institution-data medium-text-bold">
@@ -89,6 +86,9 @@
               </div>
               <div>
                 {{ educationElement.education_level }}
+              </div>
+              <div>
+                {{ educationElement.education_status }}
               </div>
             </div>
           </div>
@@ -327,7 +327,7 @@ export default defineComponent({
           }
           .study-field-data {
             display: flex;
-            > div:nth-child(1) {
+            > div:not(:last-child) {
               margin-right: 5px; //SCSS
             }
           }

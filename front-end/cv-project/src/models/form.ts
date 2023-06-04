@@ -25,7 +25,7 @@ export interface WorkplaceInterface {
   work_place: string;
   work_position: string;
   work_load: string;
-  work_experience: number;
+  work_experience: string;
 }
 export interface EducationInterface {
   ID: string | number;
@@ -34,7 +34,7 @@ export interface EducationInterface {
   education_field_of_study: string;
   education_level: string;
   education_status: string;
-  education_time_spent: number;
+  education_time_spent: string;
 }
 
 export interface CustomFields {

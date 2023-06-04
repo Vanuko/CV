@@ -9,6 +9,7 @@
 @import "../src/assets/typography.scss";
 @import "../src/assets/colors.scss";
 
+
 html,
 body {
   height: 100%;

@@ -38,10 +38,21 @@
       </div>
       <div>
         <form-text :titleText="educationTimeSpentText" />
-        <input-field
-          :value="educationValues.education_time_spent"
-          @input="handleInput($event, educationTimeSpentText)"
-        />
+        <div class="education-date-picker">
+          <form-text :titleText="workExperienceText" />
+          <div>
+            <Datepicker
+              v-model="date"
+              autoApply
+              range
+              :maxDate="new Date()"
+              :enable-time-picker="false"
+              :hide-navigation="['time', 'minutes', 'hours', 'seconds']"
+              :clearable="false"
+              @closed="updateDateValue(date)"
+            />
+          </div>
+        </div>
       </div>
     </div>
     <button-component
@@ -53,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import FormText from "./FormText.vue";
 import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
@@ -64,10 +75,18 @@ import buttonComponent from "../GenericComponents/Button.vue";
 import { mapState } from "vuex";
 import { EducationInterface } from "../../models/form";
 import genericDropdown from "../GenericComponents/Dropodown.vue";
+import Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default defineComponent({
   name: "EducationDataComponent",
-  components: { FormText, inputField, buttonComponent, genericDropdown },
+  components: {
+    FormText,
+    inputField,
+    buttonComponent,
+    genericDropdown,
+    Datepicker,
+  },
   data() {
     return {
       institutionText: textConstants.INSTITUTION,
@@ -83,7 +102,35 @@ export default defineComponent({
       educationLevelSelection: formObjects.EDUCATION_LEVEL,
     };
   },
+  setup() {
+    const date = ref();
+    return {
+      date,
+    };
+  },
   methods: {
+    updateDateValue(data: any) {
+      const lastUid = store.getters.getLastUid;
+      let dateString = "";
+      if (data) {
+        const datesArray = [new Date(data[0]), new Date(data[1])];
+        const formatDate = (date: Date) => {
+          const day = String(date.getDate()).padStart(2, "0");
+          const month = String(date.getMonth() + 1).padStart(2, "0");
+          const year = String(date.getFullYear());
+          return `${day}/${month}/${year}`;
+        };
+
+        const formattedDates = datesArray.map(formatDate);
+        dateString = formattedDates.join(" - ");
+      }
+      store.dispatch("updateFormPart", {
+        part: keyNames.EDU_TIME,
+        value: dateString,
+        arrayKeyName: keyNames.EDU,
+        uuid: lastUid.last_education_ID,
+      });
+    },
     handleInput(inputData: string, data: string) {
       const lastUid = store.getters.getLastUid;
       switch (data) {
@@ -123,17 +170,6 @@ export default defineComponent({
         case textConstants.STATUS: {
           store.dispatch("updateFormPart", {
             part: keyNames.EDU_STAT,
-            value: inputData,
-            arrayKeyName: keyNames.EDU,
-            uuid: lastUid.last_education_ID,
-          });
-          break;
-        }
-      }
-      switch (data) {
-        case textConstants.TIME_SPENT: {
-          store.dispatch("updateFormPart", {
-            part: keyNames.EDU_TIME,
             value: inputData,
             arrayKeyName: keyNames.EDU,
             uuid: lastUid.last_education_ID,
@@ -216,6 +252,12 @@ $example: rem(800px);
   }
   > div:nth-child(2) {
     margin-top: 5px;
+  }
+  .education-date-picker {
+    height: 62px;
+    > div:nth-child(2) {
+      width: 250px;
+    }
   }
 }
 </style>

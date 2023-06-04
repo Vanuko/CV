@@ -2,6 +2,10 @@
   <div class="dropdown">
     <div class="selected-item tiny-text-bold" @click="toggleDropdown">
       {{ selectedItem }}
+      <img
+        :class="['expand-icon', { rotated: isOpen }]"
+        src="../../assets/images/close_icon_grey.svg"
+      />
     </div>
     <div v-if="isOpen" class="dropdown-list">
       <div
@@ -53,25 +57,31 @@ export default defineComponent({
 <style  lang="scss" scoped>
 @import "../../assets/colors.scss";
 .dropdown {
+  z-index: 2;
   position: relative;
   display: inline-block;
-  width: 100%;
+  width: 250px;
   .selected-item {
     cursor: pointer;
     display: flex;
     align-items: center;
     border: 1px solid;
     height: 33px; //SCSS
-    width: 554px;
+    width: 250px;
+  }
+  .expand-icon {
+    margin-left: auto;
+  }
+  .rotated {
+    transform: rotate(180deg);
   }
   .dropdown-list {
     position: absolute;
     top: 100%;
-    width: 100%;
     background-color: $white;
     border: 1px solid $border-grey;
     border-top: none;
-    width: 554px;
+    width: 250px;
     .dropdown-item {
       border: 1px solid $white;
       cursor: pointer;
