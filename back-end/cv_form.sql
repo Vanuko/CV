@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2023 at 06:05 PM
+-- Generation Time: Jun 04, 2023 at 06:42 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -37,6 +37,13 @@ CREATE TABLE `address_data` (
   `address_number` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_latvian_ci;
 
+--
+-- Dumping data for table `address_data`
+--
+
+INSERT INTO `address_data` (`ID`, `ID_base_data`, `address_country`, `address_index`, `address_city`, `address_street`, `address_number`) VALUES
+(24, 22, 'Latvija', 'LV-3402', 'Rīga', 'Slazdu iela', '7a');
+
 -- --------------------------------------------------------
 
 --
@@ -51,6 +58,13 @@ CREATE TABLE `base_data` (
   `email` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_latvian_ci;
 
+--
+-- Dumping data for table `base_data`
+--
+
+INSERT INTO `base_data` (`ID`, `name`, `surname`, `phone_nr`, `email`) VALUES
+(22, 'Toms', 'Sārmanis', '+371 29894623', 'toms.sārmanis@inbox.lv');
+
 -- --------------------------------------------------------
 
 --
@@ -63,6 +77,13 @@ CREATE TABLE `custom_data` (
   `custom_name` varchar(80) NOT NULL,
   `custom_value` varchar(600) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_latvian_ci;
+
+--
+-- Dumping data for table `custom_data`
+--
+
+INSERT INTO `custom_data` (`ID`, `ID_base_data`, `custom_name`, `custom_value`) VALUES
+(749, 22, 'Valodas Prasmes', 'Latviešu - Dzimtā\nAngļu - Runas\nKrievu - Runas\n');
 
 -- --------------------------------------------------------
 
@@ -81,6 +102,13 @@ CREATE TABLE `education_data` (
   `education_time_spent` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_latvian_ci;
 
+--
+-- Dumping data for table `education_data`
+--
+
+INSERT INTO `education_data` (`ID`, `ID_base_data`, `education_institution`, `education_faculty`, `education_field_of_study`, `education_level`, `education_status`, `education_time_spent`) VALUES
+(30, 22, 'Pilsētas Skola', 'Skolas Fakultāte', 'Valoda un Kultūra', 'Pabeigts', 'Pamatizglītība', '07/09/2021 - 28/01/2022');
+
 -- --------------------------------------------------------
 
 --
@@ -95,6 +123,14 @@ CREATE TABLE `work_data` (
   `work_load` varchar(60) NOT NULL,
   `work_experience` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_latvian_ci;
+
+--
+-- Dumping data for table `work_data`
+--
+
+INSERT INTO `work_data` (`ID`, `ID_base_data`, `work_place`, `work_position`, `work_load`, `work_experience`) VALUES
+(62, 22, 'McDonalds', 'Galvenais Cepējs', 'Pusslodze', '03/05/1995 - 31/03/2004'),
+(63, 22, 'Spa Centrs', 'Masieris', 'Pilna laika', '17/11/2005 - 18/03/2011');
 
 --
 -- Indexes for dumped tables
@@ -138,31 +174,31 @@ ALTER TABLE `work_data`
 -- AUTO_INCREMENT for table `address_data`
 --
 ALTER TABLE `address_data`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `base_data`
 --
 ALTER TABLE `base_data`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `custom_data`
 --
 ALTER TABLE `custom_data`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=748;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=750;
 
 --
 -- AUTO_INCREMENT for table `education_data`
 --
 ALTER TABLE `education_data`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `work_data`
 --
 ALTER TABLE `work_data`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

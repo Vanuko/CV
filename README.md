@@ -33,6 +33,6 @@ backend.php failu nokopēt un kopiju ievietot htdocs folderī
 
 11)Pēc datubāzes izveides importēt failu "cv_form.sql" no /back-end folderi ar pogu import un atstāt default uzstādijumus
 
-12)Tad doties atpakaļ uz front-end/cv-project folder un no turienes palaist komanu: npm run serve
+12)Tad doties atpakaļ uz front-end/cv-project folder un no turienes palaist komandu: npm run serve
 
 Tad projectam vajadzētu būt skatāmam http://localhost:8080/, ja port uzstādijumi nav mainīti

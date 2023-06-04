@@ -258,9 +258,11 @@ $education-data-component-template-second-child-margin-top: rem(5px);
     margin-top: $education-data-component-template-second-child-margin-top;
   }
   $education-date-picker-height: rem(62px);
+  $education-date-picker-width: rem(254px);
   $education-date-picker-second-child-width: rem(250px);
   .education-date-picker {
     height: $education-date-picker-height;
+    width: $education-date-picker-width;
     > div:nth-child(2) {
       width: $education-date-picker-second-child-width;
     }

@@ -13,6 +13,7 @@ export const NO = "NĒ";
 export const BACK = "ATPAKAĻ";
 //Not Buttons
 export const ADDRESS = "Adrese";
+export const END_PAGE = "A4 Lapas Beigas";
 
 //Generic Text
 export const PHONE_NR_SPACE = "Telefona nr: ";

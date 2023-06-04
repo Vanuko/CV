@@ -118,11 +118,10 @@ $list-element-padding: rem(0px 15px 0px 15px);
   .list-info-block {
     display: flex;
     .list-info-block-element {
-      display: flex;
       max-width: calc(40%);
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis; //Return to this ellipsis!
+      text-overflow: ellipsis;
     }
 
     $list-info-block-element-not-last-child-margin-right: rem(10px);

@@ -155,9 +155,11 @@
       <div
         v-for="pagination in paginationCount"
         :key="pagination"
-        class="page-break"
+        class="page-break tiniest-text-bold"
         :style="{ marginTop: `${maxOffsetHeight * pagination}px` }"
-      ></div>
+      >
+      {{endOfPageText}}
+      </div>
     </div>
 
     <div v-if="!hideInspectButtons" class="cv-inspect-button-block">
@@ -207,6 +209,7 @@ export default defineComponent({
       editStyleText: valueConstants.STYLE_EDIT,
       nrText: textConstants.PHONE_NR_SPACE,
       emailText: textConstants.EMAIL_SPACE,
+      endOfPageText: textConstants.END_PAGE,
       maxOffsetHeight: 1123,
       paginationCount: 0,
     };
