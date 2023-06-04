@@ -109,7 +109,6 @@ if ($method === "GET") {
             $stmt = mysqli_prepare($data_base, $deletion);
             mysqli_stmt_bind_param($stmt, 'i', $requestData->ID);
             mysqli_stmt_execute($stmt);
-        
             if(isset($requestData->work)){
                 foreach($requestData->work as $work){
                     $workData = "INSERT INTO work_data (ID_base_data, work_place, work_position, work_load, work_experience) VALUES (?, ?, ?, ?, ?)";

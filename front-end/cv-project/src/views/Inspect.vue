@@ -1,6 +1,6 @@
 <template>
   <div class="inspect-view-template">
-    <div class="displayed-cv">
+    <div class="displayed-cv" ref="displayedCV">
       <div class="base-data-block">
         <div class="cv-title-text">
           {{ formData.name }} {{ formData.surname }}
@@ -68,7 +68,7 @@
               )
             "
           />
-          <div class="date-field">
+          <div class="date-field tiniest-text-bold">
             <div>
               {{ educationElement.education_time_spent }}
             </div>
@@ -152,7 +152,14 @@
           </div>
         </div>
       </div>
+      <div
+        v-for="pagination in paginationCount"
+        :key="pagination"
+        class="page-break"
+        :style="{ marginTop: `${maxOffsetHeight * pagination}px` }"
+      ></div>
     </div>
+
     <div v-if="!hideInspectButtons" class="cv-inspect-button-block">
       <button-component :buttonText="backText" @click="back()" />
       <button-component
@@ -200,7 +207,17 @@ export default defineComponent({
       editStyleText: valueConstants.STYLE_EDIT,
       nrText: textConstants.PHONE_NR_SPACE,
       emailText: textConstants.EMAIL_SPACE,
+      maxOffsetHeight: 1123,
+      paginationCount: 0,
     };
+  },
+  watch: {
+    formData: {
+      deep: true,
+      handler() {
+        this.calculateMaxOffsetHeight();
+      },
+    },
   },
   methods: {
     back() {
@@ -220,6 +237,13 @@ export default defineComponent({
         viewUpdate: viewSwitch,
       });
     },
+    calculateMaxOffsetHeight() {
+      this.$nextTick(() => {
+        const cvElement = this.$refs.displayedCV as HTMLElement;
+        const difference = cvElement.scrollHeight / this.maxOffsetHeight;
+        this.paginationCount = Math.floor(difference);
+      });
+    },
   },
   computed: {
     formData() {
@@ -230,6 +254,7 @@ export default defineComponent({
     },
   },
   mounted() {
+    this.calculateMaxOffsetHeight();
     store.dispatch("updateHideInspectButtons", false);
   },
 });
@@ -254,6 +279,7 @@ export default defineComponent({
   $displayed-cv-div-not-first-child-margon-top: rem(20px);
   $displayed-cv-div-not-first-child-padding-bottom: rem(8px);
   .displayed-cv {
+    position: relative;
     padding: $displayed-cv-padding;
     box-sizing: border-box;
     overflow-y: auto;
@@ -394,7 +420,14 @@ export default defineComponent({
       border-width: $cv-section-title-text-border-width;
       margin-bottom: $cv-section-title-text-margin-bottom;
     }
+    .page-break {
+      position: absolute;
+      height: 1px;
+      width: 100%;
+      border-top: 2px dashed #000;
+    }
   }
+
   $cv-inspect-button-block-width: rem(210mm);
   $cv-inspect-button-block-margin-top: rem(10px);
   .cv-inspect-button-block {
