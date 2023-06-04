@@ -63,6 +63,7 @@ import genericDropdown from "../GenericComponents/Dropodown.vue";
 import * as formObjects from "../../constants/FormPartConstants";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import * as viewNumbers from "../../constants/ViewConstants";
 
 export default defineComponent({
   name: "WorkDataComponent",
@@ -152,7 +153,10 @@ export default defineComponent({
     },
     addWork() {
       const latstUidObject = store.state.formStore.lastUid;
-      this.uuid = latstUidObject.last_work_ID + Math.floor(Math.random() * (9999 - 99 + 1)) + 99;
+      this.uuid =
+        latstUidObject.last_work_ID +
+        Math.floor(Math.random() * (9999 - 99 + 1)) +
+        99;
       const workData = {
         arrayKeyName: keyNames.WORK,
         object: {
@@ -167,6 +171,7 @@ export default defineComponent({
       store.dispatch("changeLastUid", {
         part: keyNames.LAST_WORK,
         uuid: this.uuid,
+        viewUpdate: viewNumbers.WORK,
       });
     },
   },

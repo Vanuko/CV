@@ -80,6 +80,7 @@ import { EducationInterface } from "../../models/form";
 import genericDropdown from "../GenericComponents/Dropodown.vue";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import * as viewConstants from "../../constants/ViewConstants";
 
 export default defineComponent({
   name: "EducationDataComponent",
@@ -221,6 +222,7 @@ export default defineComponent({
       store.dispatch("changeLastUid", {
         part: keyNames.LAST_EDU,
         uuid: this.uuid,
+        viewUpdate: viewConstants.EDUCATION,
       });
     },
   },

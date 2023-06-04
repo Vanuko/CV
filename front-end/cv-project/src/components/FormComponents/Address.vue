@@ -56,6 +56,7 @@ import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
 import { mapState } from "vuex";
 import { AddressInterface } from "../../models/form";
+import * as viewConstants from "../../constants/ViewConstants";
 
 export default defineComponent({
   name: "AddressComponent",
@@ -133,7 +134,10 @@ export default defineComponent({
     },
     addAddress() {
       const latstUidObject = store.state.formStore.lastUid;
-      this.uuid = latstUidObject.last_address_ID + Math.floor(Math.random() * (9999 - 99 + 1)) + 99;
+      this.uuid =
+        latstUidObject.last_address_ID +
+        Math.floor(Math.random() * (9999 - 99 + 1)) +
+        99;
       const addressData = {
         arrayKeyName: keyNames.ADDRESS,
         object: {
@@ -149,6 +153,7 @@ export default defineComponent({
       store.dispatch("changeLastUid", {
         part: keyNames.LAST_ADDRESS,
         uuid: this.uuid,
+        viewUpdate: viewConstants.ADDRESS,
       });
     },
   },
@@ -169,7 +174,6 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
-$example: rem(800px);
 .address-component-template {
   display: flex;
   flex-direction: column;

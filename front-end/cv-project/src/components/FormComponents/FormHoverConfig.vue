@@ -83,7 +83,6 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
-$example: rem(800px);
 .form-hover-config-template {
   display: flex;
   align-items: center;
