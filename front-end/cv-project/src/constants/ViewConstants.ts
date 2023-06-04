@@ -1,4 +1,4 @@
-//test
+//Number base on view
 export const BASE = 0;
 export const WORK = 1;
 export const EDUCATION = 2;

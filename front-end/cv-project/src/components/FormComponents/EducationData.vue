@@ -22,19 +22,21 @@
           @input="handleInput($event, fieldOfStudyText)"
         />
       </div>
-      <div>
-        <form-text :titleText="educationLevelText" />
-        <generic-dropdown
-          :passedItems="educationLevelSelection"
-          @itemSelected="handleLevel"
-        />
-      </div>
-      <div>
-        <form-text :titleText="educationStatusText" />
-        <generic-dropdown
-          :passedItems="educationStatusSelection"
-          @itemSelected="handleStatus"
-        />
+      <div class="education-dropdowns">
+        <div>
+          <form-text :titleText="educationLevelText" />
+          <generic-dropdown
+            :passedItems="educationLevelSelection"
+            @itemSelected="handleLevel"
+          />
+        </div>
+        <div>
+          <form-text :titleText="educationStatusText" />
+          <generic-dropdown
+            :passedItems="educationStatusSelection"
+            @itemSelected="handleStatus"
+          />
+        </div>
       </div>
       <div>
         <form-text :titleText="educationTimeSpentText" />
@@ -199,7 +201,10 @@ export default defineComponent({
     },
     addEducation() {
       const latstUidObject = store.state.formStore.lastUid;
-      this.uuid = latstUidObject.last_education_ID + Math.floor(Math.random() * (9999 - 99 + 1)) + 99;
+      this.uuid =
+        latstUidObject.last_education_ID +
+        Math.floor(Math.random() * (9999 - 99 + 1)) +
+        99;
       const educationData = {
         arrayKeyName: keyNames.EDU,
         object: {
@@ -256,6 +261,14 @@ $education-data-component-template-second-child-margin-top: rem(5px);
   }
   > div:nth-child(2) {
     margin-top: $education-data-component-template-second-child-margin-top;
+  }
+  $education-dropdowns-div-first-child: rem(54px);
+  .education-dropdowns{
+    display: flex;
+    flex-direction: row !important;
+    > div:first-child{
+      margin-right: $education-dropdowns-div-first-child;
+    }
   }
   $education-date-picker-height: rem(62px);
   $education-date-picker-width: rem(254px);

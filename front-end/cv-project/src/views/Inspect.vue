@@ -324,6 +324,9 @@ export default defineComponent({
         display: flex;
         position: relative;
         min-height: $work-data-element-min-height;
+        border-width: 0px 0px 0px 1px;
+        border-style: dashed;
+        border-color: $mail-blue;
         div:nth-child(2) {
           display: flex;
           flex-direction: column;
@@ -356,6 +359,9 @@ export default defineComponent({
       .education-data-element {
         display: flex;
         position: relative;
+        border-width: 0px 0px 0px 1px;
+        border-style: dashed;
+        border-color: $mail-blue;
         min-height: $education-data-element-min-height;
         > .education-information-data {
           display: flex;
@@ -385,6 +391,9 @@ export default defineComponent({
         display: flex;
         flex-direction: column;
         position: relative;
+        border-width: 0px 0px 0px 1px;
+        border-style: dashed;
+        border-color: $mail-blue;
         min-height: $address-data-element-min-height;
         .first-location-data-block {
           display: flex;
@@ -410,6 +419,13 @@ export default defineComponent({
       min-height: $custom-data-block-min-height;
       margin-bottom: $custom-data-block-margin-bottom;
       overflow-wrap: break-word;
+
+      > div:last-child {
+        white-space: pre-line;
+        border-width: 0px 0px 0px 1px;
+        border-style: dashed;
+        border-color: $mail-blue;
+      }
     }
     .custom-data-block:hover {
       .hoverDisplay {
@@ -426,6 +442,7 @@ export default defineComponent({
       border-style: solid;
       border-width: $cv-section-title-text-border-width;
       margin-bottom: $cv-section-title-text-margin-bottom;
+      color: $mail-blue;
     }
     .page-break {
       position: absolute;

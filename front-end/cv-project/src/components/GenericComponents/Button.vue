@@ -57,8 +57,7 @@ $button-element-width: rem(100px);
 }
 .edit-button:hover {
   color: $white;
-  background-color: $mail-yellow;
-  opacity: 0.6;
+  background-color: $hover-mail-yellow;
 }
 .delete-button {
   color: $white;
@@ -66,8 +65,7 @@ $button-element-width: rem(100px);
 }
 .delete-button:hover {
   color: $white;
-  background-color: $red;
-  opacity: 0.6;
+  background-color: $hover-red;
 }
 $create-button-width: rem(150px);
 .create-button {
@@ -77,8 +75,7 @@ $create-button-width: rem(150px);
 }
 .create-button:hover {
   color: $white;
-  background-color: $mail-blue;
-  opacity: 0.6;
+  background-color: $hover-mail-blue;
 }
 $save-button-width: rem(125px);
 .save-button {
@@ -88,8 +85,7 @@ $save-button-width: rem(125px);
 }
 .save-button:hover {
   color: $white;
-  background-color: $mail-yellow;
-  opacity: 0.6;
+  background-color: $hover-mail-yellow;
 }
 $update-button-padding-left: rem(10px);
 $update-button-padding-right: rem(10px);
@@ -103,8 +99,7 @@ $update-button-padding-right: rem(10px);
 }
 .update-button:hover {
   color: $white;
-  background-color: $mail-yellow;
-  opacity: 0.6;
+  background-color: $hover-mail-yellow;
 }
 $return-button-padding-left: rem(10px);
 $return-button-padding-right: rem(10px);
