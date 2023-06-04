@@ -54,6 +54,11 @@ export default defineComponent({
   mounted() {
     this.items = this.passedItems;
   },
+  watch: {
+    value(newValue) {
+      this.selectedItem = newValue;
+    },
+  },
 });
 </script>
 
