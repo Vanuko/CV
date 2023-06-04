@@ -98,14 +98,14 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
-$example: rem(800px);
+$base-data-component-template-second-div-margin-bottom: rem(1px);
 .base-data-component-template {
   width: 100%;
   div {
     display: flex;
     flex-direction: column;
     div {
-      margin-bottom: 1px; //SCSS
+      margin-bottom: $base-data-component-template-second-div-margin-bottom;
     }
   }
 }

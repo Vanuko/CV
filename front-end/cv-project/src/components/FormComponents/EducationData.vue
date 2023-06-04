@@ -70,6 +70,7 @@ import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
 import * as formObjects from "../../constants/FormPartConstants";
+import * as valueConstants from "../../constants/ValueConstants";
 import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
 import { mapState } from "vuex";
@@ -96,8 +97,8 @@ export default defineComponent({
       educationStatusText: textConstants.STATUS,
       educationTimeSpentText: textConstants.TIME_SPENT,
       uuid: 0,
-      createStyleText: "createStyle", //CONST
-      addMoreText: "PIEVIENOT",
+      createStyleText: valueConstants.STYLE_CREATE,
+      addMoreText: textConstants.ADD,
       educationStatusSelection: formObjects.EDUCATION_STATUS,
       educationLevelSelection: formObjects.EDUCATION_LEVEL,
     };
@@ -235,7 +236,10 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
-$example: rem(800px);
+$education-data-component-template-first-child-inner-div-margin-bottom: rem(
+  1px
+);
+$education-data-component-template-second-child-margin-top: rem(5px);
 .education-data-component-template {
   display: flex;
   flex-direction: column;
@@ -246,17 +250,19 @@ $example: rem(800px);
       display: flex;
       flex-direction: column;
       div {
-        margin-bottom: 1px; //SCSS
+        margin-bottom: $education-data-component-template-first-child-inner-div-margin-bottom;
       }
     }
   }
   > div:nth-child(2) {
-    margin-top: 5px;
+    margin-top: $education-data-component-template-second-child-margin-top;
   }
+  $education-date-picker-height: rem(62px);
+  $education-date-picker-second-child-width: rem(250px);
   .education-date-picker {
-    height: 62px;
+    height: $education-date-picker-height;
     > div:nth-child(2) {
-      width: 250px;
+      width: $education-date-picker-second-child-width;
     }
   }
 }

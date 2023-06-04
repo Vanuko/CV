@@ -19,6 +19,8 @@ import axios from "axios";
 import { defineComponent } from "vue";
 import listElement from "../ListComponents/ListElement.vue";
 import buttonComponent from "../GenericComponents/Button.vue";
+import * as textConstants from "../../constants/TextConstants";
+import * as valueConstants from "../../constants/ValueConstants";
 import store from "../../store/mainStore";
 import router from "../../router/index";
 
@@ -28,8 +30,8 @@ export default defineComponent({
   data() {
     return {
       listData: [],
-      newCvText: "Izveidot CV", //const,
-      createStyleText: "createStyle",
+      newCvText: textConstants.NEW_CV,
+      createStyleText: valueConstants.STYLE_CREATE,
     };
   },
   methods: {
@@ -78,6 +80,7 @@ $list-component-template-padding-top: rem(45px);
   padding-top: $list-component-template-padding-top;
   $list-component-height: rem(1000px);
   $list-component-width: rem(1400px);
+  $list-component-div-width: rem(1225px);
   .list-component {
     display: flex;
     flex-direction: column;
@@ -86,13 +89,15 @@ $list-component-template-padding-top: rem(45px);
     width: $list-component-width;
     > div {
       overflow-y: auto;
-      width: 1225px; //SCSS
+      width: $list-component-div-width;
     }
   }
+  $list-component-create-button-margin-right: rem(201px);
+  $list-component-create-button-margin-top: rem(25px);
   .list-component-create-button {
     align-self: flex-end;
-    margin-right: 201px; //SCSS
-    margin-top: 25px; //SCSS
+    margin-right: $list-component-create-button-margin-right;
+    margin-top: $list-component-create-button-margin-top;
   }
 }
 </style>

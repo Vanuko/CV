@@ -31,6 +31,7 @@ import inputField from "../GenericComponents/InputField.vue";
 import genericTextArea from "../GenericComponents/TextArea.vue";
 import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
+import * as valueConstants from "../../constants/ValueConstants";
 import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
 import { mapState } from "vuex";
@@ -41,11 +42,11 @@ export default defineComponent({
   components: { FormText, inputField, buttonComponent, genericTextArea },
   data() {
     return {
-      subTitleText: textConstants.SUB_TITLE, //Const
-      informationText: textConstants.INFORMATION, //Const
+      subTitleText: textConstants.SUB_TITLE,
+      informationText: textConstants.INFORMATION,
       uuid: 0,
-      createStyleText: "createStyle", //CONST
-      addMoreText: "PIEVIENOT",
+      createStyleText: valueConstants.STYLE_CREATE,
+      addMoreText: textConstants.ADD,
     };
   },
   methods: {
@@ -106,7 +107,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
-$example: rem(800px);
+$custom-data-component-template-first-child-second-div-margin-bottom: rem(1px);
+$custom-data-component-template-second-child-margin-top: rem(5px);
 .custom-data-component-template {
   display: flex;
   flex-direction: column;
@@ -117,12 +119,12 @@ $example: rem(800px);
       display: flex;
       flex-direction: column;
       div {
-        margin-bottom: 1px; //SCSS
+        margin-bottom: $custom-data-component-template-first-child-second-div-margin-bottom;
       }
     }
   }
   > div:nth-child(2) {
-    margin-top: 5px;
+    margin-top: $custom-data-component-template-second-child-margin-top;
   }
 }
 </style>

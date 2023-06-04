@@ -6,10 +6,10 @@
       </div>
 
       <div class="tiny-text-bold list-info-block-element">
-        {{ phoneNrText }}: {{ listItem.phone_nr }}
+        {{ phoneNrText }} {{ listItem.phone_nr }}
       </div>
       <div class="tiny-text-bold list-info-block-element">
-        {{ emailText }}: {{ listItem.email }}
+        {{ emailText }} {{ listItem.email }}
       </div>
     </div>
     <div class="list-element-button-block">
@@ -33,6 +33,7 @@
 import { defineComponent } from "vue";
 import buttonComponent from "../GenericComponents/Button.vue";
 import * as textConstants from "../../constants/TextConstants";
+import * as valueConstants from "../../constants/ValueConstants";
 import router from "../../router/index";
 import { FormModel } from "../../models/form";
 import store from "../../store/mainStore";
@@ -53,11 +54,11 @@ export default defineComponent({
     return {
       deleteText: textConstants.DELETE,
       editText: textConstants.EDIT,
-      phoneNrText: "Telefona nr", //CONST
-      emailText: "Epasts", //CONST
-      editStyleText: "editStyle", //CONST
-      deleteStyleText: "deleteStyle", //CONST
-      deleteConfirmText: "DZĒST?",
+      phoneNrText: textConstants.PHONE_NR_SPACE,
+      emailText: textConstants.EMAIL_SPACE,
+      editStyleText: valueConstants.STYLE_EDIT,
+      deleteStyleText: valueConstants.STYLE_DELETE,
+      deleteConfirmText: textConstants.QUESTION_DELETE,
       showConfirmation: false,
     };
   },
@@ -103,19 +104,19 @@ $list-element-height: rem(45px);
 $list-element-width: rem(1200px);
 $list-element-margin-top: rem(15px);
 $list-element-border-radius: rem(3px);
+$list-element-padding: rem(0px 15px 0px 15px);
 .list-element {
   display: flex;
   align-items: center;
   height: $list-element-height;
   width: $list-element-width;
   margin-top: $list-element-margin-top;
-  padding: 0px 15px 0px 15px; //SCSS
+  padding: $list-element-padding;
   box-sizing: border-box;
   background-color: $mail-white;
   border-radius: $list-element-border-radius;
   .list-info-block {
     display: flex;
-
     .list-info-block-element {
       display: flex;
       max-width: calc(40%);
@@ -124,16 +125,18 @@ $list-element-border-radius: rem(3px);
       text-overflow: ellipsis; //Return to this ellipsis!
     }
 
+    $list-info-block-element-not-last-child-margin-right: rem(10px);
     .list-info-block-element:not(:last-child) {
-      margin-right: 10px;
+      margin-right: $list-info-block-element-not-last-child-margin-right;
     }
   }
+  $list-element-button-block-div-last-child-margin-left: rem(15px);
   .list-element-button-block {
     margin-left: auto;
     display: flex;
 
     > div:last-child {
-      margin-left: 15px; //SCSS
+      margin-left: $list-element-button-block-div-last-child-margin-left;
     }
   }
 }

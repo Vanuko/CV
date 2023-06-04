@@ -63,6 +63,7 @@ import inspectView from "../../views/Inspect.vue";
 import axios from "axios";
 import store from "../../store/mainStore";
 import * as textConstants from "../../constants/TextConstants";
+import * as valueConstants from "../../constants/ValueConstants";
 import router from "../../router/index";
 
 export default defineComponent({
@@ -92,10 +93,10 @@ export default defineComponent({
         addressData,
         customData,
       ],
-      saveStyle: "saveStyle", //CONST
-      updateStyle: "updateStyle", //CONST
-      returnStyle: "returnStyle", //CONST
-      warningText: "Vārda un Uzvārda laukumiem ir jābūt aizpildītiem",
+      saveStyle: valueConstants.STYLE_SAVE,
+      updateStyle: valueConstants.STYLE_UPDATE,
+      returnStyle: valueConstants.STYLE_RETURN,
+      warningText: textConstants.WARNING_NAME_SUR,
       showWarning: false,
     };
   },
@@ -178,20 +179,27 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
+$form-component-template-margin-top: rem(50px);
 .form-component-template {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: $form-component-template-margin-top;
+
+  $form-template-left-side-margin-right: rem(25px);
+  $form-template-left-side-margin-top: rem(-12px);
+
   .form-template-left-side {
-    margin-right: 25px;
-    margin-top: -12px;
+    margin-right: $form-template-left-side-margin-right;
+    margin-top: $form-template-left-side-margin-top;
     $form-wrapper-height: rem(710px);
     $form-wrapper-width: rem(600px);
+    $form-template-view-name-block-margin-bottom: rem(8px);
     .form-template-view-name-block {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 8px; //SCSS
+      margin-bottom: $form-template-view-name-block-margin-bottom;
     }
+    $form-wrapper-padding: rem(25px);
     .form-wrapper {
       overflow-y: auto;
       display: flex;
@@ -202,13 +210,14 @@ export default defineComponent({
       height: $form-wrapper-height;
       background: $white;
       box-sizing: border-box;
-      padding: 25px; //SCSS
+      padding: $form-wrapper-padding;
     }
     .warning-message {
       position: absolute;
     }
+    $form-buttons-margin-top: rem(25px);
     .form-buttons {
-      margin-top: 25px; //SCSS
+      margin-top: $form-buttons-margin-top;
       display: flex;
       .information-update-button-block {
         display: flex;
@@ -216,8 +225,9 @@ export default defineComponent({
       .navigation-button-block {
         display: flex;
         margin-left: auto;
+        $navigation-next-button-margin-left: rem(15px);
         .navigation-next-button {
-          margin-left: 15px; //SCSS
+          margin-left: $navigation-next-button-margin-left;
         }
       }
     }

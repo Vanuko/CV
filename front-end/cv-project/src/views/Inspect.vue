@@ -2,7 +2,7 @@
   <div class="inspect-view-template">
     <div class="displayed-cv">
       <div class="base-data-block">
-        <div class="cv-name-block cv-title-text">
+        <div class="cv-title-text">
           {{ formData.name }} {{ formData.surname }}
         </div>
         <div class="cv-contact-info-block">
@@ -170,6 +170,8 @@ import store from "../store/mainStore";
 import configHover from "../components/FormComponents/FormHoverConfig.vue";
 import * as keyNames from "../constants/KeyNameConstants";
 import * as viewNumbers from "../constants/ViewConstants";
+import * as textConstants from "../constants/TextConstants";
+import * as valueConstants from "../constants/ValueConstants";
 import buttonComponent from "../components/GenericComponents/Button.vue";
 import router from "../router/index";
 
@@ -178,9 +180,9 @@ export default defineComponent({
   components: { configHover, buttonComponent },
   data() {
     return {
-      workExperienceText: "Darba pieredze", //const
-      educationExperienceText: "Izglītība", //const
-      addressText: "Adrese", //const
+      workExperienceText: textConstants.WORK_EXPERIENCE,
+      educationExperienceText: textConstants.EDUCATION_LEVEL,
+      addressText: textConstants.ADDRESS,
       workKey: keyNames.WORK,
       eduKey: keyNames.EDU,
       addressKey: keyNames.ADDRESS,
@@ -193,11 +195,11 @@ export default defineComponent({
       educationView: viewNumbers.EDUCATION,
       addressView: viewNumbers.ADDRESS,
       customView: viewNumbers.CUSTOM,
-      editText: "REDIĢĒT", //const,
-      backText: "ATPAKAĻ", //const
-      editStyleText: "editStyle", //const
-      nrText: "Telefona nr: ",
-      emailText: "E-pasts: ",
+      editText: textConstants.EDIT,
+      backText: textConstants.BACK,
+      editStyleText: valueConstants.STYLE_EDIT,
+      nrText: textConstants.PHONE_NR_SPACE,
+      emailText: textConstants.EMAIL_SPACE,
     };
   },
   methods: {
@@ -249,6 +251,8 @@ export default defineComponent({
   $displayed-cv-width: rem(210mm);
   $displayed-cv-margin-top: rem(30px);
   $displayed-cv-padding: rem(1cm);
+  $displayed-cv-div-not-first-child-margon-top: rem(20px);
+  $displayed-cv-div-not-first-child-padding-bottom: rem(8px);
   .displayed-cv {
     padding: $displayed-cv-padding;
     box-sizing: border-box;
@@ -262,19 +266,16 @@ export default defineComponent({
     margin-top: $displayed-cv-margin-top;
     background: $white;
 
-    $form-block-margin-top: rem(20px);
     > div:not(:first-child) {
       width: 100%;
-      margin-top: $form-block-margin-top;
-      padding-bottom: 8px; //SCSS
+      margin-top: $displayed-cv-div-not-first-child-margon-top;
+      padding-bottom: $displayed-cv-div-not-first-child-padding-bottom;
     }
 
     .base-data-block {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      .cv-name-block {
-      }
       .cv-contact-info-block {
         display: flex;
         flex-direction: column;
@@ -286,17 +287,20 @@ export default defineComponent({
     .work-data-block {
       display: flex;
       flex-direction: column;
+      $work-data-element-min-height: rem(40px);
       .work-data-element {
         display: flex;
         position: relative;
-        min-height: 40px; //SCSS
+        min-height: $work-data-element-min-height;
         div:nth-child(2) {
           display: flex;
           flex-direction: column;
+          $work-position-element-margin-bottom: rem(5px);
           .work-position-element {
             width: fit-content;
-            margin-bottom: 5px; //SCSS
+            margin-bottom: $work-position-element-margin-bottom;
           }
+          $work-place-element-div-first-child-margin-right: rem(5px);
           .work-place-element {
             display: flex;
             flex-direction: row;
@@ -304,7 +308,7 @@ export default defineComponent({
               width: fit-content;
             }
             div:nth-child(1) {
-              margin-right: 5px; //SCSS
+              margin-right: $work-place-element-div-first-child-margin-right;
             }
           }
         }
@@ -316,10 +320,11 @@ export default defineComponent({
       }
     }
     .education-data-block {
+      $education-data-element-min-height: rem(40px);
       .education-data-element {
         display: flex;
         position: relative;
-        min-height: 40px; //SCSS
+        min-height: $education-data-element-min-height;
         > .education-information-data {
           display: flex;
           flex-direction: column;
@@ -327,10 +332,11 @@ export default defineComponent({
           .education-institution-data {
             flex-direction: column;
           }
+          $study-field-data-div-not-last-child-margin-right: rem(5px);
           .study-field-data {
             display: flex;
             > div:not(:last-child) {
-              margin-right: 5px; //SCSS
+              margin-right: $study-field-data-div-not-last-child-margin-right;
             }
           }
         }
@@ -342,18 +348,20 @@ export default defineComponent({
       }
     }
     .address-data-block {
+      $address-data-element-min-height: rem(40px);
       .address-data-element {
         display: flex;
         flex-direction: column;
         position: relative;
-        min-height: 40px; //SCSS
+        min-height: $address-data-element-min-height;
         .first-location-data-block {
           display: flex;
         }
         .second-location-data-block {
           display: flex;
+          $street-name-margin-right: rem(10px);
           .street-name {
-            margin-right: 10px; //SCSS
+            margin-right: $street-name-margin-right;
           }
         }
       }
@@ -363,32 +371,37 @@ export default defineComponent({
         }
       }
     }
+    $custom-data-block-min-height: rem(40px);
+    $custom-data-block-margin-bottom: rem(15px);
     .custom-data-block {
       position: relative;
-      min-height: 40px; //SCSS
-      margin-bottom: 15px;
-      .custom-data-element {
-      }
+      min-height: $custom-data-block-min-height;
+      margin-bottom: $custom-data-block-margin-bottom;
     }
     .custom-data-block:hover {
       .hoverDisplay {
         display: flex;
       }
     }
+    $date-field-width: rem(3cm);
     .date-field {
-      width: 3cm; //SCSS
+      width: $date-field-width;
     }
+    $cv-section-title-text-border-width: rem(0px 0px 1px 0px);
+    $cv-section-title-text-margin-bottom: rem(15px);
     .cv-section-title-text {
       border-style: solid;
-      border-width: 0px 0px 1px 0px;
-      margin-bottom: 15px;
+      border-width: $cv-section-title-text-border-width;
+      margin-bottom: $cv-section-title-text-margin-bottom;
     }
   }
+  $cv-inspect-button-block-width: rem(210mm);
+  $cv-inspect-button-block-margin-top: rem(10px);
   .cv-inspect-button-block {
     display: flex;
     justify-content: space-between;
-    width: 210mm; //SCSS
-    margin-top: 10px; //SCSS
+    width: $cv-inspect-button-block-width;
+    margin-top: 1$cv-inspect-button-block-margin-top;
   }
 }
 </style>

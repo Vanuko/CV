@@ -30,7 +30,7 @@
             v-model="date"
             autoApply
             range
-            :placeholder="workValues.work_experience"
+            placeholder="''"
             :maxDate="new Date()"
             :enable-time-picker="false"
             :hide-navigation="['time', 'minutes', 'hours', 'seconds']"
@@ -54,6 +54,7 @@ import FormText from "./FormText.vue";
 import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
+import * as valueConstants from "../../constants/ValueConstants";
 import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
 import { WorkplaceInterface } from "../../models/form";
@@ -80,11 +81,9 @@ export default defineComponent({
       workPositionText: textConstants.POSITION,
       workLoadText: textConstants.WORK_LOAD,
       workExperienceText: textConstants.WORK_EXPERIENCE,
-      buttonText: "PIEVIENOT", //CONST
       uuid: 0,
-      typeNumber: "number", //REMOVE?
-      createStyleText: "createStyle", //CONST
-      addMoreText: "PIEVIENOT",
+      createStyleText: valueConstants.STYLE_CREATE,
+      addMoreText: textConstants.ADD,
       workLoadSelection: formObjects.WORK_LOAD,
     };
   },
@@ -192,7 +191,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
-$example: rem(800px);
+$work-data-component-template-first-child-inner-div-margin-bottom: rem(1px);
+$work-data-component-template-second-child-margin-top: rem(5px);
 .work-data-component-template {
   display: flex;
   flex-direction: column;
@@ -203,17 +203,19 @@ $example: rem(800px);
       display: flex;
       flex-direction: column;
       div {
-        margin-bottom: 1px; //SCSS
+        margin-bottom: $work-data-component-template-first-child-inner-div-margin-bottom;
       }
     }
   }
   > div:nth-child(2) {
-    margin-top: 5px;
+    margin-top: $work-data-component-template-second-child-margin-top;
   }
+  $work-date-picker-height: rem(62px);
+  $work-date-picker-second-child-width: rem(250px);
   .work-date-picker {
-    height: 62px;
+    height: $work-date-picker-height;
     > div:nth-child(2) {
-      width: 250px;
+      width: $work-date-picker-second-child-width;
     }
   }
 }

@@ -32,8 +32,8 @@ export default defineComponent({
     },
     value: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   data() {
     return {
@@ -60,18 +60,22 @@ export default defineComponent({
 
 <style  lang="scss" scoped>
 @import "../../assets/colors.scss";
+$dropdown-width: rem(250px);
 .dropdown {
   z-index: 2;
   position: relative;
   display: inline-block;
-  width: 250px;
+  width: $dropdown-width;
+  $selected-item-border-width: rem(1px);
+  $selected-item-height: rem(33px);
+  $selected-item-width: rem(250px);
   .selected-item {
     cursor: pointer;
     display: flex;
     align-items: center;
-    border: 1px solid;
-    height: 33px; //SCSS
-    width: 250px;
+    border: $selected-item-border-width solid;
+    height: $selected-item-height;
+    width: $selected-item-width;
   }
   .expand-icon {
     margin-left: auto;
@@ -79,15 +83,18 @@ export default defineComponent({
   .rotated {
     transform: rotate(180deg);
   }
+  $dropdown-list-border-width: rem(1px);
+  $dropdown-list-width: rem(250px);
   .dropdown-list {
     position: absolute;
     top: 100%;
     background-color: $white;
-    border: 1px solid $border-grey;
+    border: $dropdown-list-border-width solid $border-grey;
     border-top: none;
-    width: 250px;
+    width: $dropdown-list-width;
+    $dropdown-item-border-width: rem(1px);
     .dropdown-item {
-      border: 1px solid $white;
+      border: $dropdown-item-border-width solid $white;
       cursor: pointer;
     }
     .dropdown-item:hover {

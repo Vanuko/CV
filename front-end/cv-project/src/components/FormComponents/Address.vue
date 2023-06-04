@@ -51,6 +51,7 @@ import FormText from "./FormText.vue";
 import inputField from "../GenericComponents/InputField.vue";
 import * as textConstants from "../../constants/TextConstants";
 import * as keyNames from "../../constants/KeyNameConstants";
+import * as valueConstants from "../../constants/ValueConstants";
 import store from "../../store/mainStore";
 import buttonComponent from "../GenericComponents/Button.vue";
 import { mapState } from "vuex";
@@ -67,8 +68,8 @@ export default defineComponent({
       streetText: textConstants.STREET,
       streetNumbetText: textConstants.STREET_NUMBER,
       uuid: 0,
-      createStyleText: "createStyle", //CONST
-      addMoreText: "PIEVIENOT",
+      createStyleText: valueConstants.STYLE_CREATE,
+      addMoreText: textConstants.ADD,
     };
   },
   methods: {

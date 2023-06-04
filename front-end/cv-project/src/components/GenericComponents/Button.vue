@@ -35,14 +35,16 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
-$example: rem(45px);
+$button-element-padding: rem(5px);
+$button-element-border-radius: rem(5px);
+$button-element-width: rem(100px);
 .button-element {
   cursor: pointer;
   color: $mail-gray-10;
   background: $white;
-  padding: 5px; //SCSS
-  border-radius: 5px; //SCSS
-  width: 100px; //SCSS
+  padding: $button-element-padding;
+  border-radius: $button-element-border-radius;
+  width: $button-element-width;
   display: flex;
   justify-content: center;
 }
@@ -77,34 +79,40 @@ $example: rem(45px);
   background-color: $mail-blue;
   opacity: 0.6;
 }
+$save-button-width: rem(125px);
 .save-button {
   color: $white;
   background-color: $mail-yellow;
-  width: 125px;
+  width: $save-button-width;
 }
 .save-button:hover {
   color: $white;
   background-color: $mail-yellow;
   opacity: 0.6;
 }
+$update-button-padding-left: rem(10px);
+$update-button-padding-right: rem(10px);
+
 .update-button {
   color: $white;
   background-color: $mail-yellow;
   width: fit-content;
-  padding-left: 10px;
-  padding-right: 10px; //SCSS
+  padding-left: $update-button-padding-left;
+  padding-right: $update-button-padding-right;
 }
 .update-button:hover {
   color: $white;
   background-color: $mail-yellow;
   opacity: 0.6;
 }
+$return-button-padding-left: rem(10px);
+$return-button-padding-right: rem(10px);
 .return-button {
   color: $mail-gray-10;
   background-color: $white;
   width: fit-content;
-  padding-left: 10px;
-  padding-right: 10px; //SCSS
+  padding-left: $return-button-padding-left;
+  padding-right: $return-button-padding-right;
 }
 .return-button:hover {
   color: $mail-gray-10;

@@ -33,6 +33,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import buttonComponent from "../GenericComponents/Button.vue";
+import * as textConstants from "../../constants/TextConstants";
+import * as valueConstants from "../../constants/ValueConstants";
 import store from "../../store/mainStore";
 
 export default defineComponent({
@@ -46,16 +48,16 @@ export default defineComponent({
   },
   data() {
     return {
-      editText: "REDIĢĒT", //Const
-      deleteText: "DZĒST", //Const
-      confirmText: "JĀ", // Const
-      cancelText: "NĒ", // Const
+      editText: textConstants.EDIT,
+      deleteText: textConstants.DELETE,
+      confirmText: textConstants.YES,
+      cancelText: textConstants.NO,
       showConfig: false,
       showConfirmation: false,
-      dzēstTexts: "Izdzēst ierakstu?",
-      deleteStyle: "deleteStyle",
-      positiveStyle: "positiveStyle",
-      editStyle: "editStyle",
+      dzēstTexts: textConstants.ASK_DELETE,
+      deleteStyle: valueConstants.STYLE_DELETE,
+      positiveStyle: valueConstants.STYLE_POSITIV,
+      editStyle: valueConstants.STYLE_EDIT,
     };
   },
   methods: {

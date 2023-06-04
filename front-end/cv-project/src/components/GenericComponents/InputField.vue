@@ -41,10 +41,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
-$example: rem(45px);
+$input-field-element-height: rem(35px);
 .input-field-element {
   width: 100%;
-  height: 35px; //SCSS
+  height: $input-field-element-height;
   input {
     height: 100%;
     width: 100%;

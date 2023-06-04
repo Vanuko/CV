@@ -34,7 +34,6 @@ export const CUS = "custom";
 export const CUS_NAME = "custom_name";
 export const CUS_VALUE = "custom_value";
 
-
 //Last uid key names
 export const LAST_WORK = "last_work_ID";
 export const LAST_EDU = "last_education_ID";
