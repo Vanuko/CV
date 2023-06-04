@@ -232,5 +232,9 @@ $form-component-template-margin-top: rem(50px);
       }
     }
   }
+  $form-template-right-side-width: rem(600px);
+  .form-template-right-side{
+    width: $form-template-right-side-width;
+  }
 }
 </style>

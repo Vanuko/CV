@@ -33,3 +33,4 @@ http://127.0.0.1/phpmyadmin/index.php.
 
 Pēc šo norāžu ievērošanas projekts būs gatavs, un jūs varat apskatīt to vietni: http://localhost:8080/
 
+Visbeidzot, es vēlos pieminēt, ka šajā versijā nav iekļauta responsive dizaina funkcionalitāte, un ieteicams izmantot ekrāna izšķirtspēju 1920x1080.

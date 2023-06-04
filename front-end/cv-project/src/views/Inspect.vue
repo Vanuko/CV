@@ -272,6 +272,8 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
+  transform: scale(0.7);
+  transform-origin: top center;
   .hoverDisplay {
     display: none;
   }

@@ -18,6 +18,7 @@ body {
   margin: 0;
 }
 #app {
+  overflow-y: hidden;
   height: 100%;
   background-color: $mail-gray;
 }

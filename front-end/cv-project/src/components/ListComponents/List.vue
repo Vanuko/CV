@@ -64,8 +64,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import "../../assets/colors.scss";
-$list-component-template-height: rem(1200px);
-$list-component-template-width: rem(1600px);
+$list-component-template-height: rem(800px);
+$list-component-template-width: rem(1400px);
 $list-component-template-margin-top: rem(30px);
 $list-component-template-padding-top: rem(45px);
 .list-component-template {
@@ -79,8 +79,8 @@ $list-component-template-padding-top: rem(45px);
   background: $white;
   box-sizing: border-box;
   padding-top: $list-component-template-padding-top;
-  $list-component-height: rem(1000px);
-  $list-component-width: rem(1400px);
+  $list-component-height: rem(670px);
+  $list-component-width: rem(1300px);
   $list-component-div-width: rem(1225px);
   .list-component {
     display: flex;

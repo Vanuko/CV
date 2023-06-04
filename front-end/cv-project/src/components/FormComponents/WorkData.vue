@@ -63,7 +63,7 @@ import genericDropdown from "../GenericComponents/Dropodown.vue";
 import * as formObjects from "../../constants/FormPartConstants";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-import * as viewNumbers from "../../constants/ViewConstants";
+import * as viewConstants from "../../constants/ViewConstants";
 
 export default defineComponent({
   name: "WorkDataComponent",
@@ -171,7 +171,7 @@ export default defineComponent({
       store.dispatch("changeLastUid", {
         part: keyNames.LAST_WORK,
         uuid: this.uuid,
-        viewUpdate: viewNumbers.WORK,
+        viewUpdate: viewConstants.WORK,
       });
     },
   },
