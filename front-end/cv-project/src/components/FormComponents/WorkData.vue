@@ -30,7 +30,7 @@
             v-model="date"
             autoApply
             range
-            placeholder="''"
+            :placeholder="workValues.work_experience"
             :maxDate="new Date()"
             :enable-time-picker="false"
             :hide-navigation="['time', 'minutes', 'hours', 'seconds']"
@@ -160,7 +160,7 @@ export default defineComponent({
           work_place: null,
           work_position: null,
           work_load: null,
-          work_experience: 0,
+          work_experience: null,
         },
       };
       store.dispatch("attachObject", workData);

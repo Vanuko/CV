@@ -69,17 +69,18 @@ $button-element-width: rem(100px);
   background-color: $red;
   opacity: 0.6;
 }
+$create-button-width: rem(150px);
 .create-button {
   color: $white;
   background-color: $mail-blue;
-  width: 125px;
+  width: $create-button-width;
 }
 .create-button:hover {
   color: $white;
   background-color: $mail-blue;
   opacity: 0.6;
 }
-$save-button-width: rem(125px);
+$save-button-width: rem(1250px);
 .save-button {
   color: $white;
   background-color: $mail-yellow;

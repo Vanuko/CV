@@ -39,12 +39,12 @@
       <div>
         <form-text :titleText="educationTimeSpentText" />
         <div class="education-date-picker">
-          <form-text :titleText="workExperienceText" />
           <div>
             <Datepicker
               v-model="date"
               autoApply
               range
+              :placeholder="educationValues.education_time_spent"
               :maxDate="new Date()"
               :enable-time-picker="false"
               :hide-navigation="['time', 'minutes', 'hours', 'seconds']"
@@ -209,7 +209,7 @@ export default defineComponent({
           education_field_of_study: null,
           education_level: null,
           education_status: null,
-          education_time_spent: 0,
+          education_time_spent: null,
         },
       };
       store.dispatch("attachObject", educationData);

@@ -32,7 +32,6 @@ export default defineComponent({
     },
     value: {
       type: String,
-      default: "",
     },
   },
   data() {

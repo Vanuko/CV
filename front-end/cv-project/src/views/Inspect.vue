@@ -401,7 +401,7 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     width: $cv-inspect-button-block-width;
-    margin-top: 1$cv-inspect-button-block-margin-top;
+    margin-top: $cv-inspect-button-block-margin-top;
   }
 }
 </style>
